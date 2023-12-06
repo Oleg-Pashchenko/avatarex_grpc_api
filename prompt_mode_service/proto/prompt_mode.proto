@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package prompt_mode_service;
+
+service PromptModeService {
+  rpc GetAnswer (PromptModeRequest) returns (PromptModeResponse);
+}
+
+message PromptModeRequest {
+  int32 mode_id = 1;
+  string message = 2;
+  int32 chat_id = 3;
+}
+
+
+message Data {
+  string message = 1;
+}
+
+message PromptModeResponse {
+  string answer = 1;
+  bool success = 2;
+  Data data = 3;
+  float execution = 4;
+}
