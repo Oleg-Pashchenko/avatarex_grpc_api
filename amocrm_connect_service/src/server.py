@@ -3,10 +3,11 @@ import time
 import grpc
 from concurrent import futures
 from amocrm_connect_service.proto import amocrm_connect_pb2, amocrm_connect_pb2_grpc
+
 import requests
 
 
-class PromptModeService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer):
+class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer):
     def _create_session(self):
         self.session = requests.Session()
         if '/' not in self.host[-1]:
@@ -76,12 +77,36 @@ class PromptModeService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer):
         )
         return response
 
+    def GetInfo(self, request, context):
+        print(request.avatarex_amocrm_id)
+        pipelines = [
+            amocrm_connect_pb2.Pipeline(
+                id=111,
+                name="test",
+                sort=100,
+                statuses=[amocrm_connect_pb2.Status(id=111, sort=100, name="Этап")],
+                custom_fields=amocrm_connect_pb2.CustomFields(
+                    leads=[amocrm_connect_pb2.LeadCustomField(
+                        type="select",
+                        id=11111,
+                        name="22222",
+                        options=[amocrm_connect_pb2.Option(id=111, name="123")]
+                    )]
+                )
+            )
+        ]
+        response = amocrm_connect_pb2.GetInfoResponse(pipelines=pipelines)
+        return response
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    amocrm_connect_pb2_grpc.add_AmocrmConnectServiceServicer_to_server(PromptModeService(), server)
+    amocrm_connect_pb2_grpc.add_AmocrmConnectServiceServicer_to_server(AmocrmConnectService(), server)
+    amocrm_connect_pb2_grpc.add_AmocrmGetInfoServiceServicer_to_server(AmocrmConnectService(), server)
     server.add_insecure_port('0.0.0.0:50051')
     print('Server is running on port 50051...')
     server.start()
     server.wait_for_termination()
 
+
+serve()
