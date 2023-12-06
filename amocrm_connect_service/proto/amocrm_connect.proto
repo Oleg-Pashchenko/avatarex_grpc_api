@@ -6,6 +6,50 @@ service AmocrmConnectService {
   rpc TryConnect (AmocrmConnectRequest) returns (AmocrmConnectResponse);
 }
 
+service AmocrmGetInfoService {
+  rpc GetInfo (GetInfoRequest) returns (GetInfoResponse);
+}
+
+message GetInfoRequest {
+  int32 avatarex_amocrm_id = 1;
+}
+
+
+message GetInfoResponse {
+  repeated Pipeline pipelines = 1;
+}
+
+message Pipeline {
+  int32 id = 1;
+  string name = 2;
+  int32 sort = 3;
+  repeated Status statuses = 4;
+  CustomFields custom_fields = 5;
+}
+
+message Status {
+  int32 id = 1;
+  int32 sort = 2;
+  string name = 3;
+}
+
+message CustomFields {
+  repeated LeadCustomField leads = 1;
+}
+
+message LeadCustomField {
+  string type = 1;
+  int32 id = 2;
+  string name = 3;
+  repeated Option options = 4;
+}
+
+message Option {
+  int32 id = 1;
+  string name = 2;
+}
+
+
 message AmocrmConnectRequest {
   string login = 1;
   string password = 2;
