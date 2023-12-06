@@ -1,6 +1,7 @@
 import grpc
 from prompt_mode_service.proto import prompt_mode_pb2
-from proto import prompt_mode_pb2_grpc
+from prompt_mode_service.proto import prompt_mode_pb2_grpc
+
 
 def run():
     channel = grpc.insecure_channel('localhost:50051')
@@ -21,6 +22,7 @@ def run():
     print(f"Success: {response.success}")
     print(f"Data: {response.data.message}")
     print(f"Execution time: {response.execution} seconds")
+
 
 if __name__ == '__main__':
     run()

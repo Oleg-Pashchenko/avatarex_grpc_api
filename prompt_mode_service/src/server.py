@@ -1,18 +1,22 @@
+import time
+
 import grpc
 from concurrent import futures
-import prompt_mode_pb2
-import prompt_mode_pb2_grpc
+from prompt_mode_service.proto import prompt_mode_pb2
+from prompt_mode_service.proto import prompt_mode_pb2_grpc
+
 
 class PromptModeService(prompt_mode_pb2_grpc.PromptModeServiceServicer):
     def GetAnswer(self, request, context):
-        # Ваша логика обработки запроса здесь
+        start_time = time.time()
         response = prompt_mode_pb2.PromptModeResponse(
-            answer="Your answer",
+            answer="Your answer haha",
             success=True,
             data=prompt_mode_pb2.Data(message="Some data"),
-            execution=0.5
+            execution=round(float(time.time() - start_time), 2)
         )
         return response
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
@@ -21,6 +25,7 @@ def serve():
     print('Server is running on port 50051...')
     server.start()
     server.wait_for_termination()
+
 
 if __name__ == '__main__':
     serve()
