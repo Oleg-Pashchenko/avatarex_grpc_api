@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import amocrm_connect_pb2 as amocrm__connect__pb2
+from . import amocrm_connect_pb2 as amocrm__connect__pb2
 
 
 class AmocrmConnectServiceStub(object):
