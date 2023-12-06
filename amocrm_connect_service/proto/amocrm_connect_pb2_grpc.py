@@ -2,10 +2,10 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import prompt_mode_pb2 as prompt__mode__pb2
+import amocrm_connect_pb2 as amocrm__connect__pb2
 
 
-class PromptModeServiceStub(object):
+class AmocrmConnectServiceStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -14,42 +14,42 @@ class PromptModeServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetAnswer = channel.unary_unary(
-                '/prompt_mode_service.PromptModeService/GetAnswer',
-                request_serializer=prompt__mode__pb2.PromptModeRequest.SerializeToString,
-                response_deserializer=prompt__mode__pb2.PromptModeResponse.FromString,
+        self.TryConnect = channel.unary_unary(
+                '/amocrm_connect_service.AmocrmConnectService/TryConnect',
+                request_serializer=amocrm__connect__pb2.AmocrmConnectRequest.SerializeToString,
+                response_deserializer=amocrm__connect__pb2.AmocrmConnectResponse.FromString,
                 )
 
 
-class PromptModeServiceServicer(object):
+class AmocrmConnectServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetAnswer(self, request, context):
+    def TryConnect(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_PromptModeServiceServicer_to_server(servicer, server):
+def add_AmocrmConnectServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetAnswer': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetAnswer,
-                    request_deserializer=prompt__mode__pb2.PromptModeRequest.FromString,
-                    response_serializer=prompt__mode__pb2.PromptModeResponse.SerializeToString,
+            'TryConnect': grpc.unary_unary_rpc_method_handler(
+                    servicer.TryConnect,
+                    request_deserializer=amocrm__connect__pb2.AmocrmConnectRequest.FromString,
+                    response_serializer=amocrm__connect__pb2.AmocrmConnectResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'prompt_mode_service.PromptModeService', rpc_method_handlers)
+            'amocrm_connect_service.AmocrmConnectService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class PromptModeService(object):
+class AmocrmConnectService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetAnswer(request,
+    def TryConnect(request,
             target,
             options=(),
             channel_credentials=None,
@@ -59,8 +59,8 @@ class PromptModeService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/prompt_mode_service.PromptModeService/GetAnswer',
-            prompt__mode__pb2.PromptModeRequest.SerializeToString,
-            prompt__mode__pb2.PromptModeResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/amocrm_connect_service.AmocrmConnectService/TryConnect',
+            amocrm__connect__pb2.AmocrmConnectRequest.SerializeToString,
+            amocrm__connect__pb2.AmocrmConnectResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -158,3 +158,11 @@
 {"ts":1701898238830,"action":"PROJECT_OPENED","tags":{"PROJECT_NAME":"avatarex_grpc_api"}}
 {"ts":1701898246097,"action":"IDE_DEACTIVATED"}
 {"ts":1701898246200,"action":"IDE_ACTIVATED"}
+{"ts":1701898351892,"action":"FILE_CLOSED","file":"/prompt_mode_service/src/server.py","tags":{"FILE_LINE_OF_CODE":"32"}}
+{"ts":1701898351892,"action":"FILE_OPENED","file":"/prompt_mode_service/proto/prompt_mode_pb2.py","tags":{"FILE_LINE_OF_CODE":"57"}}
+{"ts":1701898367976,"action":"FILE_OPENED","file":"/prompt_mode_service/src/server.py","tags":{"FILE_LINE_OF_CODE":"32"}}
+{"ts":1701898367981,"action":"FILE_CLOSED","file":"/prompt_mode_service/src/server.py","tags":{"FILE_LINE_OF_CODE":"32"}}
+{"ts":1701898367981,"action":"FILE_OPENED","file":"/prompt_mode_service/proto/prompt_mode_pb2_grpc.py","tags":{"FILE_LINE_OF_CODE":"67"}}
+{"ts":1701898375366,"action":"FILE_OPENED","file":"/prompt_mode_service/src/server.py","tags":{"FILE_LINE_OF_CODE":"32"}}
+{"ts":1701898375379,"action":"FILE_CLOSED","file":"/prompt_mode_service/src/server.py","tags":{"FILE_LINE_OF_CODE":"32"}}
+{"ts":1701898375379,"action":"FILE_OPENED","file":"/amocrm_connect_service/proto/amocrm_connect.proto","tags":{"FILE_LINE_OF_CODE":"26"}}
