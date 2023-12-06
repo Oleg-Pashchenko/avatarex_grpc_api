@@ -13,19 +13,35 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x61mocrm_connect.proto\x12\x16\x61mocrm_connect_service\"E\n\x14\x41mocrmConnectRequest\x12\r\n\x05login\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\x0c\n\x04host\x18\x03 \x01(\t\"\x17\n\x04\x44\x61ta\x12\x0f\n\x07message\x18\x01 \x01(\t\"w\n\x15\x41mocrmConnectResponse\x12\x0e\n\x06\x61nswer\x18\x01 \x01(\x08\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12*\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\x1c.amocrm_connect_service.Data\x12\x11\n\texecution\x18\x04 \x01(\x02\x32\x81\x01\n\x14\x41mocrmConnectService\x12i\n\nTryConnect\x12,.amocrm_connect_service.AmocrmConnectRequest\x1a-.amocrm_connect_service.AmocrmConnectResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x61mocrm_connect.proto\x12\x16\x61mocrm_connect_service\",\n\x0eGetInfoRequest\x12\x1a\n\x12\x61vatarex_amocrm_id\x18\x01 \x01(\x05\"F\n\x0fGetInfoResponse\x12\x33\n\tpipelines\x18\x01 \x03(\x0b\x32 .amocrm_connect_service.Pipeline\"\xa1\x01\n\x08Pipeline\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04sort\x18\x03 \x01(\x05\x12\x30\n\x08statuses\x18\x04 \x03(\x0b\x32\x1e.amocrm_connect_service.Status\x12;\n\rcustom_fields\x18\x05 \x01(\x0b\x32$.amocrm_connect_service.CustomFields\"0\n\x06Status\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04sort\x18\x02 \x01(\x05\x12\x0c\n\x04name\x18\x03 \x01(\t\"F\n\x0c\x43ustomFields\x12\x36\n\x05leads\x18\x01 \x03(\x0b\x32\'.amocrm_connect_service.LeadCustomField\"j\n\x0fLeadCustomField\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x05\x12\x0c\n\x04name\x18\x03 \x01(\t\x12/\n\x07options\x18\x04 \x03(\x0b\x32\x1e.amocrm_connect_service.Option\"\"\n\x06Option\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\"E\n\x14\x41mocrmConnectRequest\x12\r\n\x05login\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\x0c\n\x04host\x18\x03 \x01(\t\"\x17\n\x04\x44\x61ta\x12\x0f\n\x07message\x18\x01 \x01(\t\"w\n\x15\x41mocrmConnectResponse\x12\x0e\n\x06\x61nswer\x18\x01 \x01(\x08\x12\x0f\n\x07success\x18\x02 \x01(\x08\x12*\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\x1c.amocrm_connect_service.Data\x12\x11\n\texecution\x18\x04 \x01(\x02\x32\x81\x01\n\x14\x41mocrmConnectService\x12i\n\nTryConnect\x12,.amocrm_connect_service.AmocrmConnectRequest\x1a-.amocrm_connect_service.AmocrmConnectResponse2r\n\x14\x41mocrmGetInfoService\x12Z\n\x07GetInfo\x12&.amocrm_connect_service.GetInfoRequest\x1a\'.amocrm_connect_service.GetInfoResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'amocrm_connect_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
-  _globals['_AMOCRMCONNECTREQUEST']._serialized_start=48
-  _globals['_AMOCRMCONNECTREQUEST']._serialized_end=117
-  _globals['_DATA']._serialized_start=119
-  _globals['_DATA']._serialized_end=142
-  _globals['_AMOCRMCONNECTRESPONSE']._serialized_start=144
-  _globals['_AMOCRMCONNECTRESPONSE']._serialized_end=263
-  _globals['_AMOCRMCONNECTSERVICE']._serialized_start=266
-  _globals['_AMOCRMCONNECTSERVICE']._serialized_end=395
+  _globals['_GETINFOREQUEST']._serialized_start=48
+  _globals['_GETINFOREQUEST']._serialized_end=92
+  _globals['_GETINFORESPONSE']._serialized_start=94
+  _globals['_GETINFORESPONSE']._serialized_end=164
+  _globals['_PIPELINE']._serialized_start=167
+  _globals['_PIPELINE']._serialized_end=328
+  _globals['_STATUS']._serialized_start=330
+  _globals['_STATUS']._serialized_end=378
+  _globals['_CUSTOMFIELDS']._serialized_start=380
+  _globals['_CUSTOMFIELDS']._serialized_end=450
+  _globals['_LEADCUSTOMFIELD']._serialized_start=452
+  _globals['_LEADCUSTOMFIELD']._serialized_end=558
+  _globals['_OPTION']._serialized_start=560
+  _globals['_OPTION']._serialized_end=594
+  _globals['_AMOCRMCONNECTREQUEST']._serialized_start=596
+  _globals['_AMOCRMCONNECTREQUEST']._serialized_end=665
+  _globals['_DATA']._serialized_start=667
+  _globals['_DATA']._serialized_end=690
+  _globals['_AMOCRMCONNECTRESPONSE']._serialized_start=692
+  _globals['_AMOCRMCONNECTRESPONSE']._serialized_end=811
+  _globals['_AMOCRMCONNECTSERVICE']._serialized_start=814
+  _globals['_AMOCRMCONNECTSERVICE']._serialized_end=943
+  _globals['_AMOCRMGETINFOSERVICE']._serialized_start=945
+  _globals['_AMOCRMGETINFOSERVICE']._serialized_end=1059
 # @@protoc_insertion_point(module_scope)

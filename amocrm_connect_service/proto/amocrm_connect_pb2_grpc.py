@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from . import amocrm_connect_pb2 as amocrm__connect__pb2
+import amocrm_connect_pb2 as amocrm__connect__pb2
 
 
 class AmocrmConnectServiceStub(object):
@@ -62,5 +62,66 @@ class AmocrmConnectService(object):
         return grpc.experimental.unary_unary(request, target, '/amocrm_connect_service.AmocrmConnectService/TryConnect',
             amocrm__connect__pb2.AmocrmConnectRequest.SerializeToString,
             amocrm__connect__pb2.AmocrmConnectResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+
+class AmocrmGetInfoServiceStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.GetInfo = channel.unary_unary(
+                '/amocrm_connect_service.AmocrmGetInfoService/GetInfo',
+                request_serializer=amocrm__connect__pb2.GetInfoRequest.SerializeToString,
+                response_deserializer=amocrm__connect__pb2.GetInfoResponse.FromString,
+                )
+
+
+class AmocrmGetInfoServiceServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def GetInfo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_AmocrmGetInfoServiceServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'GetInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetInfo,
+                    request_deserializer=amocrm__connect__pb2.GetInfoRequest.FromString,
+                    response_serializer=amocrm__connect__pb2.GetInfoResponse.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'amocrm_connect_service.AmocrmGetInfoService', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+ # This class is part of an EXPERIMENTAL API.
+class AmocrmGetInfoService(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def GetInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/amocrm_connect_service.AmocrmGetInfoService/GetInfo',
+            amocrm__connect__pb2.GetInfoRequest.SerializeToString,
+            amocrm__connect__pb2.GetInfoResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
