@@ -58,10 +58,10 @@ class PromptModeService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer):
             self.host, self.login, self.password = request.host, request.login, request.password
             connection_status = self.connect()
             if not connection_status:
-                error, success = 'Проверьте логин и пароль!', False
+                error = 'Проверьте логин и пароль!'
             else:
                 if not self.is_host_supported():
-                    error, success = 'У пользователя нет доступа к указанному Host!', False
+                    error = 'У пользователя нет доступа к указанному Host!'
                 else:
                     answer = True
 
