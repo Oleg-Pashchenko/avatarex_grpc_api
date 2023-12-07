@@ -30,7 +30,11 @@ def run2():
     channel = grpc.insecure_channel(host)
     stub = AmocrmGetInfoServiceStub(channel)
 
-    request = amocrm_connect_pb2.GetInfoRequest(avatarex_amocrm_id=432)
+    request = amocrm_connect_pb2.GetInfoRequest(
+        email="havaisaeva19999@gmail.com",
+        password="A12345mo",
+        host="https://olegtest13.amocrm.ru/"
+    )
     response = stub.GetInfo(request)
     print(response)
 

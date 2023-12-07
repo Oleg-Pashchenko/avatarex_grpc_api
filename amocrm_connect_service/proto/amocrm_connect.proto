@@ -11,7 +11,9 @@ service AmocrmGetInfoService {
 }
 
 message GetInfoRequest {
-  int32 avatarex_amocrm_id = 1;
+  string email = 1;
+  string password = 2;
+  string host = 3;
 }
 
 
