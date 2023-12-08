@@ -3,9 +3,6 @@ import time
 import grpc
 from concurrent import futures
 from amocrm_connect_service.proto import amocrm_connect_pb2, amocrm_connect_pb2_grpc
-
-import requests
-
 from amocrm_connect_service.src import impl
 
 

@@ -1,25 +1,40 @@
 syntax = "proto3";
 
-package prompt_mode_service;
+package openai_prompt_service;
 
-service PromptModeService {
-  rpc GetAnswer (PromptModeRequest) returns (PromptModeResponse);
+message Message {
+  enum Role {
+    SYSTEM = 0;
+    ASSISTANT = 1;
+    USER = 2;
+  }
+
+  Role role = 1;
+  string content = 2;
 }
 
-message PromptModeRequest {
-  int32 mode_id = 1;
-  string message = 2;
-  int32 chat_id = 3;
+message OpenAIPromptRequest {
+  repeated Message messages = 1;
+  string model = 2;
+  int32 max_tokens = 3;
+  float temperature = 4;
+  string api_token = 5;
 }
 
-
-message Data {
+message ResponseData {
   string message = 1;
+  string error = 2;
 }
 
-message PromptModeResponse {
-  string answer = 1;
-  bool success = 2;
-  Data data = 3;
-  float execution = 4;
+message OpenAIPromptResponse {
+
+
+  bool success = 1;
+  ResponseData data = 2;
+  float execution_time = 3;
+}
+
+
+service OpenAIPromptService {
+  rpc CompletePrompt (OpenAIPromptRequest) returns (OpenAIPromptResponse) {}
 }

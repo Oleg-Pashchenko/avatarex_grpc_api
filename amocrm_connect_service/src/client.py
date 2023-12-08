@@ -3,7 +3,7 @@ from amocrm_connect_service.proto import amocrm_connect_pb2, amocrm_connect_pb2_
 from amocrm_connect_service.proto.amocrm_connect_pb2_grpc import AmocrmConnectServiceStub, AmocrmGetInfoServiceStub
 
 host = 'localhost:50051'
-
+host = '178.253.22.162:50051'
 
 def run():
     channel = grpc.insecure_channel(host)
