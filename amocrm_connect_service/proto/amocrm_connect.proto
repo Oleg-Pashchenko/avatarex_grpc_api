@@ -4,10 +4,15 @@ package amocrm_connect_service;
 
 service AmocrmConnectService {
   rpc TryConnect (AmocrmConnectRequest) returns (AmocrmConnectResponse);
+  rpc GetInfo (GetInfoRequest) returns (GetInfoResponse);
+  rpc SendMessage (SendMessageRequest) returns (AmocrmConnectResponse);
+  rpc ReadUnansweredMessages (ReadUnansweredMessagesRequest) returns (AmocrmReadMessagesResponse);
 }
 
-service AmocrmGetInfoService {
-  rpc GetInfo (GetInfoRequest) returns (GetInfoResponse);
+message AmocrmConnectRequest {
+  string login = 1;
+  string password = 2;
+  string host = 3;
 }
 
 message GetInfoRequest {
@@ -16,48 +21,21 @@ message GetInfoRequest {
   string host = 3;
 }
 
-
-message GetInfoResponse {
-  repeated Pipeline pipelines = 1;
+message SendMessageRequest {
+  string host = 1;
+  string email = 2;
+  string password = 3;
+  string message = 4;
+  string chat_hash = 5;
 }
 
-message Pipeline {
-  int32 id = 1;
-  string name = 2;
-  int32 sort = 3;
-  repeated Status statuses = 4;
-  CustomFields custom_fields = 5;
+message ReadUnansweredMessagesRequest {
+  string host = 1;
+  string email = 2;
+  string password = 3;
+  int32 pipeline_id = 4;
+  repeated int32 stage_ids = 5;
 }
-
-message Status {
-  int32 id = 1;
-  int32 sort = 2;
-  string name = 3;
-}
-
-message CustomFields {
-  repeated LeadCustomField leads = 1;
-}
-
-message LeadCustomField {
-  string type = 1;
-  int32 id = 2;
-  string name = 3;
-  repeated Option options = 4;
-}
-
-message Option {
-  int32 id = 1;
-  string name = 2;
-}
-
-
-message AmocrmConnectRequest {
-  string login = 1;
-  string password = 2;
-  string host = 3;
-}
-
 
 message Data {
   string message = 1;
@@ -69,3 +47,49 @@ message AmocrmConnectResponse {
   Data data = 3;
   float execution = 4;
 }
+
+message GetInfoResponse {
+  repeated Pipeline pipelines = 1;
+  repeated Field fields = 2;
+}
+
+message AmocrmReadMessagesResponse {
+  repeated Chat answer = 1;
+  bool success = 2;
+  Data data = 3;
+  float execution = 4;
+}
+
+message Pipeline {
+  int32 id = 1;
+  string name = 2;
+  int32 sort = 3;
+  repeated Status statuses = 4;
+}
+
+message Status {
+  int32 id = 1;
+  int32 sort = 2;
+  string name = 3;
+}
+
+message Field {
+  int32 id = 1;
+  string name = 2;
+  string type = 3;
+  string active_value = 4;
+  repeated string possible_values = 5;
+}
+
+
+
+message Chat {
+  string chat_id = 1;
+  string message = 2;
+  int32 pipeline_id = 3;
+  int32 lead_id = 4;
+  int32 status_id = 5;
+}
+// Чего нет?
+// Заполнить поле
+// Получить информацию по заполнению полей для конкретной сделки

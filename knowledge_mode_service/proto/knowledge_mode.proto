@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package openai_knowledge_service;
+
+message Rule {
+  string question = 1;
+  string answer = 2;
+}
+
+message OpenAISettings {
+  string model = 1;
+  int32 max_tokens = 2;
+  float temperature = 3;
+  string api_token = 4;
+}
+
+
+
+message OpenAIKnowledgeRequest {
+  repeated Rule rules = 1;
+  OpenAISettings openai_settings = 2;
+  string message = 3;
+}
+
+message ResponseData {
+  string message = 1;
+  string error = 2;
+}
+
+message OpenAIKnowledgeResponse {
+  bool success = 1;
+  ResponseData data = 2;
+  float execution_time = 3;
+}
+
+
+service OpenAIKnowledgeService {
+  rpc CompleteKnowledge (OpenAIKnowledgeRequest) returns (OpenAIKnowledgeResponse) {}
+}

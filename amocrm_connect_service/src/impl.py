@@ -1,8 +1,5 @@
 import json
-import time
-
 import requests
-
 from amocrm_connect_service.proto import amocrm_connect_pb2
 
 
@@ -61,24 +58,32 @@ class AmoCRM:
         self.headers['Host'] = self.host.replace('https://', '').replace('/', '')
         url = f'{self.host}ajax/v4/inbox/list'
         params = {
-            'limit': 50,
+            'limit': 100,
             'order[sort_by]': 'first_unanswered_message_at',
             'order[sort_type]': 'desc',
             'filter[is_read][]': 'false'
         }
-
         for index, param in enumerate(search_info):
             params[f'filter[pipe][{param[0]}][{index}]'] = param[1]
         talks = self.session.get(url=url, headers=self.headers, params=params).json()['_embedded']['talks']
+        response = []
         for t in talks:
+            print(t)
             chat_id = t['chat_id']
             message = t['last_message']['text']
-            pipeline_id = t['entity']['pipeline_id']
-            lead_id = t['entity']['id']
-            status_id = t['entity']['status_id']
-
-            print(chat_id, message, pipeline_id, lead_id, status_id)
-        # return response
+            pipeline_id = int(t['entity']['pipeline_id'])
+            lead_id = int(t['entity']['id'])
+            status_id = int(t['entity']['status_id'])
+            response.append(
+                amocrm_connect_pb2.Chat(
+                    chat_id=chat_id,
+                    message=message,
+                    pipeline_id=pipeline_id,
+                    lead_id=lead_id,
+                    status_id=status_id
+                )
+            )
+        return response
 
     def _create_chat_token(self):
         url = f'{self.host}ajax/v1/chats/session'
@@ -100,6 +105,11 @@ class AmoCRM:
         response = self.session.post(url=url, data=json.dumps({"text": message}), headers=headers)
         return response.status_code == 200
 
+    def get_custom_fields(self):
+        url = f'{self.host}api/v4/leads/custom_fields'
+        response = self.session.get(url, headers=self.headers).json()['_embedded']['custom_fields']
+        print(*response, sep='\n')
+
     def get_pipelines_info(self):
         response = self.session.get(f'{self.host}ajax/v1/pipelines/list',
                                     headers=self.headers).json()['response']['pipelines']
@@ -119,7 +129,7 @@ class AmoCRM:
                 name=p_name,
                 sort=p_sort,
                 statuses=statuses,
-                custom_fields=None
+                # custom_fields=self.get_custom_fields()
             ))
         return pipelines
 
@@ -145,8 +155,11 @@ class AmoCRM:
         }
         self.session.post(url=url, data=data, headers=self.headers)
 
-
-amo = AmoCRM(email="havaisaeva19999@gmail.com", password="A12345mo", host="https://olegtest12.amocrm.ru/")
-amo.connect()
+# amo = AmoCRM(email="havaisaeva19999@gmail.com", password="A12345mo", host="https://olegtest12.amocrm.ru/")
+# amo.connect()
+# amo.get_custom_fields()
 # print(amo.get_pipelines_info())
-# print(amo.get_unanswered_messages([[7519106, [62333722]], [7556182, [62592642]]]))
+# response = amo.get_unanswered_messages([[7519106, [62333722]], [7556182, [62592642]]])
+# print(response)
+# for r in response:
+#     amo.send_message("Лол", r['chat_id'])

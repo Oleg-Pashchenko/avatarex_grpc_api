@@ -19,12 +19,45 @@ class AmocrmConnectServiceStub(object):
                 request_serializer=amocrm__connect__pb2.AmocrmConnectRequest.SerializeToString,
                 response_deserializer=amocrm__connect__pb2.AmocrmConnectResponse.FromString,
                 )
+        self.GetInfo = channel.unary_unary(
+                '/amocrm_connect_service.AmocrmConnectService/GetInfo',
+                request_serializer=amocrm__connect__pb2.GetInfoRequest.SerializeToString,
+                response_deserializer=amocrm__connect__pb2.GetInfoResponse.FromString,
+                )
+        self.SendMessage = channel.unary_unary(
+                '/amocrm_connect_service.AmocrmConnectService/SendMessage',
+                request_serializer=amocrm__connect__pb2.SendMessageRequest.SerializeToString,
+                response_deserializer=amocrm__connect__pb2.AmocrmConnectResponse.FromString,
+                )
+        self.ReadUnansweredMessages = channel.unary_unary(
+                '/amocrm_connect_service.AmocrmConnectService/ReadUnansweredMessages',
+                request_serializer=amocrm__connect__pb2.ReadUnansweredMessagesRequest.SerializeToString,
+                response_deserializer=amocrm__connect__pb2.AmocrmReadMessagesResponse.FromString,
+                )
 
 
 class AmocrmConnectServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def TryConnect(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetInfo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SendMessage(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReadUnansweredMessages(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -37,6 +70,21 @@ def add_AmocrmConnectServiceServicer_to_server(servicer, server):
                     servicer.TryConnect,
                     request_deserializer=amocrm__connect__pb2.AmocrmConnectRequest.FromString,
                     response_serializer=amocrm__connect__pb2.AmocrmConnectResponse.SerializeToString,
+            ),
+            'GetInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetInfo,
+                    request_deserializer=amocrm__connect__pb2.GetInfoRequest.FromString,
+                    response_serializer=amocrm__connect__pb2.GetInfoResponse.SerializeToString,
+            ),
+            'SendMessage': grpc.unary_unary_rpc_method_handler(
+                    servicer.SendMessage,
+                    request_deserializer=amocrm__connect__pb2.SendMessageRequest.FromString,
+                    response_serializer=amocrm__connect__pb2.AmocrmConnectResponse.SerializeToString,
+            ),
+            'ReadUnansweredMessages': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReadUnansweredMessages,
+                    request_deserializer=amocrm__connect__pb2.ReadUnansweredMessagesRequest.FromString,
+                    response_serializer=amocrm__connect__pb2.AmocrmReadMessagesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -65,50 +113,6 @@ class AmocrmConnectService(object):
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
-
-class AmocrmGetInfoServiceStub(object):
-    """Missing associated documentation comment in .proto file."""
-
-    def __init__(self, channel):
-        """Constructor.
-
-        Args:
-            channel: A grpc.Channel.
-        """
-        self.GetInfo = channel.unary_unary(
-                '/amocrm_connect_service.AmocrmGetInfoService/GetInfo',
-                request_serializer=amocrm__connect__pb2.GetInfoRequest.SerializeToString,
-                response_deserializer=amocrm__connect__pb2.GetInfoResponse.FromString,
-                )
-
-
-class AmocrmGetInfoServiceServicer(object):
-    """Missing associated documentation comment in .proto file."""
-
-    def GetInfo(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-
-def add_AmocrmGetInfoServiceServicer_to_server(servicer, server):
-    rpc_method_handlers = {
-            'GetInfo': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetInfo,
-                    request_deserializer=amocrm__connect__pb2.GetInfoRequest.FromString,
-                    response_serializer=amocrm__connect__pb2.GetInfoResponse.SerializeToString,
-            ),
-    }
-    generic_handler = grpc.method_handlers_generic_handler(
-            'amocrm_connect_service.AmocrmGetInfoService', rpc_method_handlers)
-    server.add_generic_rpc_handlers((generic_handler,))
-
-
- # This class is part of an EXPERIMENTAL API.
-class AmocrmGetInfoService(object):
-    """Missing associated documentation comment in .proto file."""
-
     @staticmethod
     def GetInfo(request,
             target,
@@ -120,8 +124,42 @@ class AmocrmGetInfoService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/amocrm_connect_service.AmocrmGetInfoService/GetInfo',
+        return grpc.experimental.unary_unary(request, target, '/amocrm_connect_service.AmocrmConnectService/GetInfo',
             amocrm__connect__pb2.GetInfoRequest.SerializeToString,
             amocrm__connect__pb2.GetInfoResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SendMessage(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/amocrm_connect_service.AmocrmConnectService/SendMessage',
+            amocrm__connect__pb2.SendMessageRequest.SerializeToString,
+            amocrm__connect__pb2.AmocrmConnectResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReadUnansweredMessages(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/amocrm_connect_service.AmocrmConnectService/ReadUnansweredMessages',
+            amocrm__connect__pb2.ReadUnansweredMessagesRequest.SerializeToString,
+            amocrm__connect__pb2.AmocrmReadMessagesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
