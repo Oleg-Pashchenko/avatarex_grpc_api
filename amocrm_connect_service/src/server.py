@@ -35,11 +35,13 @@ class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer)
         return response
 
     def GetInfo(self, request, context):
+        print('yes')
         host, login, password = request.host, request.email, request.password
         amo = impl.AmoCRM(host, login, password)
         amo.connect()
-        pipelines = amo.get_pipelines_info()
-        response = amocrm_connect_pb2.GetInfoResponse(pipelines=pipelines)
+        print('yes')
+        response = amocrm_connect_pb2.GetInfoResponse(pipelines=amo.get_pipelines_info(),
+                                                      fields=amo.get_custom_fields())
         return response
 
     def SendMessage(self, request, context):
@@ -64,7 +66,8 @@ class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer)
         success, error = True, None
         start_time = time.time()
         try:
-            host, login, password, pipeline_id, stage_ids = request.host, request.email, request.password, request.pipeline_id, list(request.stage_ids)
+            host, login, password, pipeline_id, stage_ids = request.host, request.email, request.password, request.pipeline_id, list(
+                request.stage_ids)
             amo = impl.AmoCRM(host, login, password)
             amo.connect()
             chats = amo.get_unanswered_messages([[pipeline_id, stage_ids]])
@@ -78,10 +81,31 @@ class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer)
             execution=round(float(time.time() - start_time), 2)
         )
 
+    def GetFieldsByDealId(self, request, context):
+        login, password, host, deal_id = request.login, request.password, request.host, request.deal_id
+        amo = impl.AmoCRM(host, login, password)
+        amo.connect()
+        return amocrm_connect_pb2.AmocrmGetFieldsResponse(
+            fields=amo.get_fields_by_deal_id(deal_id)
+        )
+
+    def SetFieldRequest(self, request, context):
+        login, password, host = request.login, request.password, request.host
+        field_id, value, pipeline_id = request.field_id, request.value, request.pipeline_id
+        deal_id = request.deal_id
+        amo = impl.AmoCRM(host, login, password)
+        amo.connect()
+        amo.set_field_by_id(field_id, value, pipeline_id, deal_id)
+        return amocrm_connect_pb2.AmocrmConnectResponse(
+            answer="+",
+            success=True,
+            data=None,
+            execution=0
+        )
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    amocrm_connect_pb2_grpc.add_AmocrmConnectServiceServicer_to_server(AmocrmConnectService(), server)
     amocrm_connect_pb2_grpc.add_AmocrmConnectServiceServicer_to_server(AmocrmConnectService(), server)
     server.add_insecure_port('0.0.0.0:50051')
     print('Server is running on port 50051...')

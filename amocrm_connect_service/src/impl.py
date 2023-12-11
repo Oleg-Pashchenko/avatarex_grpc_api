@@ -68,7 +68,6 @@ class AmoCRM:
         talks = self.session.get(url=url, headers=self.headers, params=params).json()['_embedded']['talks']
         response = []
         for t in talks:
-            print(t)
             chat_id = t['chat_id']
             message = t['last_message']['text']
             pipeline_id = int(t['entity']['pipeline_id'])
@@ -105,10 +104,42 @@ class AmoCRM:
         response = self.session.post(url=url, data=json.dumps({"text": message}), headers=headers)
         return response.status_code == 200
 
+    def get_fields_by_deal_id(self, deal_id):
+        url = f'{self.host}api/v4/leads/{deal_id}'
+        response = self.session.get(url, headers=self.headers).json()
+        fields = []
+        for f in response['custom_fields_values']:
+            fields.append(amocrm_connect_pb2.Field(
+                id=f['field_id'],
+                name=f['field_name'],
+                type=f['field_type'],
+                active_value=f['values'][0]['value'],
+                possible_values=None
+            ))
+        return fields
+
     def get_custom_fields(self):
         url = f'{self.host}api/v4/leads/custom_fields'
         response = self.session.get(url, headers=self.headers).json()['_embedded']['custom_fields']
-        print(*response, sep='\n')
+        result = []
+        for f in response:
+            possible_values = []
+            if f['enums'] is not None:
+                for v in f['enums']:
+                    possible_values.append(amocrm_connect_pb2.Select(
+                        id=v['id'],
+                        value=v['value'],
+                        sort=v['sort']
+                    ))
+            if f['type'] != 'tracking_data':
+                result.append(amocrm_connect_pb2.Field(
+                    id=f['id'],
+                    name=f['name'],
+                    type=f['type'],
+                    active_value=None,
+                    possible_values=possible_values))
+
+        return result
 
     def get_pipelines_info(self):
         response = self.session.get(f'{self.host}ajax/v1/pipelines/list',
@@ -146,6 +177,8 @@ class AmoCRM:
 
     def set_field_by_id(self, field_id: int, value, pipeline_id, deal_id):
         url = f'{self.host}ajax/leads/detail/'
+        if value.is_digit():
+            value = int(value)
 
         data = {
             f'CFV[{field_id}]': value,
@@ -155,8 +188,14 @@ class AmoCRM:
         }
         self.session.post(url=url, data=data, headers=self.headers)
 
+
 # amo = AmoCRM(email="havaisaeva19999@gmail.com", password="A12345mo", host="https://olegtest12.amocrm.ru/")
 # amo.connect()
+# amo.get_fields_by_deal_id(361335)
+
+# amo.set_field_by_id(449327, "19", 7519106, 361335)
+# amo.set_field_by_id(449329, 254631, 7519106, 361335)
+
 # amo.get_custom_fields()
 # print(amo.get_pipelines_info())
 # response = amo.get_unanswered_messages([[7519106, [62333722]], [7556182, [62592642]]])

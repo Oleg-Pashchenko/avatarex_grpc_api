@@ -2,51 +2,40 @@ import grpc
 from amocrm_connect_service.proto import amocrm_connect_pb2, amocrm_connect_pb2_grpc
 from amocrm_connect_service.proto.amocrm_connect_pb2_grpc import AmocrmConnectServiceStub
 
-host = 'localhost:50051'
+server_host = 'localhost:50051'
+
+
 # host = '178.253.22.162:50051'
 
-def try_connect():
-    channel = grpc.insecure_channel(host)
-    stub = AmocrmConnectServiceStub(channel)
-
+def try_connect(login, password, host):
+    channel = grpc.insecure_channel(server_host)
+    stub = amocrm_connect_pb2_grpc.AmocrmConnectServiceStub(channel)
     request = amocrm_connect_pb2.AmocrmConnectRequest(
-        login="havaisaeva19999@gmail.com",
-        password="A12345mo",
-        host="https://olegtest13.amocrm.ru/"
+        login=login,
+        password=password,
+        host=host
     )
-
     response = stub.TryConnect(request)
 
-    print(f"TryConnect Answer: {response.answer}")
-    print(f"TryConnect Success: {response.success}")
-    print(f"TryConnect Data: {response.data.message}")
-    print(f"TryConnect Execution time: {response.execution} seconds")
+    if response.success is False or response.answer is False:
+        return False, response.data.message
+    return True, None
 
 
-def get_info():
-    channel = grpc.insecure_channel(host)
+def get_info(login, password, host):
+    channel = grpc.insecure_channel(server_host)
     stub = AmocrmConnectServiceStub(channel)
-
     request = amocrm_connect_pb2.GetInfoRequest(
-        email="havaisaeva19999@gmail.com",
-        password="A12345mo",
-        host="https://olegtest13.amocrm.ru/"
+        login=login,
+        password=password,
+        host=host
     )
     response = stub.GetInfo(request)
+    return response
 
-    print("GetInfo Response:")
-    for pipeline in response.pipelines:
-        print(f"  Pipeline ID: {pipeline.id}")
-        print(f"  Pipeline Name: {pipeline.name}")
-        print(f"  Pipeline Sort: {pipeline.sort}")
-        for status in pipeline.statuses:
-            print(f"    Status ID: {status.id}")
-            print(f"    Status Name: {status.name}")
-            print(f"    Status Sort: {status.sort}")
-        print()
 
 def send_message():
-    channel = grpc.insecure_channel(host)
+    channel = grpc.insecure_channel(server_host)
     stub = AmocrmConnectServiceStub(channel)
 
     request = amocrm_connect_pb2.SendMessageRequest(
@@ -66,7 +55,7 @@ def send_message():
 
 
 def read_unanswered_messages():
-    channel = grpc.insecure_channel(host)
+    channel = grpc.insecure_channel(server_host)
     stub = AmocrmConnectServiceStub(channel)
 
     request = amocrm_connect_pb2.ReadUnansweredMessagesRequest(
@@ -88,8 +77,19 @@ def read_unanswered_messages():
         print(f"  Status ID: {chat.status_id}")
         print()
 
-if __name__ == '__main__':
+
+def set_field():
+    pass
+
+
+def get_fields_by_deal_id():
+    pass
+
+
+# if __name__ == '__main__':
     # try_connect()
     # get_info()
     # send_message()
-    read_unanswered_messages()
+    # read_unanswered_messages()
+    # set field by id
+    # get fields by deal id
