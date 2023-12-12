@@ -2,10 +2,9 @@ import grpc
 from amocrm_connect_service.proto import amocrm_connect_pb2, amocrm_connect_pb2_grpc
 from amocrm_connect_service.proto.amocrm_connect_pb2_grpc import AmocrmConnectServiceStub
 
-server_host = 'localhost:50051'
+# server_host = 'localhost:50051'
 
-
-# host = '178.253.22.162:50051'
+server_host = '178.253.22.162:50051'
 
 def try_connect(login, password, host):
     channel = grpc.insecure_channel(server_host)
@@ -26,7 +25,7 @@ def get_info(login, password, host):
     channel = grpc.insecure_channel(server_host)
     stub = AmocrmConnectServiceStub(channel)
     request = amocrm_connect_pb2.GetInfoRequest(
-        login=login,
+        email=login,
         password=password,
         host=host
     )
@@ -86,6 +85,11 @@ def get_fields_by_deal_id():
     pass
 
 
+host = "https://olegtest12.amocrm.ru/"
+email = "havaisaeva19999@gmail.com"
+password = "A12345mo"
+
+print(get_info(email, password, host))
 # if __name__ == '__main__':
     # try_connect()
     # get_info()
