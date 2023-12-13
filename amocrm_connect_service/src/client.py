@@ -2,9 +2,9 @@ import grpc
 from amocrm_connect_service.proto import amocrm_connect_pb2, amocrm_connect_pb2_grpc
 from amocrm_connect_service.proto.amocrm_connect_pb2_grpc import AmocrmConnectServiceStub
 
-# server_host = 'localhost:50051'
+server_host = 'localhost:50051'
 
-server_host = '178.253.22.162:50051'
+# server_host = '178.253.22.162:50051'
 
 def try_connect(login, password, host):
     channel = grpc.insecure_channel(server_host)
@@ -33,48 +33,36 @@ def get_info(login, password, host):
     return response
 
 
-def send_message():
-    channel = grpc.insecure_channel(server_host)
+async def send_message(host, email, password, message, chat_hash):
+    channel = grpc.aio.insecure_channel(server_host)
     stub = AmocrmConnectServiceStub(channel)
 
     request = amocrm_connect_pb2.SendMessageRequest(
-        host="https://olegtest12.amocrm.ru/",
-        email="havaisaeva19999@gmail.com",
-        password="A12345mo",
-        message="Ты пидор!",
-        chat_hash="db1d26fc-6940-441b-bde4-b22be72c14cb"
+        host=host,
+        email=email,
+        password=password,
+        message=message,
+        chat_hash=chat_hash
     )
 
-    response = stub.SendMessage(request)
-
-    print(f"SendMessage Answer: {response.answer}")
-    print(f"SendMessage Success: {response.success}")
-    print(f"SendMessage Data: {response.data.message}")
-    print(f"SendMessage Execution time: {response.execution} seconds")
+    response = await stub.SendMessage(request)
+    print(f"SendMessage Execution time: {round(response.execution, 2)} seconds")
 
 
-def read_unanswered_messages():
+def read_unanswered_messages(host, email, password, pipeline_id, stage_ids):
     channel = grpc.insecure_channel(server_host)
     stub = AmocrmConnectServiceStub(channel)
 
     request = amocrm_connect_pb2.ReadUnansweredMessagesRequest(
-        host="https://olegtest12.amocrm.ru/",
-        email="havaisaeva19999@gmail.com",
-        password="A12345mo",
-        pipeline_id=7519106,
-        stage_ids=[62333722]
+        host=host,
+        email=email,
+        password=password,
+        pipeline_id=pipeline_id,
+        stage_ids=stage_ids
     )
-    print(request)
     response = stub.ReadUnansweredMessages(request)
-    print(response)
-    print("ReadUnansweredMessages Response:")
-    for chat in response.answer:
-        print(f"  Chat ID: {chat.chat_id}")
-        print(f"  Message: {chat.message}")
-        print(f"  Pipeline ID: {chat.pipeline_id}")
-        print(f"  Lead ID: {chat.lead_id}")
-        print(f"  Status ID: {chat.status_id}")
-        print()
+    print('Amocrm Read Unanswered Execution Time: ', round(response.execution, 2))
+    return response
 
 
 def set_field():
@@ -89,7 +77,7 @@ host = "https://olegtest12.amocrm.ru/"
 email = "havaisaeva19999@gmail.com"
 password = "A12345mo"
 
-print(get_info(email, password, host))
+# print(get_info(email, password, host))
 # if __name__ == '__main__':
     # try_connect()
     # get_info()

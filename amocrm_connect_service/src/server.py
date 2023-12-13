@@ -44,15 +44,15 @@ class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer)
                                                       fields=amo.get_custom_fields())
         return response
 
-    def SendMessage(self, request, context):
+    async def SendMessage(self, request, context):
         success = True
         error = None
         start_time = time.time()
         try:
             host, login, password, message, chat_hash = request.host, request.email, request.password, request.message, request.chat_hash
             amo = impl.AmoCRM(host, login, password)
-            amo.connect()
-            status = amo.send_message(message, chat_hash)
+            await amo.connect_async()
+            status = await amo.send_message(message, chat_hash)
         except Exception as e:
             success, status, error = False, False, str(e)
         return amocrm_connect_pb2.AmocrmConnectResponse(
@@ -105,7 +105,7 @@ class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer)
 
 
 def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server = grpc.aio.server(futures.ThreadPoolExecutor(max_workers=10))
     amocrm_connect_pb2_grpc.add_AmocrmConnectServiceServicer_to_server(AmocrmConnectService(), server)
     server.add_insecure_port('0.0.0.0:50051')
     print('Server is running on port 50051...')

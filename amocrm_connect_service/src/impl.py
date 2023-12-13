@@ -1,4 +1,6 @@
 import json
+
+import aiohttp
 import requests
 from amocrm_connect_service.proto import amocrm_connect_pb2
 
@@ -28,6 +30,26 @@ class AmoCRM:
                           'Chrome/111.0.0.0 Safari/537.36'
         }
 
+    async def _create_session_async(self):
+        self.session = aiohttp.ClientSession()
+
+        if '/' not in self.host[-1]:
+            self.host += '/'
+        if 'https://' not in self.host:
+            self.host = 'https://' + self.host
+
+        async with self.session.get(self.host) as response:
+            session_id = response.cookies.get('session_id')
+            self.csrf_token = response.cookies.get('csrf_token')
+            self.headers = {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Cookie': f'session_id={session_id}; '
+                          f'csrf_token={self.csrf_token};',
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) '
+                              'Chrome/111.0.0.0 Safari/537.36'
+            }
+
     def is_host_supported(self):
         url = 'https://www.amocrm.ru/v3/accounts'
         response = self.session.get(url)
@@ -53,8 +75,27 @@ class AmoCRM:
         self.headers['refresh_token'] = response.cookies.get('refresh_token')
         return True
 
+    async def connect_async(self) -> bool:
+        await self._create_session_async()
+        url = 'https://www.amocrm.ru/oauth2/authorize'
+        data = {
+            'csrf_token': self.csrf_token,
+            'username': self.login,
+            'password': self.password
+        }
+
+        async with self.session.post(url, data=data, headers=self.headers) as response:
+            if response.status != 200:
+                return False
+
+            self.headers['access_token'] = response.cookies.get('access_token')
+            self.headers['refresh_token'] = response.cookies.get('refresh_token')
+            return True
+
+
     def get_unanswered_messages(self, search_info: list[list]):
         """Gets pipeline ids and stage ids and returned all talks"""
+        search_info = search_info[0]
         self.headers['Host'] = self.host.replace('https://', '').replace('/', '')
         url = f'{self.host}ajax/v4/inbox/list'
         params = {
@@ -63,11 +104,13 @@ class AmoCRM:
             'order[sort_type]': 'desc',
             'filter[is_read][]': 'false'
         }
-        for index, param in enumerate(search_info):
-            params[f'filter[pipe][{param[0]}][{index}]'] = param[1]
-        talks = self.session.get(url=url, headers=self.headers, params=params).json()['_embedded']['talks']
+        for index, param in enumerate(search_info[1]):
+            params[f'filter[pipe][{search_info[0]}][{index}]'] = param
+        print(params)
+        talks = self.session.get(url=url, headers=self.headers, params=params).json()
         response = []
-        for t in talks:
+        print(talks)
+        for t in talks['_embedded']['talks']:
             chat_id = t['chat_id']
             message = t['last_message']['text']
             pipeline_id = int(t['entity']['pipeline_id'])
@@ -84,25 +127,30 @@ class AmoCRM:
             )
         return response
 
-    def _create_chat_token(self):
+    async def _create_chat_token(self):
         url = f'{self.host}ajax/v1/chats/session'
         payload = {'request[chats][session][action]': 'create'}
 
-        response = self.session.post(url=url, headers=self.headers, data=payload).json()
+        async with aiohttp.ClientSession() as session:
+            response = await session.post(url=url, headers=self.headers, data=payload)
+            data = await response.json()
+            self.chat_token = data['response']['chats']['session']['access_token']
 
-        self.chat_token = response['response']['chats']['session']['access_token']
+    async def _create_amo_hash(self):
+        url = f'{self.host}/api/v4/account?with=amojo_id'
+        async with aiohttp.ClientSession() as session:
+            response = await session.get(url)
+            data = await response.json()
+            self.amo_hash = data['amojo_id']
 
-    def _create_amo_hash(self):
-        response = self.session.get(f'{self.host}/api/v4/account?with=amojo_id').json()
-        self.amo_hash = response['amojo_id']
-
-    def send_message(self, message: str, chat_id: str):
-        self._create_chat_token()
-        self._create_amo_hash()
+    async def send_message(self, message: str, chat_id: str):
+        await self._create_chat_token()
+        await self._create_amo_hash()
         headers = {'X-Auth-Token': self.chat_token}
         url = f'https://amojo.amocrm.ru/v1/chats/{self.amo_hash}/{chat_id}/messages?with_video=true&stand=v16'
-        response = self.session.post(url=url, data=json.dumps({"text": message}), headers=headers)
-        return response.status_code == 200
+        async with aiohttp.ClientSession() as session:
+            response = await session.post(url=url, data=json.dumps({"text": message}), headers=headers)
+            return response.status == 200
 
     def get_fields_by_deal_id(self, deal_id):
         url = f'{self.host}api/v4/leads/{deal_id}'
@@ -187,7 +235,6 @@ class AmoCRM:
             'ID': deal_id
         }
         self.session.post(url=url, data=data, headers=self.headers)
-
 
 # amo = AmoCRM(email="havaisaeva19999@gmail.com", password="A12345mo", host="https://olegtest12.amocrm.ru/")
 # amo.connect()

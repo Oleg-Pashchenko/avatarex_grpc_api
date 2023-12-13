@@ -5,10 +5,10 @@ package amocrm_connect_service;
 service AmocrmConnectService {
   rpc TryConnect (AmocrmConnectRequest) returns (AmocrmConnectResponse);
   rpc GetInfo (GetInfoRequest) returns (GetInfoResponse);
-  // rpc SendMessage (SendMessageRequest) returns (AmocrmConnectResponse);
-  // rpc ReadUnansweredMessages (ReadUnansweredMessagesRequest) returns (AmocrmReadMessagesResponse);
-  // rpc GetFieldsByDealId (GetFieldsRequest) returns (AmocrmGetFieldsResponse);
-  // rpc SetField (SetFieldRequest) returns (AmocrmConnectResponse);
+  rpc SendMessage (SendMessageRequest) returns (AmocrmConnectResponse);
+  rpc ReadUnansweredMessages (ReadUnansweredMessagesRequest) returns (AmocrmReadMessagesResponse);
+  rpc GetFieldsByDealId (GetFieldsRequest) returns (AmocrmGetFieldsResponse);
+  rpc SetField (SetFieldRequest) returns (AmocrmConnectResponse);
 }
 
 message SetFieldRequest {
