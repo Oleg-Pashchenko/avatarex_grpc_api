@@ -49,8 +49,8 @@ async def send_message(host, email, password, message, chat_hash):
     print(f"SendMessage Execution time: {round(response.execution, 2)} seconds")
 
 
-def read_unanswered_messages(host, email, password, pipeline_id, stage_ids):
-    channel = grpc.insecure_channel(server_host)
+async def read_unanswered_messages(host, email, password, pipeline_id, stage_ids):
+    channel = grpc.aio.insecure_channel(server_host)
     stub = AmocrmConnectServiceStub(channel)
 
     request = amocrm_connect_pb2.ReadUnansweredMessagesRequest(
@@ -60,7 +60,7 @@ def read_unanswered_messages(host, email, password, pipeline_id, stage_ids):
         pipeline_id=pipeline_id,
         stage_ids=stage_ids
     )
-    response = stub.ReadUnansweredMessages(request)
+    response = await stub.ReadUnansweredMessages(request)
     print('Amocrm Read Unanswered Execution Time: ', round(response.execution, 2))
     return response
 

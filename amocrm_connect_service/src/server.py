@@ -1,3 +1,4 @@
+import asyncio
 import time
 
 import grpc
@@ -62,15 +63,15 @@ class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer)
             execution=round(float(time.time() - start_time), 2)
         )
 
-    def ReadUnansweredMessages(self, request, context):
+    async def ReadUnansweredMessages(self, request, context):
         success, error = True, None
         start_time = time.time()
         try:
             host, login, password, pipeline_id, stage_ids = request.host, request.email, request.password, request.pipeline_id, list(
                 request.stage_ids)
             amo = impl.AmoCRM(host, login, password)
-            amo.connect()
-            chats = amo.get_unanswered_messages([[pipeline_id, stage_ids]])
+            await amo.connect_async()
+            chats = await amo.get_unanswered_messages([[pipeline_id, stage_ids]])
         except Exception as e:
             success, status, error = False, False, str(e)
             chats = []
@@ -104,13 +105,13 @@ class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer)
         )
 
 
-def serve():
+async def serve():
     server = grpc.aio.server(futures.ThreadPoolExecutor(max_workers=10))
     amocrm_connect_pb2_grpc.add_AmocrmConnectServiceServicer_to_server(AmocrmConnectService(), server)
     server.add_insecure_port('0.0.0.0:50051')
     print('Server is running on port 50051...')
-    server.start()
-    server.wait_for_termination()
+    await server.start()
+    await server.wait_for_termination()
 
 
-serve()
+asyncio.run(serve())
