@@ -5,6 +5,7 @@ from prompt_mode_service.proto import prompt_mode_pb2, prompt_mode_pb2_grpc
 from prompt_mode_service.proto.prompt_mode_pb2_grpc import OpenAIPromptServiceStub
 
 server_host = 'localhost:50052'
+server_host = '178.253.22.162:50051'
 
 
 async def run(messages, model, max_tokens, temperature, api_token):

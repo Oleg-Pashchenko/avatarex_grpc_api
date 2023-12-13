@@ -2,9 +2,9 @@ import grpc
 from amocrm_connect_service.proto import amocrm_connect_pb2, amocrm_connect_pb2_grpc
 from amocrm_connect_service.proto.amocrm_connect_pb2_grpc import AmocrmConnectServiceStub
 
-server_host = 'localhost:50051'
+# server_host = 'localhost:50051'
 
-# server_host = '178.253.22.162:50051'
+server_host = '178.253.22.162:50051'
 
 def try_connect(login, password, host):
     channel = grpc.insecure_channel(server_host)
