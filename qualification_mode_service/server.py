@@ -20,6 +20,7 @@ async def serve():
     server = grpc.aio.server(ThreadPoolExecutor(max_workers=10))
     qualification_pb2_grpc.add_QualificationServiceServicer_to_server(QualificationServiceImplementation(), server)
     server.add_insecure_port('[::]:50054')
+    print('QUALIFICATION_SERVICE executed on port 50054!')
     await server.start()
     await server.wait_for_termination()
 

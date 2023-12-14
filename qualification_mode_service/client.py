@@ -1,7 +1,6 @@
 import asyncio
 import grpc
-from proto.qualification_pb2 import *
-from proto.qualification_pb2_grpc import *
+from proto import qualification_pb2, qualification_pb2_grpc
 import dotenv
 import os
 
@@ -12,10 +11,10 @@ server_host = os.getenv("SERVER_HOST") + ":50054"
 
 async def run_qualification_client():
     async with grpc.aio.insecure_channel(server_host) as channel:
-        stub = QualificationServiceStub(channel)
+        stub = qualification_pb2_grpc.QualificationServiceStub(channel)
 
         # Ваш асинхронный запрос
-        request = QualificationRequest(enabled=True)
+        request = qualification_pb2.QualificationRequest(enabled=True)
 
         # Вызов асинхронного RPC-метода
         response = await stub.ExecuteQualification(request)
