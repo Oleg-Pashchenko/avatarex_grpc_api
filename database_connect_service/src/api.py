@@ -83,3 +83,11 @@ def add_message(message, lead_id, is_bot):
 
 def get_lead(lead_id):
     return session.query(LeadsEntity).filter(LeadsEntity.id == lead_id).first()
+
+
+def manager_intervened(lead_id, message_history):
+    return False
+
+
+def message_exists(lead_id, message_id):
+    return False

@@ -172,6 +172,8 @@ class AmoCRM:
             response = await session.post(
                 url=url, data=json.dumps({"text": message}), headers=headers
             )
+            print(await response.json())
+
             return response.status == 200
 
     def get_fields_by_deal_id(self, deal_id):
