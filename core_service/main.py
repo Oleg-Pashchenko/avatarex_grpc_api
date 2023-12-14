@@ -1,4 +1,4 @@
-import amocrm_connect_service.src.client as amocrm
+import amocrm_connect_service.client as amocrm
 import database_connect_service.src.client as database
 import prompt_mode_service.src.client as prompt_mode
 import qualification_mode_service.src.client as qualification_mode

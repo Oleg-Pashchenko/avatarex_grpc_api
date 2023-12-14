@@ -1,7 +1,7 @@
 import time
 
 from database_connect_service.src import site
-from amocrm_connect_service.src import client as amocrm
+from amocrm_connect_service import client as amocrm
 from database_connect_service.src.site import ApiSettings
 from prompt_mode_service.src import client as prompt_mode
 import asyncio
@@ -9,6 +9,19 @@ import asyncio
 
 async def process_message(message, setting):
     start_time = time.time()
+
+
+    # Check if message already in database - skip it
+    # Get fields to
+    # If manager already write to the client - do nothing
+    # Mark message checked and save it
+    # Get qualification information
+    #
+
+
+
+
+
     answer = await prompt_mode.run(
         messages=[
             {"role": "system", "content": setting.prompt_context},
@@ -39,16 +52,16 @@ async def cycle():
             )
             for setting in settings
         ]
-
         # Используем asyncio.gather для выполнения всех корутин параллельно
         responses = await asyncio.gather(*coroutines)
 
+        print('Настроек', len(settings))
         # После получения всех ответов, создаем задачи для обработки каждого сообщения
         for id, setting in enumerate(settings):
             messages = responses[id]
             for message in messages.answer:
                 tasks.append(process_message(message, setting))
-
+        print('Задач:', len(tasks))
         # Ожидаем завершения всех задач
         await asyncio.gather(*tasks)
 

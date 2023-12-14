@@ -3,8 +3,8 @@ import time
 
 import grpc
 from concurrent import futures
-from amocrm_connect_service.proto import amocrm_connect_pb2, amocrm_connect_pb2_grpc
-from amocrm_connect_service.src import impl
+from proto import amocrm_connect_pb2, amocrm_connect_pb2_grpc
+import impl
 
 
 class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer):
@@ -70,8 +70,11 @@ class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer)
             host, login, password, pipeline_id, stage_ids = request.host, request.email, request.password, request.pipeline_id, list(
                 request.stage_ids)
             amo = impl.AmoCRM(host, login, password)
-            await amo.connect_async()
+            print('xuesos')
+            status = await amo.connect_async()
+            print(status)
             chats = await amo.get_unanswered_messages([[pipeline_id, stage_ids]])
+            print(chats)
         except Exception as e:
             success, status, error = False, False, str(e)
             chats = []
