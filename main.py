@@ -17,13 +17,12 @@ async def process_message(message, setting):
                                                 setting.amo_host,
                                                 setting.amo_email,
                                                 setting.amo_password)
-    print(fields)
     # Qualificate if needed
 
     database_messages = api.get_messages_history(message.lead_id)
     answer = await prompt_mode.run(
         messages=prompt_mode.get_messages_context(database_messages, setting.prompt_context, setting.model_limit,
-                                                  setting.max_tokens),
+                                                  setting.max_tokens, fields),
         model=setting.model_title,
         api_token=setting.api_token,
         max_tokens=setting.max_tokens,

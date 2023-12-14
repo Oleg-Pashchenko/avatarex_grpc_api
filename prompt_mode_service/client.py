@@ -60,16 +60,21 @@ def tokens_counter(messages: list[dict]):
     return num_tokens
 
 
-def get_messages_context(messages: list[dict], context: str, tokens: int, max_tokens):
+def get_messages_context(messages: list[dict], context: str, tokens: int, max_tokens, fields):
     tokens *= 0.95  # На всякий случай резервируем 5% в запас
     tokens -= max_tokens  # Вычитаем выделенные токены на ответ
     messages.reverse()
-    response = [{'role': 'system', 'content': context}]
+    fields_to_view = []
+    for field in fields:
+        fields_to_view.append({'role': 'assistant', 'content': f'Данные о клиенте: {field.name}: {field.active_value}'})
+    fields_to_view.append({'role': 'system', 'content': context})
+    system_settings = tokens_counter(fields_to_view)
+    response = []
     for message in messages:
         response.append(message)
-        if tokens < tokens_counter(response):
+        if tokens < tokens_counter(response) + system_settings:
             response.pop(-1)
             break
-    response.pop(0)
-    response.append({'role': 'system', 'content': context})
+    for f in fields_to_view:
+        response.append(f)
     return response
