@@ -136,6 +136,7 @@ class AmoCRM:
 
                 response.append(
                     amocrm_connect_pb2.Chat(
+                        id=messages_history["message_list"][0]['message']['id'],
                         chat_id=chat_id,
                         message=message,
                         pipeline_id=pipeline_id,
@@ -172,9 +173,9 @@ class AmoCRM:
             response = await session.post(
                 url=url, data=json.dumps({"text": message}), headers=headers
             )
-            print(await response.json())
+            answer = await response.json()
 
-            return response.status == 200
+            return answer['id']
 
     def get_fields_by_deal_id(self, deal_id):
         url = f"{self.host}api/v4/leads/{deal_id}"

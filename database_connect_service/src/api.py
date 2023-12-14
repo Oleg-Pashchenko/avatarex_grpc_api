@@ -8,17 +8,18 @@ import warnings
 from sqlalchemy.exc import SADeprecationWarning
 import dotenv
 import os
-from database_connect_service.src import misc
+
+dotenv.load_dotenv()
+
+
+def as_dict(obj):
+    data = obj.__dict__
+    if "_sa_instance_state" in data:
+        data.pop("_sa_instance_state")
+    return data
+
 
 warnings.filterwarnings("ignore", category=SADeprecationWarning)
-
-
-@dataclasses.dataclass
-class Leads:
-    id: int
-    pipeline_id: int
-    status_id: int
-    deal_id: int
 
 
 @dataclasses.dataclass
@@ -28,13 +29,12 @@ class Messages:
     lead_id: int
     text: str
     is_bot: bool
-    date: datetime.datetime
 
 
 dotenv.load_dotenv()
 engine = sqlalchemy.create_engine(
     f'postgresql://{os.getenv("DB_USER")}:{os.getenv("DB_PASSWORD")}'
-    f'@{os.getenv("DB_HOST")}:5432/{os.getenv("API_DB_NAME")}',
+    f'@{os.getenv("DB_HOST")}:5432/{os.getenv("AMO_BOT_DB_NAME")}',
     pool_pre_ping=True,
 )
 Session = sessionmaker(bind=engine)
@@ -42,13 +42,10 @@ session = Session()
 
 Base = automap_base()
 Base.prepare(engine, reflect=True)
-
-
-LeadsEntity = Base.classes.leads
 MessagesEntity = Base.classes.messages
 
-for c in [LeadsEntity, MessagesEntity]:
-    c.as_dict = misc.as_dict
+for c in [MessagesEntity]:
+    c.as_dict = as_dict
 
 
 def get_messages_history(lead_id: int):
@@ -65,24 +62,16 @@ def get_messages_history(lead_id: int):
     return messages
 
 
-def add_message(message, lead_id, is_bot):
-    if is_bot:
-        message_id = f"assistant-{random.randint(1000000, 10000000)}"
-    else:
-        message_id = f"assistant-{random.randint(1000000, 10000000)}"
+def add_message(message_id, lead_id, text, is_bot):
     obj = MessagesEntity(
         id=message_id,
-        message=message,
+        message=text,
         lead_id=lead_id,
         is_bot=is_bot,
         date=datetime.datetime.now(),
     )
     session.add(obj)
     session.commit()
-
-
-def get_lead(lead_id):
-    return session.query(LeadsEntity).filter(LeadsEntity.id == lead_id).first()
 
 
 def manager_intervened(lead_id, message_history):

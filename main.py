@@ -26,13 +26,14 @@ async def process_message(message, setting):
         max_tokens=setting.max_tokens,
         temperature=setting.temperature,
     )
-    await amocrm.send_message(
+    message_id = await amocrm.send_message(
         setting.amo_host,
         setting.amo_email,
         setting.amo_password,
         answer.data.message,
         message.chat_id,
     )
+    api.add_message(message_id, message.lead_id, answer.data.message, True)
 
 
 async def cycle():
@@ -60,18 +61,19 @@ async def cycle():
         for id, setting in enumerate(settings):
             messages = responses[id]
             for message in messages.answer:
-                if api.message_exists(message.lead_id, message.id):
+                if api.message_exists(message.lead_id, message.lead_id):
                     continue  # Контроль дублей
 
                 if api.manager_intervened(message.lead_id, message.messages_history):
                     continue  # Если менеджер вмешался
 
-                # api.add_message(message.message, message.lead_id, message.id)
+                api.add_message(message.id, message.lead_id, message.message, False)
                 tasks += 1
                 asyncio.create_task(process_message(message, setting))
         print("Задач:", tasks)
 
         print("Total execution time: ", round(time.time() - start_time, 2))
         print('-' * 50)
+
 
 asyncio.run(cycle())

@@ -64,7 +64,6 @@ class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer)
             amo = impl.AmoCRM(host, login, password)
             await amo.connect_async()
             status = await amo.send_message(message, chat_hash)
-            print("Send message status:", status)
         except Exception as e:
             print(e)
             success, status, error = False, False, str(e)

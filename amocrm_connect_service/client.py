@@ -43,7 +43,7 @@ async def send_message(host, email, password, message, chat_hash):
 
     response = await stub.SendMessage(request)
     print(f"SendMessage Execution time: {round(response.execution, 2)} seconds")
-
+    return response.answer
 
 async def read_unanswered_messages(host, email, password, pipeline_id, stage_ids):
     channel = grpc.aio.insecure_channel(server_host)
