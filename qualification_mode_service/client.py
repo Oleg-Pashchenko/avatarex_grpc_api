@@ -1,11 +1,10 @@
 import asyncio
 import grpc
-from proto import qualification_pb2, qualification_pb2_grpc
+from qualification_mode_service.proto import qualification_pb2, qualification_pb2_grpc
 import dotenv
 import os
 
 dotenv.load_dotenv()
-
 server_host = os.getenv("SERVER_HOST") + ":50054"
 
 
@@ -20,9 +19,7 @@ async def run_qualification_client():
         response = await stub.ExecuteQualification(request)
 
         # Вывод результата
-        print(f"Success: {response.success}")
-        print(f"Data: {response.data.message}")
-        print(f"Execution Time: {response.execution_time} seconds")
+        print(f"Success: {response}")
 
 
 if __name__ == '__main__':

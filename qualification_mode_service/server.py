@@ -4,7 +4,6 @@ from concurrent.futures import ThreadPoolExecutor
 from proto import qualification_pb2, qualification_pb2_grpc
 
 
-
 class QualificationServiceImplementation(qualification_pb2_grpc.QualificationServiceServicer):
     async def ExecuteQualification(self, request, context):
         # Ваша асинхронная логика обработки запроса
@@ -12,7 +11,9 @@ class QualificationServiceImplementation(qualification_pb2_grpc.QualificationSer
         message = "Qualification executed successfully"
         execution_time = 0.5  # Пример времени выполнения в секундах
 
-        response = qualification_pb2.QualificationResponse(success=success, data=message, execution_time=execution_time)
+        response = qualification_pb2.QualificationResponse(success=success,
+                                                           data=qualification_pb2.ResponseData(message=message, error=None),
+                                                           execution_time=execution_time)
         return response
 
 
