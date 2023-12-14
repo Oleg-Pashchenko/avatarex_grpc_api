@@ -23,13 +23,18 @@ message AvatarexField {
   string name = 2;
   string type = 3;
   string description = 4;
-  repeated Select possible_values  = 5;
+  repeated Select possible_values = 5;
 }
 
 message QualificationRequest {
-  bool enabled = 1;
-  repeated Field fields_amocrm = 2;
-  repeated AvatarexField fields_avatarex = 3;
+  string text = 1;
+  bool enabled = 2;
+  repeated Field fields_amocrm = 3;
+  repeated AvatarexField fields_avatarex = 4;
+  string finish = 5;
+  string openai_key = 6;
+  string model = 7;
+
 }
 
 message ResponseData {

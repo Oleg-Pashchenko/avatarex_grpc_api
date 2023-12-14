@@ -8,19 +8,20 @@ dotenv.load_dotenv()
 server_host = os.getenv("SERVER_HOST") + ":50054"
 
 
-async def run_qualification_client():
+async def run_qualification_client(text, enabled, amocrm, avatarex, finish, openai_key, model):
     async with grpc.aio.insecure_channel(server_host) as channel:
         stub = qualification_pb2_grpc.QualificationServiceStub(channel)
 
         # Ваш асинхронный запрос
-        request = qualification_pb2.QualificationRequest(enabled=True)
+        request = qualification_pb2.QualificationRequest(text=text,
+                                                         enabled=enabled,
+                                                         fields_amocrm=amocrm,
+                                                         fields_avatarex=avatarex,
+                                                         finish=finish,
+                                                         openai_key=openai_key,
+                                                         model=model
+                                                         )
 
         # Вызов асинхронного RPC-метода
         response = await stub.ExecuteQualification(request)
-
-        # Вывод результата
-        print(f"Success: {response}")
-
-
-if __name__ == '__main__':
-    asyncio.run(run_qualification_client())
+        return response

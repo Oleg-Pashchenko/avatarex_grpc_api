@@ -10,34 +10,45 @@ from qualification_mode_service import client as qualification_mode
 import asyncio
 
 
-async def process_message(message, setting):
-    start_time = time.time()
+async def send_message_to_amocrm(setting, message, text, is_bot):
+    message_id = await amocrm.send_message(
+        setting.amo_host,
+        setting.amo_email,
+        setting.amo_password,
+        text,
+        message.chat_id,
+    )
+    api.add_message(message_id, message.lead_id, text, is_bot)
 
-    # Getting fields if needed
+
+async def process_message(message, setting):
     fields = await amocrm.get_fields_by_deal_id(message.lead_id,
                                                 setting.amo_host,
                                                 setting.amo_email,
                                                 setting.amo_password)
 
-    await qualification_mode.run_qualification_client()
+    qualification_response = await qualification_mode.run_qualification_client(message.message, setting, fields,
+                                                                               setting.qualification_fields,
+                                                                               setting.qualification_finished)
+    if qualification_response.success:
+        if qualification_response.data.message:
+            return await send_message_to_amocrm(setting, message, qualification_response.data.message, True)
+
+        # Если есть сообщение - новая квалификация и больше нет режимов
+        #  Если нет - идем в режим
 
     database_messages = api.get_messages_history(message.lead_id)
     answer = await prompt_mode.run(
         messages=prompt_mode.get_messages_context(database_messages, setting.prompt_context, setting.model_limit,
-                                                  setting.max_tokens, fields),
+                                                  setting.max_tokens, fields if setting.use_amocrm_fields else []),
         model=setting.model_title,
         api_token=setting.api_token,
         max_tokens=setting.max_tokens,
         temperature=setting.temperature,
     )
-    message_id = await amocrm.send_message(
-        setting.amo_host,
-        setting.amo_email,
-        setting.amo_password,
-        answer.data.message,
-        message.chat_id,
-    )
-    api.add_message(message_id, message.lead_id, answer.data.message, True)
+    await send_message_to_amocrm(setting, message, answer, True)
+    if not qualification_response.success:
+        await send_message_to_amocrm(setting, message, qualification_response.data.message, True)
 
 
 async def cycle():
@@ -71,6 +82,8 @@ async def cycle():
                     continue  # Если менеджер вмешался
 
                 if ".m4a" in message.message:
+                    if setting.voice_detection is False:
+                        continue
                     message.message = await whisper_service.client.run(
                         openai_api_key=setting.api_token, url=message.message
                     )
