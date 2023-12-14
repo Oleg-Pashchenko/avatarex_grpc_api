@@ -55,17 +55,18 @@ async def cycle():
         ]
         # Используем asyncio.gather для выполнения всех корутин параллельно
         responses = await asyncio.gather(*coroutines)
-
+        print(responses)
         print("Настроек:", len(settings))
         # После получения всех ответов, создаем задачи для обработки каждого сообщения
         for id, setting in enumerate(settings):
             messages = responses[id]
             for message in messages.answer:
-                if api.message_exists(message.lead_id, message.lead_id):
-                    continue  # Контроль дублей
+                print(message)
+                # if api.message_exists(message.lead_id, message.lead_id):
+                 #    continue  # Контроль дублей
 
-                if api.manager_intervened(message.lead_id, message.messages_history):
-                    continue  # Если менеджер вмешался
+                # if api.manager_intervened(message.lead_id, message.messages_history):
+                 #    continue  # Если менеджер вмешался
 
                 api.add_message(message.id, message.lead_id, message.message, False)
                 tasks += 1
