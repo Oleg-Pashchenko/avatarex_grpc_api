@@ -5,7 +5,7 @@ from flask import Flask
 app = Flask(__name__)
 
 
-@app.route('/execute-tests')
+@app.route("/execute-tests")
 def execute_tests():
     # Block: OpenAI
     # 1: Prompt Mode
@@ -26,13 +26,14 @@ def execute_tests():
     # 12: Block: AmoCRM
 
     return [
-        {'block': 'openai', 'service': 'prompt-mode', 'success': True, 'speed': time.time()}
+        {
+            "block": "openai",
+            "service": "prompt-mode",
+            "success": True,
+            "speed": time.time(),
+        }
     ]
 
 
-if __name__ == '__main__':
-    app.run(
-        host='0.0.0.0',
-        port=8000,
-        debug=True
-    )
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000, debug=True)

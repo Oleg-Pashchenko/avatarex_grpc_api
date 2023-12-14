@@ -15,10 +15,10 @@ class OpenAIKnowledgeServiceStub(object):
             channel: A grpc.Channel.
         """
         self.CompleteKnowledge = channel.unary_unary(
-                '/openai_knowledge_service.OpenAIKnowledgeService/CompleteKnowledge',
-                request_serializer=knowledge__mode__pb2.OpenAIKnowledgeRequest.SerializeToString,
-                response_deserializer=knowledge__mode__pb2.OpenAIKnowledgeResponse.FromString,
-                )
+            "/openai_knowledge_service.OpenAIKnowledgeService/CompleteKnowledge",
+            request_serializer=knowledge__mode__pb2.OpenAIKnowledgeRequest.SerializeToString,
+            response_deserializer=knowledge__mode__pb2.OpenAIKnowledgeResponse.FromString,
+        )
 
 
 class OpenAIKnowledgeServiceServicer(object):
@@ -27,40 +27,53 @@ class OpenAIKnowledgeServiceServicer(object):
     def CompleteKnowledge(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
 
 def add_OpenAIKnowledgeServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'CompleteKnowledge': grpc.unary_unary_rpc_method_handler(
-                    servicer.CompleteKnowledge,
-                    request_deserializer=knowledge__mode__pb2.OpenAIKnowledgeRequest.FromString,
-                    response_serializer=knowledge__mode__pb2.OpenAIKnowledgeResponse.SerializeToString,
-            ),
+        "CompleteKnowledge": grpc.unary_unary_rpc_method_handler(
+            servicer.CompleteKnowledge,
+            request_deserializer=knowledge__mode__pb2.OpenAIKnowledgeRequest.FromString,
+            response_serializer=knowledge__mode__pb2.OpenAIKnowledgeResponse.SerializeToString,
+        ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'openai_knowledge_service.OpenAIKnowledgeService', rpc_method_handlers)
+        "openai_knowledge_service.OpenAIKnowledgeService", rpc_method_handlers
+    )
     server.add_generic_rpc_handlers((generic_handler,))
 
 
- # This class is part of an EXPERIMENTAL API.
+# This class is part of an EXPERIMENTAL API.
 class OpenAIKnowledgeService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def CompleteKnowledge(request,
+    def CompleteKnowledge(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
             target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/openai_knowledge_service.OpenAIKnowledgeService/CompleteKnowledge',
+            "/openai_knowledge_service.OpenAIKnowledgeService/CompleteKnowledge",
             knowledge__mode__pb2.OpenAIKnowledgeRequest.SerializeToString,
             knowledge__mode__pb2.OpenAIKnowledgeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )

@@ -14,12 +14,12 @@ import os
 
 def as_dict(obj):
     data = obj.__dict__
-    if '_sa_instance_state' in data:
-        data.pop('_sa_instance_state')
+    if "_sa_instance_state" in data:
+        data.pop("_sa_instance_state")
     return data
 
 
-warnings.filterwarnings('ignore', category=SADeprecationWarning)
+warnings.filterwarnings("ignore", category=SADeprecationWarning)
 
 
 @dataclasses.dataclass
@@ -140,8 +140,11 @@ class AmoCRM:
 
 
 dotenv.load_dotenv()
-engine = sqlalchemy.create_engine(f'postgresql://{os.getenv("DB_USER")}:{os.getenv("DB_PASSWORD")}'
-                                  f'@{os.getenv("DB_HOST")}:5432/{os.getenv("SITE_DB_NAME")}', pool_pre_ping=True)
+engine = sqlalchemy.create_engine(
+    f'postgresql://{os.getenv("DB_USER")}:{os.getenv("DB_PASSWORD")}'
+    f'@{os.getenv("DB_HOST")}:5432/{os.getenv("SITE_DB_NAME")}',
+    pool_pre_ping=True,
+)
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -157,8 +160,17 @@ OpenAIModels = Base.classes.openai_models
 AmoCRM = Base.classes.amocrm
 AuthUser = Base.classes.avatarex_users
 
-for c in [AuthUser, Settings, Pipeline, Qualification, RequestSettings, PromptSettings, ApiSettings, OpenAIModels,
-          AmoCRM]:
+for c in [
+    AuthUser,
+    Settings,
+    Pipeline,
+    Qualification,
+    RequestSettings,
+    PromptSettings,
+    ApiSettings,
+    OpenAIModels,
+    AmoCRM,
+]:
     c.as_dict = as_dict
 
 
@@ -168,10 +180,18 @@ def get_enabled_api_settings() -> list[ApiSettings]:
     result = []
     for obj in q.all():
         s = Settings(**obj.as_dict())
-        q2 = session.query(Pipeline).filter(Pipeline.id == s.pipeline_id_id and Pipeline.user_id_id == s.user_id_id)
-        q3 = session.query(Qualification).filter(Qualification.id == s.qualification_id_id)
-        q4 = session.query(RequestSettings).filter(RequestSettings.id == s.request_settings_id_id)
-        q5 = session.query(PromptSettings).filter(PromptSettings.id == s.prompt_settings_id)
+        q2 = session.query(Pipeline).filter(
+            Pipeline.id == s.pipeline_id_id and Pipeline.user_id_id == s.user_id_id
+        )
+        q3 = session.query(Qualification).filter(
+            Qualification.id == s.qualification_id_id
+        )
+        q4 = session.query(RequestSettings).filter(
+            RequestSettings.id == s.request_settings_id_id
+        )
+        q5 = session.query(PromptSettings).filter(
+            PromptSettings.id == s.prompt_settings_id
+        )
         q6 = session.query(OpenAIModels).filter(OpenAIModels.id == s.model_id)
         q7 = session.query(AmoCRM).filter(AmoCRM.user_id_id == s.user_id_id)
         q8 = session.query(AuthUser).filter(AuthUser.id == s.user_id_id)
@@ -197,18 +217,16 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                 hi_message=rs.hi_message,
                 openai_error_message=rs.openai_error_message,
                 avatarex_error_message=rs.avatarex_error_message,
-
                 prompt_context=ps.context,
                 max_tokens=ps.max_tokens,
                 temperature=ps.temperature,
                 fine_tuned_model=ps.fine_tuned_model_id,
                 use_fine_tuned=ps.use_fine_tuned,
-
                 amo_email=amo.email,
                 amo_password=amo.password,
                 amo_host=amo.host,
-                api_token=user.openai_api_key
+                api_token=user.openai_api_key,
             )
         )
-    print('Database Mode Execution:', round(time.time() - start_time, 2))
+    print("Database Mode Execution:", round(time.time() - start_time, 2))
     return result

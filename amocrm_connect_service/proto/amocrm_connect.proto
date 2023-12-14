@@ -117,4 +117,5 @@ message Chat {
   int32 pipeline_id = 3;
   int32 lead_id = 4;
   int32 status_id = 5;
+  string messages_history = 6;
 }

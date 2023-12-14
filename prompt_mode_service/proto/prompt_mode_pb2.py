@@ -6,30 +6,31 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import symbol_database as _symbol_database
 from google.protobuf.internal import builder as _builder
+
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
 
-
-
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11prompt_mode.proto\x12\x15openai_prompt_service\"z\n\x07Message\x12\x31\n\x04role\x18\x01 \x01(\x0e\x32#.openai_prompt_service.Message.Role\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\"+\n\x04Role\x12\n\n\x06SYSTEM\x10\x00\x12\r\n\tASSISTANT\x10\x01\x12\x08\n\x04USER\x10\x02\"\x92\x01\n\x13OpenAIPromptRequest\x12\x30\n\x08messages\x18\x01 \x03(\x0b\x32\x1e.openai_prompt_service.Message\x12\r\n\x05model\x18\x02 \x01(\t\x12\x12\n\nmax_tokens\x18\x03 \x01(\x05\x12\x13\n\x0btemperature\x18\x04 \x01(\x02\x12\x11\n\tapi_token\x18\x05 \x01(\t\".\n\x0cResponseData\x12\x0f\n\x07message\x18\x01 \x01(\t\x12\r\n\x05\x65rror\x18\x02 \x01(\t\"r\n\x14OpenAIPromptResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x31\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32#.openai_prompt_service.ResponseData\x12\x16\n\x0e\x65xecution_time\x18\x03 \x01(\x02\x32\x82\x01\n\x13OpenAIPromptService\x12k\n\x0e\x43ompletePrompt\x12*.openai_prompt_service.OpenAIPromptRequest\x1a+.openai_prompt_service.OpenAIPromptResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(
+    b'\n\x11prompt_mode.proto\x12\x15openai_prompt_service"z\n\x07Message\x12\x31\n\x04role\x18\x01 \x01(\x0e\x32#.openai_prompt_service.Message.Role\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t"+\n\x04Role\x12\n\n\x06SYSTEM\x10\x00\x12\r\n\tASSISTANT\x10\x01\x12\x08\n\x04USER\x10\x02"\x92\x01\n\x13OpenAIPromptRequest\x12\x30\n\x08messages\x18\x01 \x03(\x0b\x32\x1e.openai_prompt_service.Message\x12\r\n\x05model\x18\x02 \x01(\t\x12\x12\n\nmax_tokens\x18\x03 \x01(\x05\x12\x13\n\x0btemperature\x18\x04 \x01(\x02\x12\x11\n\tapi_token\x18\x05 \x01(\t".\n\x0cResponseData\x12\x0f\n\x07message\x18\x01 \x01(\t\x12\r\n\x05\x65rror\x18\x02 \x01(\t"r\n\x14OpenAIPromptResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x31\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32#.openai_prompt_service.ResponseData\x12\x16\n\x0e\x65xecution_time\x18\x03 \x01(\x02\x32\x82\x01\n\x13OpenAIPromptService\x12k\n\x0e\x43ompletePrompt\x12*.openai_prompt_service.OpenAIPromptRequest\x1a+.openai_prompt_service.OpenAIPromptResponse"\x00\x62\x06proto3'
+)
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
-_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'prompt_mode_pb2', _globals)
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, "prompt_mode_pb2", _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-  DESCRIPTOR._options = None
-  _globals['_MESSAGE']._serialized_start=44
-  _globals['_MESSAGE']._serialized_end=166
-  _globals['_MESSAGE_ROLE']._serialized_start=123
-  _globals['_MESSAGE_ROLE']._serialized_end=166
-  _globals['_OPENAIPROMPTREQUEST']._serialized_start=169
-  _globals['_OPENAIPROMPTREQUEST']._serialized_end=315
-  _globals['_RESPONSEDATA']._serialized_start=317
-  _globals['_RESPONSEDATA']._serialized_end=363
-  _globals['_OPENAIPROMPTRESPONSE']._serialized_start=365
-  _globals['_OPENAIPROMPTRESPONSE']._serialized_end=479
-  _globals['_OPENAIPROMPTSERVICE']._serialized_start=482
-  _globals['_OPENAIPROMPTSERVICE']._serialized_end=612
+    DESCRIPTOR._options = None
+    _globals["_MESSAGE"]._serialized_start = 44
+    _globals["_MESSAGE"]._serialized_end = 166
+    _globals["_MESSAGE_ROLE"]._serialized_start = 123
+    _globals["_MESSAGE_ROLE"]._serialized_end = 166
+    _globals["_OPENAIPROMPTREQUEST"]._serialized_start = 169
+    _globals["_OPENAIPROMPTREQUEST"]._serialized_end = 315
+    _globals["_RESPONSEDATA"]._serialized_start = 317
+    _globals["_RESPONSEDATA"]._serialized_end = 363
+    _globals["_OPENAIPROMPTRESPONSE"]._serialized_start = 365
+    _globals["_OPENAIPROMPTRESPONSE"]._serialized_end = 479
+    _globals["_OPENAIPROMPTSERVICE"]._serialized_start = 482
+    _globals["_OPENAIPROMPTSERVICE"]._serialized_end = 612
 # @@protoc_insertion_point(module_scope)

@@ -9,7 +9,8 @@ from sqlalchemy.exc import SADeprecationWarning
 import dotenv
 import os
 from database_connect_service.src import misc
-warnings.filterwarnings('ignore', category=SADeprecationWarning)
+
+warnings.filterwarnings("ignore", category=SADeprecationWarning)
 
 
 @dataclasses.dataclass
@@ -31,8 +32,11 @@ class Messages:
 
 
 dotenv.load_dotenv()
-engine = sqlalchemy.create_engine(f'postgresql://{os.getenv("DB_USER")}:{os.getenv("DB_PASSWORD")}'
-                                  f'@{os.getenv("DB_HOST")}:5432/{os.getenv("API_DB_NAME")}', pool_pre_ping=True)
+engine = sqlalchemy.create_engine(
+    f'postgresql://{os.getenv("DB_USER")}:{os.getenv("DB_PASSWORD")}'
+    f'@{os.getenv("DB_HOST")}:5432/{os.getenv("API_DB_NAME")}',
+    pool_pre_ping=True,
+)
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -48,23 +52,31 @@ for c in [LeadsEntity, MessagesEntity]:
 
 
 def get_messages_history(lead_id: int):
-    message_objects = session.query(MessagesEntity).filter(MessagesEntity.lead_id == lead_id).all()
+    message_objects = (
+        session.query(MessagesEntity).filter(MessagesEntity.lead_id == lead_id).all()
+    )
     message_objects = sorted(message_objects, key=lambda x: x.date)
     messages = []
     for message_obj in message_objects:
         if message_obj.is_bot:
-            messages.append({'role': 'assistant', 'content': message_obj.message})
+            messages.append({"role": "assistant", "content": message_obj.message})
         else:
-            messages.append({'role': 'user', 'content': message_obj.message})
+            messages.append({"role": "user", "content": message_obj.message})
     return messages
 
 
 def add_message(message, lead_id, is_bot):
     if is_bot:
-        message_id = f'assistant-{random.randint(1000000, 10000000)}'
+        message_id = f"assistant-{random.randint(1000000, 10000000)}"
     else:
-        message_id = f'assistant-{random.randint(1000000, 10000000)}'
-    obj = MessagesEntity(id=message_id, message=message, lead_id=lead_id, is_bot=is_bot, date=datetime.datetime.now())
+        message_id = f"assistant-{random.randint(1000000, 10000000)}"
+    obj = MessagesEntity(
+        id=message_id,
+        message=message,
+        lead_id=lead_id,
+        is_bot=is_bot,
+        date=datetime.datetime.now(),
+    )
     session.add(obj)
     session.commit()
 
