@@ -65,9 +65,15 @@ def get_messages_context(messages: list[dict], context: str, tokens: int, max_to
     tokens -= max_tokens  # Вычитаем выделенные токены на ответ
     messages.reverse()
     fields_to_view = []
+    print(fields)
     for field in fields:
-        fields_to_view.append({'role': 'assistant', 'content': f'Данные о клиенте: {field.name}: {field.active_value}'})
+        fields_to_view.append({'role': 'system', 'content': f'Данные о клиенте: {field.name}: {field.active_value}'})
+
     fields_to_view.append({'role': 'system', 'content': context})
+    if len(fields) > 0:
+        fields_to_view.append(
+            {'role': 'system', 'content': f'Учитывай информацию с данными о клиенте при создании ответа'})
+
     system_settings = tokens_counter(fields_to_view)
     response = []
     for message in messages:
@@ -77,4 +83,5 @@ def get_messages_context(messages: list[dict], context: str, tokens: int, max_to
             break
     for f in fields_to_view:
         response.append(f)
+    print(response)
     return response
