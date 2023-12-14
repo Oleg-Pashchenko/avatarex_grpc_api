@@ -8,7 +8,6 @@ import os
 
 dotenv.load_dotenv()
 
-
 server_host = os.getenv("SERVER_HOST") + ":50052"
 
 
@@ -17,7 +16,7 @@ async def run(messages, model, max_tokens, temperature, api_token):
     stub = OpenAIPromptServiceStub(channel)
 
     grpc_messages = []
-    for message in messages:
+    for message in messages[::-1]:
         if message["role"] == "user":
             grpc_messages.append(
                 prompt_mode_pb2.Message(
@@ -37,7 +36,6 @@ async def run(messages, model, max_tokens, temperature, api_token):
                     content=message["content"], role=prompt_mode_pb2.Message.SYSTEM
                 )
             )
-
     request = prompt_mode_pb2.OpenAIPromptRequest(
         messages=grpc_messages,
         model=model,
@@ -46,4 +44,32 @@ async def run(messages, model, max_tokens, temperature, api_token):
         api_token=api_token,
     )
     response = await stub.CompletePrompt(request)
+    return response
+
+
+import tiktoken as tiktoken
+
+
+def tokens_counter(messages: list[dict]):
+    encoding = tiktoken.get_encoding('cl100k_base')
+    num_tokens = 3
+    for message in messages:
+        num_tokens += 3
+        for key, value in message.items():
+            num_tokens += len(encoding.encode(value))
+    return num_tokens
+
+
+def get_messages_context(messages: list[dict], context: str, tokens: int, max_tokens):
+    tokens *= 0.95  # На всякий случай резервируем 5% в запас
+    tokens -= max_tokens  # Вычитаем выделенные токены на ответ
+    messages.reverse()
+    response = [{'role': 'system', 'content': context}]
+    for message in messages:
+        response.append(message)
+        if tokens < tokens_counter(response):
+            response.pop(-1)
+            break
+    response.pop(0)
+    response.append({'role': 'system', 'content': context})
     return response

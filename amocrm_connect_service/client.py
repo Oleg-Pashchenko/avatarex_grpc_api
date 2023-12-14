@@ -1,3 +1,5 @@
+import time
+
 import grpc
 from amocrm_connect_service.proto import amocrm_connect_pb2, amocrm_connect_pb2_grpc
 from amocrm_connect_service.proto.amocrm_connect_pb2_grpc import (
@@ -45,6 +47,7 @@ async def send_message(host, email, password, message, chat_hash):
     print(f"SendMessage Execution time: {round(response.execution, 2)} seconds")
     return response.answer
 
+
 async def read_unanswered_messages(host, email, password, pipeline_id, stage_ids):
     channel = grpc.aio.insecure_channel(server_host)
     stub = AmocrmConnectServiceStub(channel)
@@ -65,6 +68,15 @@ def set_field():
     pass
 
 
-def get_fields_by_deal_id():
-    pass
+async def get_fields_by_deal_id(deal_id, host, email, password):
+    st = time.time()
+    channel = grpc.aio.insecure_channel(server_host)
+    stub = AmocrmConnectServiceStub(channel)
 
+    request = amocrm_connect_pb2.GetFieldsRequest(
+        host=host, login=email, password=password, deal_id=deal_id
+    )
+
+    response = await stub.GetFieldsByDealId(request)
+    print(f"GetFieldsByDealId Execution time: {round(time.time() - st, 2)} seconds")
+    return response

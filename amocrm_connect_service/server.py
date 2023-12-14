@@ -108,9 +108,11 @@ class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer)
             request.deal_id,
         )
         amo = impl.AmoCRM(host, login, password)
-        amo.connect()
+        status = await amo.connect_async()
+
+
         return amocrm_connect_pb2.AmocrmGetFieldsResponse(
-            fields=amo.get_fields_by_deal_id(deal_id)
+            fields=await amo.get_fields_by_deal_id(deal_id)
         )
 
     def SetFieldRequest(self, request, context):

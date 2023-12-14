@@ -1,5 +1,6 @@
 import dataclasses
 import datetime
+import json
 import random
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -52,31 +53,48 @@ def get_messages_history(lead_id: int):
     message_objects = (
         session.query(MessagesEntity).filter(MessagesEntity.lead_id == lead_id).all()
     )
-    message_objects = sorted(message_objects, key=lambda x: x.date)
+    message_objects = sorted(message_objects, key=lambda x: x.id)
     messages = []
     for message_obj in message_objects:
         if message_obj.is_bot:
-            messages.append({"role": "assistant", "content": message_obj.message})
+            messages.append({"role": "assistant", "content": message_obj.text})
         else:
-            messages.append({"role": "user", "content": message_obj.message})
+            messages.append({"role": "user", "content": message_obj.text})
     return messages
 
 
 def add_message(message_id, lead_id, text, is_bot):
     obj = MessagesEntity(
-        id=message_id,
-        message=text,
+        message_id=message_id,
+        text=text,
         lead_id=lead_id,
-        is_bot=is_bot,
-        date=datetime.datetime.now(),
+        is_bot=is_bot
     )
     session.add(obj)
     session.commit()
 
 
 def manager_intervened(lead_id, message_history):
+    entity = json.loads(message_history)['message_list'][0]
+    for id, message in enumerate(json.loads(message_history)['message_list']):
+        if id == 5:
+            break
+
+        if not message_exists(lead_id, message['id']) and entity['author']['id'] != message['author']['id']:
+            created_at = message['created_at']
+            datetime_from_timestamp = datetime.datetime.fromtimestamp(created_at)
+            current_datetime = datetime.datetime.now()
+            time_difference = current_datetime - datetime_from_timestamp
+
+            if time_difference.total_seconds() < 60:
+                return True  # Больше часа
     return False
 
 
 def message_exists(lead_id, message_id):
-    return False
+    existing_message = session.query(MessagesEntity).filter(
+        MessagesEntity.lead_id == lead_id,
+        MessagesEntity.message_id == message_id
+    ).first()
+
+    return existing_message is not None

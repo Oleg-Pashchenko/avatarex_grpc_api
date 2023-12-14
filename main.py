@@ -11,16 +11,19 @@ import asyncio
 
 async def process_message(message, setting):
     start_time = time.time()
-    if ".m4a" in message.message:
-        message.message = await whisper_service.client.run(
-            openai_api_key=setting.api_token, url=message.message
-        )
 
+    # Getting fields if needed
+    fields = await amocrm.get_fields_by_deal_id(message.lead_id,
+                                                setting.amo_host,
+                                                setting.amo_email,
+                                                setting.amo_password)
+    print(fields)
+    # Qualificate if needed
+
+    database_messages = api.get_messages_history(message.lead_id)
     answer = await prompt_mode.run(
-        messages=[
-            {"role": "system", "content": setting.prompt_context},
-            {"role": "user", "content": message.message},
-        ],
+        messages=prompt_mode.get_messages_context(database_messages, setting.prompt_context, setting.model_limit,
+                                                  setting.max_tokens),
         model=setting.model_title,
         api_token=setting.api_token,
         max_tokens=setting.max_tokens,
@@ -55,18 +58,21 @@ async def cycle():
         ]
         # Используем asyncio.gather для выполнения всех корутин параллельно
         responses = await asyncio.gather(*coroutines)
-        print(responses)
         print("Настроек:", len(settings))
         # После получения всех ответов, создаем задачи для обработки каждого сообщения
         for id, setting in enumerate(settings):
             messages = responses[id]
             for message in messages.answer:
-                print(message)
-                # if api.message_exists(message.lead_id, message.lead_id):
-                 #    continue  # Контроль дублей
+                if api.message_exists(message.lead_id, message.id):
+                    continue  # Контроль дублей
 
-                # if api.manager_intervened(message.lead_id, message.messages_history):
-                 #    continue  # Если менеджер вмешался
+                if api.manager_intervened(message.lead_id, message.messages_history):
+                    continue  # Если менеджер вмешался
+
+                if ".m4a" in message.message:
+                    message.message = await whisper_service.client.run(
+                        openai_api_key=setting.api_token, url=message.message
+                    )
 
                 api.add_message(message.id, message.lead_id, message.message, False)
                 tasks += 1
