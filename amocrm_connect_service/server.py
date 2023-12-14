@@ -100,7 +100,7 @@ class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer)
             execution=round(float(time.time() - start_time), 2),
         )
 
-    def GetFieldsByDealId(self, request, context):
+    async def GetFieldsByDealId(self, request, context):
         login, password, host, deal_id = (
             request.login,
             request.password,

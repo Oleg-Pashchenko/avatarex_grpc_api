@@ -26,7 +26,7 @@ class AmoCRM:
             "X-Requested-With": "XMLHttpRequest",
             "Cookie": f"session_id={session_id}; " f"csrf_token={self.csrf_token};",
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/111.0.0.0 Safari/537.36",
+                          "Chrome/111.0.0.0 Safari/537.36",
         }
 
     async def _create_session_async(self):
@@ -80,7 +80,7 @@ class AmoCRM:
         }
         async with aiohttp.ClientSession(cookies=self.cookies) as session:
             async with session.post(
-                url=url, data=payload, headers=self.headers
+                    url=url, data=payload, headers=self.headers
             ) as response:
                 if response.status != 200:
                     return False  # TODO: оповестить об ошибке
@@ -176,20 +176,22 @@ class AmoCRM:
 
             return answer['id']
 
-    def get_fields_by_deal_id(self, deal_id):
+    async def get_fields_by_deal_id(self, deal_id):
         url = f"{self.host}api/v4/leads/{deal_id}"
-        response = self.session.get(url, headers=self.headers).json()
-        fields = []
-        for f in response["custom_fields_values"]:
-            fields.append(
-                amocrm_connect_pb2.Field(
-                    id=f["field_id"],
-                    name=f["field_name"],
-                    type=f["field_type"],
-                    active_value=f["values"][0]["value"],
-                    possible_values=None,
+        async with aiohttp.ClientSession() as session:
+            response = await session.get(url, headers=self.headers)
+            response = await response.json()
+            fields = []
+            for f in response["custom_fields_values"]:
+                fields.append(
+                    amocrm_connect_pb2.Field(
+                        id=f["field_id"],
+                        name=f["field_name"],
+                        type=f["field_type"],
+                        active_value=f["values"][0]["value"],
+                        possible_values=None,
+                    )
                 )
-            )
         return fields
 
     def get_custom_fields(self):
@@ -273,7 +275,6 @@ class AmoCRM:
             "ID": deal_id,
         }
         self.session.post(url=url, data=data, headers=self.headers)
-
 
 # amo = AmoCRM(email="havaisaeva19999@gmail.com", password="A12345mo", host="https://olegtest12.amocrm.ru/")
 # amo.connect()
