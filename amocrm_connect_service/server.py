@@ -88,7 +88,6 @@ class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer)
             amo = impl.AmoCRM(host, login, password)
             status = await amo.connect_async()
 
-            print("Connect status:", status)
             chats = await amo.get_unanswered_messages([[pipeline_id, stage_ids]])
         except Exception as e:
             success, status, error = False, False, str(e)

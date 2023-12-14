@@ -5766,3 +5766,4 @@
 {"ts":1702591993836,"action":"FILE_OPENED","file":"/qualification_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"31"}}
 {"ts":1702591996479,"action":"FILE_CLOSED","file":"/qualification_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"31"}}
 {"ts":1702591996479,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"87"}}
+{"ts":1702592059093,"action":"IDE_DEACTIVATED"}
