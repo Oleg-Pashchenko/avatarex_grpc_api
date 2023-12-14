@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package qualification_service;
+
+
+message Select {
+  int32 id = 1;
+  string value = 2;
+  int32 sort = 3;
+}
+
+
+message Field {
+  int32 id = 1;
+  string name = 2;
+  string type = 3;
+  string active_value = 4;
+  repeated Select possible_values = 5;
+}
+
+message AvatarexField {
+  int32 id = 1;
+  string name = 2;
+  string type = 3;
+  string description = 4;
+  repeated Select possible_values  = 5;
+}
+
+message QualificationRequest {
+  bool enabled = 1;
+  repeated Field fields_amocrm = 2;
+  repeated AvatarexField fields_avatarex = 3;
+}
+
+message ResponseData {
+  string message = 1;
+  string error = 2;
+}
+
+message QualificationResponse {
+  bool success = 1;
+  ResponseData data = 2;
+  float execution_time = 3;
+}
+
+
+service QualificationService {
+  rpc ExecuteQualification (QualificationRequest) returns (QualificationResponse) {}
+}

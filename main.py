@@ -6,6 +6,7 @@ from database_connect_service.src import site
 from amocrm_connect_service import client as amocrm
 from database_connect_service.src.site import ApiSettings
 from prompt_mode_service import client as prompt_mode
+from qualification_mode_service import client as qualification_mode
 import asyncio
 
 
@@ -17,7 +18,8 @@ async def process_message(message, setting):
                                                 setting.amo_host,
                                                 setting.amo_email,
                                                 setting.amo_password)
-    # Qualificate if needed
+
+    await qualification_mode.run_qualification_client()
 
     database_messages = api.get_messages_history(message.lead_id)
     answer = await prompt_mode.run(

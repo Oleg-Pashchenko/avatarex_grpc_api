@@ -21,3 +21,12 @@ services:
       dockerfile: common/docker/Dockerfile_whisper
     ports:
       - "50053:50053"
+
+  qualification_mode_service:
+    build:
+      context: .
+      dockerfile: common/docker/Dockerfile_qualification
+    ports:
+      - "50054:50054"
+
+
