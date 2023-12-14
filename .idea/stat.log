@@ -4910,3 +4910,6 @@
 {"ts":1702580235799,"action":"FILE_OPENED","file":"/amocrm_connect_service/client.py","tags":{"FILE_LINE_OF_CODE":"71"}}
 {"ts":1702580236892,"action":"FILE_CLOSED","file":"/amocrm_connect_service/client.py","tags":{"FILE_LINE_OF_CODE":"71"}}
 {"ts":1702580236892,"action":"FILE_OPENED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"292"}}
+{"ts":1702580257846,"action":"IDE_DEACTIVATED"}
+{"ts":1702580280831,"action":"IDE_ACTIVATED"}
+{"ts":1702580286243,"action":"IDE_DEACTIVATED"}

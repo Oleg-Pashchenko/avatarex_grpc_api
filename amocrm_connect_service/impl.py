@@ -133,10 +133,9 @@ class AmoCRM:
                     message = messages_history["message_list"][0]["message"][
                         "attachment"
                     ]["media"]
-                print(messages_history["message_list"][0])
                 response.append(
                     amocrm_connect_pb2.Chat(
-                        id=messages_history["message_list"][0]['message']['id'],
+                        id=messages_history["message_list"][0]['id'],
                         chat_id=chat_id,
                         message=message,
                         pipeline_id=pipeline_id,
