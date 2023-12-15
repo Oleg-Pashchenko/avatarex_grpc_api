@@ -92,6 +92,12 @@ class QualificationServiceImplementation(qualification_pb2_grpc.QualificationSer
                                                                    execution_time=0)
                 send_question = True
                 # amocrm.set_field(field, answer)
+        if send_question:
+            return qualification_pb2.QualificationResponse(success=False,
+                                                           data=qualification_pb2.ResponseData(
+                                                               message=finish,
+                                                               error=None),
+                                                           execution_time=0)
 
         return qualification_pb2.QualificationResponse(success=True,
                                                        data=qualification_pb2.ResponseData(message=None, error=None),

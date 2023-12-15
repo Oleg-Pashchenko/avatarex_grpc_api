@@ -21,9 +21,8 @@ message Field {
 message AvatarexField {
   int32 id = 1;
   string name = 2;
-  string type = 3;
-  string description = 4;
-  repeated Select possible_values = 5;
+  string question = 3;
+  bool enabled = 4;
 }
 
 message QualificationRequest {

@@ -27,9 +27,14 @@ async def process_message(message, setting):
                                                 setting.amo_email,
                                                 setting.amo_password)
 
-    qualification_response = await qualification_mode.run_qualification_client(message.message, setting, fields,
-                                                                               setting.qualification_fields,
-                                                                               setting.qualification_finished)
+    qualification_response = await qualification_mode.run_qualification_client(message.message,
+                                                                               True,
+                                                                               fields,
+                                                                               setting.amocrm_fields,
+                                                                               setting.qualification_finished,
+                                                                               setting.openai_key,
+                                                                               setting.model)
+
     if qualification_response.success:
         if qualification_response.data.message:
             return await send_message_to_amocrm(setting, message, qualification_response.data.message, True)
