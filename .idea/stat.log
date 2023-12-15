@@ -6664,3 +6664,6 @@
 {"ts":1702675624764,"action":"FILE_OPENED","file":"/amocrm_site_service/proto/amocrm_site_pb2_grpc.py","tags":{"FILE_LINE_OF_CODE":"100"}}
 {"ts":1702675626117,"action":"FILE_CLOSED","file":"/amocrm_site_service/proto/amocrm_site_pb2_grpc.py","tags":{"FILE_LINE_OF_CODE":"100"}}
 {"ts":1702675626117,"action":"FILE_OPENED","file":"/amocrm_site_service/impl.py","tags":{"FILE_LINE_OF_CODE":"292"}}
+{"ts":1702675675612,"action":"FILE_CLOSED","file":"/amocrm_site_service/impl.py","tags":{"FILE_LINE_OF_CODE":"226"}}
+{"ts":1702675675612,"action":"FILE_OPENED","file":"/amocrm_site_service/server.py","tags":{"FILE_LINE_OF_CODE":"66"}}
+{"ts":1702675687907,"action":"IDE_DEACTIVATED"}
