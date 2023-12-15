@@ -40,11 +40,9 @@ class AmocrmConnectService(amocrm_site_pb2_grpc.AmocrmConnectServiceServicer):
         return response
 
     def GetInfo(self, request, context):
-        print("yes")
         host, login, password = request.host, request.email, request.password
         amo = impl.AmoCRM(host, login, password)
         amo.connect()
-        print("yes")
         response = amocrm_site_pb2.GetInfoResponse(
             pipelines=amo.get_pipelines_info(), fields=amo.get_custom_fields()
         )
