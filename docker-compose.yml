@@ -29,4 +29,8 @@ services:
     ports:
       - "50054:50054"
 
+  core_service:
+    build:
+      context: .
+      dockerfile: common/docker/Dockerfile
 

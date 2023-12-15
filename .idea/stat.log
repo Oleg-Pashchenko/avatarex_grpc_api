@@ -6539,3 +6539,14 @@
 {"ts":1702627526666,"action":"FILE_CLOSED","file":"/amocrm_connect_service/client.py","tags":{"FILE_LINE_OF_CODE":"83"}}
 {"ts":1702627526666,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"106"}}
 {"ts":1702627597936,"action":"IDE_DEACTIVATED"}
+{"ts":1702627623529,"action":"IDE_ACTIVATED"}
+{"ts":1702627624046,"action":"IDE_DEACTIVATED"}
+{"ts":1702627628817,"action":"IDE_ACTIVATED"}
+{"ts":1702627653931,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"106"}}
+{"ts":1702627653931,"action":"FILE_OPENED","file":"/common/docker/Dockerfile","tags":{"FILE_LINE_OF_CODE":"4"}}
+{"ts":1702627662447,"action":"FILE_CLOSED","file":"/common/docker/Dockerfile","tags":{"FILE_LINE_OF_CODE":"4"}}
+{"ts":1702627662447,"action":"FILE_OPENED","file":"/common/docker/Dockerfile_whisper","tags":{"FILE_LINE_OF_CODE":"13"}}
+{"ts":1702627664328,"action":"FILE_CLOSED","file":"/common/docker/Dockerfile_whisper","tags":{"FILE_LINE_OF_CODE":"13"}}
+{"ts":1702627664328,"action":"FILE_OPENED","file":"/common/docker/Dockerfile","tags":{"FILE_LINE_OF_CODE":"4"}}
+{"ts":1702627676606,"action":"FILE_CLOSED","file":"/common/docker/Dockerfile","tags":{"FILE_LINE_OF_CODE":"13"}}
+{"ts":1702627676606,"action":"FILE_OPENED","file":"/docker-compose.yml","tags":{"FILE_LINE_OF_CODE":"33"}}
