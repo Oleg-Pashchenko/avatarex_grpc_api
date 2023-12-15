@@ -26,7 +26,7 @@ message Data {
 }
 
 message AmocrmConnectResponse {
-  string answer = 1;
+  bool answer = 1;
   bool success = 2;
   Data data = 3;
   float execution = 4;
