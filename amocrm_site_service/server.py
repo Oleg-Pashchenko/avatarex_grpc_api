@@ -58,8 +58,8 @@ def serve():
     )
     server.add_insecure_port("0.0.0.0:50060")
     print("AMOCRM_CONNECT_SERVICE executed on port 50060!")
-    await server.start()
-    await server.wait_for_termination()
+    server.start()
+    server.wait_for_termination()
 
 
 serve()

@@ -6667,3 +6667,7 @@
 {"ts":1702675675612,"action":"FILE_CLOSED","file":"/amocrm_site_service/impl.py","tags":{"FILE_LINE_OF_CODE":"226"}}
 {"ts":1702675675612,"action":"FILE_OPENED","file":"/amocrm_site_service/server.py","tags":{"FILE_LINE_OF_CODE":"66"}}
 {"ts":1702675687907,"action":"IDE_DEACTIVATED"}
+{"ts":1702675704873,"action":"IDE_ACTIVATED"}
+{"ts":1702675709448,"action":"FILE_CLOSED","file":"/amocrm_site_service/server.py","tags":{"FILE_LINE_OF_CODE":"66"}}
+{"ts":1702675709448,"action":"FILE_OPENED","file":"/docker-compose.yml","tags":{"FILE_LINE_OF_CODE":"10"}}
+{"ts":1702675724682,"action":"IDE_DEACTIVATED"}
