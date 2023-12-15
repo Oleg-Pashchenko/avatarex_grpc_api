@@ -38,7 +38,7 @@ def get_info(login, password, host):
 async def send_message(host, email, password, message, chat_hash):
     channel = grpc.aio.insecure_channel(server_host)
     stub = AmocrmConnectServiceStub(channel)
-
+    print(host, email, password, message, chat_hash)
     request = amocrm_connect_pb2.SendMessageRequest(
         host=host, email=email, password=password, message=message, chat_hash=chat_hash
     )

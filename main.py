@@ -32,8 +32,8 @@ async def process_message(message, setting):
                                                                                fields,
                                                                                setting.amocrm_fields,
                                                                                setting.qualification_finished,
-                                                                               setting.openai_key,
-                                                                               setting.model)
+                                                                               setting.api_token,
+                                                                               setting.model_title)
 
     if qualification_response.success:
         if qualification_response.data.message:
@@ -51,8 +51,8 @@ async def process_message(message, setting):
         max_tokens=setting.max_tokens,
         temperature=setting.temperature,
     )
-    await send_message_to_amocrm(setting, message, answer, True)
-    if not qualification_response.success:
+    await send_message_to_amocrm(setting, message, answer.data.message, True)
+    if not qualification_response.success and qualification_response.data.message:
         await send_message_to_amocrm(setting, message, qualification_response.data.message, True)
 
 
