@@ -9,6 +9,10 @@ server_host = os.getenv("SERVER_HOST") + ":50054"
 
 
 async def run_qualification_client(text, enabled, amocrm, avatarex, finish, openai_key, model):
+    return qualification_pb2.QualificationResponse(success=True,
+                                                   data=qualification_pb2.ResponseData(message=None, error=None),
+                                                   execution_time=0)
+
     async with grpc.aio.insecure_channel(server_host) as channel:
         stub = qualification_pb2_grpc.QualificationServiceStub(channel)
 

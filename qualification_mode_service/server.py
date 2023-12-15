@@ -72,6 +72,7 @@ class QualificationServiceImplementation(qualification_pb2_grpc.QualificationSer
         text = request.text
         openai_key = request.openai_key
         model = request.model
+        finish = request.finish
 
         send_question = False
         for ava_field in fields_avatarex:
