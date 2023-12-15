@@ -6,4 +6,4 @@ services:
       context: .
       dockerfile: common/docker/Dockerfile_amocrm_connect
     ports:
-      - "50051:50051"
+      - "50060:50060"
