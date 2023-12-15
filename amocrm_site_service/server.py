@@ -30,7 +30,7 @@ class AmocrmConnectService(amocrm_site_pb2_grpc.AmocrmConnectServiceServicer):
 
         except Exception as e:
             error, success = str(e), False
-
+        print(answer, success)
         response = amocrm_site_pb2.AmocrmConnectResponse(
             answer=answer,
             success=success,
