@@ -69,14 +69,17 @@ def set_field():
 
 
 async def get_fields_by_deal_id(deal_id, host, email, password):
-    st = time.time()
-    channel = grpc.aio.insecure_channel(server_host)
-    stub = AmocrmConnectServiceStub(channel)
+    try:
+        st = time.time()
+        channel = grpc.aio.insecure_channel(server_host)
+        stub = AmocrmConnectServiceStub(channel)
 
-    request = amocrm_connect_pb2.GetFieldsRequest(
-        host=host, login=email, password=password, deal_id=deal_id
-    )
+        request = amocrm_connect_pb2.GetFieldsRequest(
+            host=host, login=email, password=password, deal_id=deal_id
+        )
 
-    response = await stub.GetFieldsByDealId(request)
-    print(f"GetFieldsByDealId Execution time: {round(time.time() - st, 2)} seconds")
-    return response.fields
+        response = await stub.GetFieldsByDealId(request)
+        print(f"GetFieldsByDealId Execution time: {round(time.time() - st, 2)} seconds")
+        return response.fields
+    except:
+        return []
