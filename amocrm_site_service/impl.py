@@ -129,31 +129,33 @@ class AmoCRM:
 
 
     def get_custom_fields(self):
-        url = f"{self.host}api/v4/leads/custom_fields"
-        response = self.session.get(url, headers=self.headers).json()["_embedded"][
-            "custom_fields"
-        ]
-        result = []
-        for f in response:
-            possible_values = []
-            if f["enums"] is not None:
-                for v in f["enums"]:
-                    possible_values.append(
-                        amocrm_site_pb2.Select(
-                            id=v["id"], value=v["value"], sort=v["sort"]
+        try:
+            url = f"{self.host}api/v4/leads/custom_fields"
+            response = self.session.get(url, headers=self.headers).json()["_embedded"][
+                "custom_fields"
+            ]
+            result = []
+            for f in response:
+                possible_values = []
+                if f["enums"] is not None:
+                    for v in f["enums"]:
+                        possible_values.append(
+                            amocrm_site_pb2.Select(
+                                id=v["id"], value=v["value"], sort=v["sort"]
+                            )
+                        )
+                if f["type"] != "tracking_data":
+                    result.append(
+                        amocrm_site_pb2.Field(
+                            id=f["id"],
+                            name=f["name"],
+                            type=f["type"],
+                            active_value=None,
+                            possible_values=possible_values,
                         )
                     )
-            if f["type"] != "tracking_data":
-                result.append(
-                    amocrm_site_pb2.Field(
-                        id=f["id"],
-                        name=f["name"],
-                        type=f["type"],
-                        active_value=None,
-                        possible_values=possible_values,
-                    )
-                )
-
+        except:
+            return []
         return result
 
     def get_pipelines_info(self):

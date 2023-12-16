@@ -1,5 +1,6 @@
 import time
 
+import knowledge_mode_hardcode
 from database_connect_service.src import api
 import whisper_service.client
 from database_connect_service.src import site
@@ -19,6 +20,7 @@ async def send_message_to_amocrm(setting, message, text, is_bot):
         message.chat_id,
     )
     api.add_message(message_id, message.lead_id, text, is_bot)
+
 
 
 async def process_message(message, setting):
@@ -41,17 +43,42 @@ async def process_message(message, setting):
 
         # Если есть сообщение - новая квалификация и больше нет режимов
         #  Если нет - идем в режим
+    if setting.mode_id == 1:
+        database_messages = api.get_messages_history(message.lead_id)
+        answer = await prompt_mode.run(
+            messages=prompt_mode.get_messages_context(database_messages, setting.prompt_context, setting.model_limit,
+                                                      setting.max_tokens, fields if setting.use_amocrm_fields else []),
+            model=setting.model_title,
+            api_token=setting.api_token,
+            max_tokens=setting.max_tokens,
+            temperature=setting.temperature,
+        )
+        await send_message_to_amocrm(setting, message, answer.data.message, True)
+    elif setting.mode_id == 2:  # Prompt + Knowledge
+        status, message_text = await knowledge_mode_hardcode.main(setting.knowledge_data, message, setting.api_token)
+        if status:
+            await send_message_to_amocrm(setting, message, message_text, True)
+        else:
+            await send_message_to_amocrm(setting, message, setting.openai_error_message, True)
 
-    database_messages = api.get_messages_history(message.lead_id)
-    answer = await prompt_mode.run(
-        messages=prompt_mode.get_messages_context(database_messages, setting.prompt_context, setting.model_limit,
-                                                  setting.max_tokens, fields if setting.use_amocrm_fields else []),
-        model=setting.model_title,
-        api_token=setting.api_token,
-        max_tokens=setting.max_tokens,
-        temperature=setting.temperature,
-    )
-    await send_message_to_amocrm(setting, message, answer.data.message, True)
+    elif setting.mode_id == 33:
+        status, message_text = await knowledge_mode_hardcode.main(setting.knowledge_data, message, setting.api_token)
+        if status:
+            await send_message_to_amocrm(setting, message, message_text, True)
+        else:
+            database_messages = api.get_messages_history(message.lead_id)
+            answer = await prompt_mode.run(
+                messages=prompt_mode.get_messages_context(database_messages, setting.prompt_context,
+                                                          setting.model_limit,
+                                                          setting.max_tokens,
+                                                          fields if setting.use_amocrm_fields else []),
+                model=setting.model_title,
+                api_token=setting.api_token,
+                max_tokens=setting.max_tokens,
+                temperature=setting.temperature,
+            )
+            await send_message_to_amocrm(setting, message, answer.data.message, True)
+
     if not qualification_response.success and qualification_response.data.message:
         await send_message_to_amocrm(setting, message, qualification_response.data.message, True)
 

@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  amocrm_service:
+  amocrm_service_site:
     build:
       context: .
       dockerfile: common/docker/Dockerfile_amocrm_site

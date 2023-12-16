@@ -67,7 +67,7 @@ class ApiSettings:
     amo_password: str
     amo_host: str
     api_token: str
-
+    knowledge_data: list
 
 @dataclasses.dataclass
 class Settings:
@@ -86,6 +86,14 @@ class Settings:
     statuses: list
     prompt_settings_id: int
     fields: list
+
+    database_data: list
+    database_link: str
+    database_name: str
+
+    knowledge_data: list
+    knowledge_link: str
+    knowledge_name: str
 
 
 @dataclasses.dataclass
@@ -179,54 +187,61 @@ def get_enabled_api_settings() -> list[ApiSettings]:
     q = session.query(Settings).filter(Settings.is_enabled == True)
     result = []
     for obj in q.all():
-        s = Settings(**obj.as_dict())
-        q2 = session.query(Pipeline).filter(
-            Pipeline.id == s.pipeline_id_id and Pipeline.user_id_id == s.user_id_id
-        )
-        q3 = session.query(Qualification).filter(
-            Qualification.id == s.qualification_id_id
-        )
-        q4 = session.query(RequestSettings).filter(
-            RequestSettings.id == s.request_settings_id_id
-        )
-        q5 = session.query(PromptSettings).filter(
-            PromptSettings.id == s.prompt_settings_id
-        )
-        q6 = session.query(OpenAIModels).filter(OpenAIModels.id == s.model_id)
-        q7 = session.query(AmoCRM).filter(AmoCRM.user_id_id == s.user_id_id)
-        q8 = session.query(AuthUser).filter(AuthUser.id == s.user_id_id)
-        p = Pipeline(**q2.first().as_dict())
-        qual = Qualification(**q3.first().as_dict())
-        rs = RequestSettings(**q4.first().as_dict())
-        ps = PromptSettings(**q5.first().as_dict())
-        model = OpenAIModels(**q6.first().as_dict())
-        amo = AmoCRM(**q7.first().as_dict())
-        user = AuthUser(**q8.first().as_dict())
-        result.append(
-            ApiSettings(
-                mode_id=s.mode_id,
-                voice_detection=s.voice_detection,
-                model_title=model.title,
-                model_limit=model.tokens_limit,
-                pipeline_id=p.pipeline_id,
-                statuses_ids=s.statuses,
-                use_amocrm_fields=s.amocrm_fields_enabled,
-                amocrm_fields=s.fields,
-                qualification_fields=qual.questions,
-                qualification_finished=qual.finish_message,
-                hi_message=rs.hi_message,
-                openai_error_message=rs.openai_error_message,
-                avatarex_error_message=rs.avatarex_error_message,
-                prompt_context=ps.context,
-                max_tokens=ps.max_tokens,
-                temperature=ps.temperature,
-                fine_tuned_model=ps.fine_tuned_model_id,
-                use_fine_tuned=ps.use_fine_tuned,
-                amo_email=amo.email,
-                amo_password=amo.password,
-                amo_host=amo.host,
-                api_token=user.openai_api_key,
+        try:
+            s = Settings(**obj.as_dict())
+            q2 = session.query(Pipeline).filter(
+                Pipeline.id == s.pipeline_id_id and Pipeline.user_id_id == s.user_id_id
             )
-        )
+            q3 = session.query(Qualification).filter(
+                Qualification.id == s.qualification_id_id
+            )
+            q4 = session.query(RequestSettings).filter(
+                RequestSettings.id == s.request_settings_id_id
+            )
+            q5 = session.query(PromptSettings).filter(
+                PromptSettings.id == s.prompt_settings_id
+            )
+            q6 = session.query(OpenAIModels).filter(OpenAIModels.id == s.model_id)
+            q7 = session.query(AmoCRM).filter(AmoCRM.user_id_id == s.user_id_id)
+            q8 = session.query(AuthUser).filter(AuthUser.id == s.user_id_id)
+            p = Pipeline(**q2.first().as_dict())
+            qual = Qualification(**q3.first().as_dict())
+            rs = RequestSettings(**q4.first().as_dict())
+            ps = PromptSettings(**q5.first().as_dict())
+            model = OpenAIModels(**q6.first().as_dict())
+            amo = AmoCRM(**q7.first().as_dict())
+            user = AuthUser(**q8.first().as_dict())
+            result.append(
+                ApiSettings(
+                    mode_id=s.mode_id,
+                    voice_detection=s.voice_detection,
+                    model_title=model.title,
+                    model_limit=model.tokens_limit,
+                    pipeline_id=p.pipeline_id,
+                    statuses_ids=s.statuses,
+                    use_amocrm_fields=s.amocrm_fields_enabled,
+                    amocrm_fields=s.fields,
+                    qualification_fields=qual.questions,
+                    qualification_finished=qual.finish_message,
+                    hi_message=rs.hi_message,
+                    openai_error_message=rs.openai_error_message,
+                    avatarex_error_message=rs.avatarex_error_message,
+                    prompt_context=ps.context,
+                    max_tokens=ps.max_tokens,
+                    temperature=ps.temperature,
+                    fine_tuned_model=ps.fine_tuned_model_id,
+                    use_fine_tuned=ps.use_fine_tuned,
+                    amo_email=amo.email,
+                    amo_password=amo.password,
+                    amo_host=amo.host,
+                    api_token=user.openai_api_key,
+                    knowledge_data=s.knowledge_data
+                )
+            )
+        except:
+            print('error', s.name)
     print("Database Mode Execution:", round(time.time() - start_time, 2))
+    print(len(result))
     return result
+
+

@@ -2,7 +2,7 @@ import grpc
 
 from amocrm_connect_service.proto import amocrm_connect_pb2_grpc, amocrm_connect_pb2
 
-server_host = '0.0.0.0:50060'
+server_host = '178.253.22.162:50060'
 
 
 def try_connect(login, password, host):
@@ -20,4 +20,4 @@ def try_connect(login, password, host):
     return True, None
 
 
-try_connect('ceo@business-robots.ru', 'fdssdf', 'https://chatgpt.amocrm.ru/')
+print(try_connect('ceo@business-robots.ru', 'cxh6pyk4TGN!mwb.vtg', 'https://chatgpt.amocrm.ru/'))
