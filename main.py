@@ -89,19 +89,24 @@ async def cycle():
         settings: list[ApiSettings] = site.get_enabled_api_settings()
         tasks = 0
 
-        for setting in settings:
-            coroutine = amocrm.read_unanswered_messages(
+        # Создаем список корутин, каждая из которых представляет собой read_unanswered_messages
+        coroutines = [
+            amocrm.read_unanswered_messages(
                 setting.amo_host,
                 setting.amo_email,
                 setting.amo_password,
                 setting.pipeline_id,
                 setting.statuses_ids,
             )
+            for setting in settings
+        ]
 
-            response = await coroutine
-            print("Настройек:", len(settings))
-
-            for message in response.answer:
+        responses = await asyncio.gather(*coroutines)
+        print("Настроек:", len(settings))
+        # После получения всех ответов, создаем задачи для обработки каждого сообщения
+        for id, setting in enumerate(settings):
+            messages = responses[id]
+            for message in messages.answer:
                 try:
                     if api.message_exists(message.lead_id, message.id):
                         continue  # Контроль дублей
@@ -119,10 +124,10 @@ async def cycle():
                     api.add_message(message.id, message.lead_id, message.message, False)
                     tasks += 1
                     asyncio.create_task(process_message(message, setting))
-                except Exception as e:
-                    print(f"Error processing message: {e}")
-
+                except:
+                    pass
         print("Задач:", tasks)
+
         print("Total execution time: ", round(time.time() - start_time, 2))
         print('-' * 50)
 
