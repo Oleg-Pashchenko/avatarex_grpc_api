@@ -7352,3 +7352,9 @@
 {"ts":1702720273690,"action":"FILE_OPENED","file":"/docker-compose.yml","tags":{"FILE_LINE_OF_CODE":"10"}}
 {"ts":1702720285403,"action":"IDE_DEACTIVATED"}
 {"ts":1702720505956,"action":"IDE_ACTIVATED"}
+{"ts":1702720513634,"action":"IDE_DEACTIVATED"}
+{"ts":1702720574005,"action":"IDE_ACTIVATED"}
+{"ts":1702720576484,"action":"FILE_CLOSED","file":"/docker-compose.yml","tags":{"FILE_LINE_OF_CODE":"43"}}
+{"ts":1702720576484,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"133"}}
+{"ts":1702720584916,"action":"IDE_DEACTIVATED"}
+{"ts":1702720590037,"action":"IDE_ACTIVATED"}

@@ -107,22 +107,25 @@ async def cycle():
         for id, setting in enumerate(settings):
             messages = responses[id]
             for message in messages.answer:
-                if api.message_exists(message.lead_id, message.id):
-                    continue  # Контроль дублей
+                try:
+                    if api.message_exists(message.lead_id, message.id):
+                        continue  # Контроль дублей
 
-                if api.manager_intervened(message.lead_id, message.messages_history):
-                    continue  # Если менеджер вмешался
+                    if api.manager_intervened(message.lead_id, message.messages_history):
+                        continue  # Если менеджер вмешался
 
-                if ".m4a" in message.message:
-                    if setting.voice_detection is False:
-                        continue
-                    message.message = await whisper_service.client.run(
-                        openai_api_key=setting.api_token, url=message.message
-                    )
+                    if ".m4a" in message.message:
+                        if setting.voice_detection is False:
+                            continue
+                        message.message = await whisper_service.client.run(
+                            openai_api_key=setting.api_token, url=message.message
+                        )
 
-                api.add_message(message.id, message.lead_id, message.message, False)
-                tasks += 1
-                asyncio.create_task(process_message(message, setting))
+                    api.add_message(message.id, message.lead_id, message.message, False)
+                    tasks += 1
+                    asyncio.create_task(process_message(message, setting))
+                except:
+                    pass
         print("Задач:", tasks)
 
         print("Total execution time: ", round(time.time() - start_time, 2))
