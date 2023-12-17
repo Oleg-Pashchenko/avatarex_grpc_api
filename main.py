@@ -92,6 +92,9 @@ async def process_settings(setting):
         setting.statuses_ids,
     )
 
+    # Список задач для параллельной обработки сообщений
+    tasks = []
+
     for message in messages.answer:
         try:
             if api.message_exists(message.lead_id, message.id):
@@ -110,10 +113,15 @@ async def process_settings(setting):
             # Assuming `api.add_message` is an asynchronous function
             api.add_message(message.id, message.lead_id, message.message, False)
 
-            # Create tasks for parallel processing of messages
-            asyncio.ensure_future(process_message(message, setting))
+            # Создаем задачу для асинхронной обработки сообщения
+            task = process_message(message, setting)
+            tasks.append(task)
+
         except Exception as e:
             print(f"Error processing message: {e}")
+
+    # Параллельное выполнение задач
+    await asyncio.gather(*tasks)
 
 
 async def cycle():
