@@ -103,12 +103,12 @@ async def process_settings(setting):
             if ".m4a" in message.message:
                 if setting.voice_detection is False:
                     continue
-                message.message = await whisper_run(
+                message.message = await whisper_service.client.run(
                     openai_api_key=setting.api_token, url=message.message
                 )
 
             # Assuming `api.add_message` is an asynchronous function
-            asyncio.ensure_future(api.add_message(message.id, message.lead_id, message.message, False))
+            api.add_message(message.id, message.lead_id, message.message, False)
 
             # Create tasks for parallel processing of messages
             asyncio.ensure_future(process_message(message, setting))
@@ -134,4 +134,3 @@ async def cycle():
 # Run the event loop
 asyncio.run(cycle())
 
-asyncio.run(cycle())
