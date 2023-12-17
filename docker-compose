@@ -34,3 +34,9 @@ services:
       context: .
       dockerfile: common/docker/Dockerfile
 
+  amocrm_service_site:
+    build:
+      context: .
+      dockerfile: common/docker/Dockerfile_amocrm_site
+    ports:
+      - "50060:50060"
