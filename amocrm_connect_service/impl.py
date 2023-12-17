@@ -43,6 +43,10 @@ class AmoCRM:
                     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
                 }
 
+    async def update_session(self, host):
+        db.update_session(host, self.headers, self.amo_hash, '')
+        await self.connect_async()
+
     def is_host_supported(self):
         url = "https://www.amocrm.ru/v3/accounts"
         response = self.session.get(url)
@@ -74,7 +78,7 @@ class AmoCRM:
 
     async def connect_async(self) -> bool:
         session_info = db.get_session(self.host)
-        if session_info is None:
+        if session_info is None or session_info.chat_token == '':
             await self._create_session_async()
             url = f"{self.host}oauth2/authorize"
             payload = {
@@ -99,9 +103,7 @@ class AmoCRM:
                     self.headers["Host"] = self.host.replace("https://", "").replace(
                         "/", ""
                     )
-                    print('ah')
                     await self._create_amo_hash()
-                    print('ct')
                     await self._create_chat_token()
                     db.update_session(self.host, self.headers, self.amo_hash, self.chat_token)
                     return True
@@ -128,7 +130,10 @@ class AmoCRM:
 
         async with aiohttp.ClientSession() as session:
             talks = await session.get(url=url, headers=self.headers, params=params)
-            print('1', talks.status)
+            if talks.status != 200:
+                await self.update_session(self.host)
+                talks = await session.get(url=url, headers=self.headers, params=params)
+
             talks = await talks.json()
             """https://drive-b.amocrm.ru/download/7b294ea0-53f2-5ea1-bfa0-464c3c297b79/0e49c658-b1d0-498a-986f-b50bb509c896/0098a61d-c343-4df3-8135-b61a2f3cb593/file-11.m4a"""
             response = []
@@ -141,7 +146,6 @@ class AmoCRM:
                 headers = {"X-Auth-Token": self.chat_token}
                 url = f"https://amojo.amocrm.ru/messages/{self.amo_hash}/merge?stand=v16&offset=0&limit=100&chat_id%5B%5D={chat_id}&get_tags=true&lang=ru"
                 r = await session.get(url, headers=headers)
-                print('2', r.status)
                 messages_history = await r.json()
                 if message == "🔊":
                     message = messages_history["message_list"][0]["message"][
@@ -184,7 +188,11 @@ class AmoCRM:
             response = await session.post(
                 url=url, data=json.dumps({"text": message}), headers=headers
             )
-            print('3', response.status)
+            if response.status != 200:
+                await self.update_session(self.host)
+                response = await session.post(
+                    url=url, data=json.dumps({"text": message}), headers=headers
+                )
             answer = await response.json()
 
             return answer['id']
