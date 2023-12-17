@@ -7798,3 +7798,6 @@
 {"ts":1702811470477,"action":"IDE_ACTIVATED"}
 {"ts":1702811482232,"action":"FILE_CLOSED","file":"/docker-compose.yml","tags":{"FILE_LINE_OF_CODE":"38"}}
 {"ts":1702811482232,"action":"FILE_OPENED","file":"/docker-compose","tags":{"FILE_LINE_OF_CODE":"43"}}
+{"ts":1702811484906,"action":"FILE_CLOSED","file":"/docker-compose","tags":{"FILE_LINE_OF_CODE":"38"}}
+{"ts":1702811484906,"action":"FILE_OPENED","file":"/docker-compose.yml","tags":{"FILE_LINE_OF_CODE":"38"}}
+{"ts":1702811493821,"action":"IDE_DEACTIVATED"}
