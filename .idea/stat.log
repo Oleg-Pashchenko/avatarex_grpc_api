@@ -8146,3 +8146,8 @@
 {"ts":1702820613679,"action":"IDE_ACTIVATED"}
 {"ts":1702820618012,"action":"FILE_CLOSED","file":"/amocrm_connect_service/client.py","tags":{"FILE_LINE_OF_CODE":"89"}}
 {"ts":1702820618012,"action":"FILE_OPENED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"109"}}
+{"ts":1702820638939,"action":"IDE_DEACTIVATED"}
+{"ts":1702820670974,"action":"IDE_ACTIVATED"}
+{"ts":1702820672099,"action":"IDE_DEACTIVATED"}
+{"ts":1702820673226,"action":"IDE_ACTIVATED"}
+{"ts":1702820673838,"action":"IDE_DEACTIVATED"}
