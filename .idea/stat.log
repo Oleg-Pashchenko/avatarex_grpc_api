@@ -8722,3 +8722,7 @@
 {"ts":1702830684721,"action":"FILE_OPENED","file":"/amocrm_connect_service/db.py","tags":{"FILE_LINE_OF_CODE":"84"}}
 {"ts":1702830686134,"action":"FILE_CLOSED","file":"/amocrm_connect_service/db.py","tags":{"FILE_LINE_OF_CODE":"84"}}
 {"ts":1702830686134,"action":"FILE_OPENED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"314"}}
+{"ts":1702830740916,"action":"IDE_DEACTIVATED"}
+{"ts":1702830895940,"action":"IDE_ACTIVATED"}
+{"ts":1702830904871,"action":"FILE_CLOSED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"316"}}
+{"ts":1702830904871,"action":"FILE_OPENED","file":"/prompt_mode_service/server.py","tags":{"FILE_LINE_OF_CODE":"71"}}

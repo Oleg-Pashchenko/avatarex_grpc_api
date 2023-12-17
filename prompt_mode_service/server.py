@@ -1,4 +1,5 @@
 import asyncio
+import time
 from concurrent import futures
 
 import aiohttp
@@ -18,6 +19,7 @@ async def complete_openai(prompt, model, max_tokens, temperature, api_token):
 
 class OpenAIPromptServicer(prompt_mode_pb2_grpc.OpenAIPromptServiceServicer):
     async def CompletePrompt(self, request, context):
+        start = time.time()
         try:
             json_messages = []
             messages = request.messages
@@ -44,7 +46,7 @@ class OpenAIPromptServicer(prompt_mode_pb2_grpc.OpenAIPromptServiceServicer):
             return prompt_mode_pb2.OpenAIPromptResponse(
                 success=True,
                 data=response_data,
-                execution_time=1.23,  # Замените на реальное время выполнения
+                execution_time=round(time.time() - start),  # Замените на реальное время выполнения
             )
         except Exception as e:
             print(e)
