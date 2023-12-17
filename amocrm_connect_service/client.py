@@ -51,7 +51,6 @@ async def send_message(host, email, password, message, chat_hash):
     return response.answer
 
 
-@misc.async_timing_decorator
 async def read_unanswered_messages(host, email, password, pipeline_id, stage_ids):
     channel = grpc.aio.insecure_channel(server_host)
     stub = AmocrmConnectServiceStub(channel)
