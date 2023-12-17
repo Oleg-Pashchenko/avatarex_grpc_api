@@ -49,7 +49,7 @@ for c in [SessionsEntity]:
 def get_session(host: str):
     try:
         s = session.query(SessionsEntity).filter(
-            SessionsEntity.lead_id == host
+            SessionsEntity.host == host
         ).first()
     except Exception as e:
         print(e)
