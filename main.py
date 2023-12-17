@@ -121,7 +121,6 @@ async def cycle():
         settings: list[ApiSettings] = get_enabled_api_settings()
         for setting in settings:
             asyncio.ensure_future(process_settings(setting))
-        await asyncio.sleep(5)
 
 
 # Run the event loop
