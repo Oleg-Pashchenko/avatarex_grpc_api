@@ -93,11 +93,12 @@ class AmoCRM:
                     print('at')
                     self.access_token = self.cookies.get("access_token").value
                     self.refresh_token = self.cookies.get("refresh_token").value
-
+                    print('at2')
                     self.headers["access_token"], self.headers["refresh_token"] = (
                         self.access_token,
                         self.refresh_token,
                     )
+                    print('at3')
                     self.headers["Host"] = self.host.replace("https://", "").replace(
                         "/", ""
                     )
