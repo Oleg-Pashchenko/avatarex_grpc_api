@@ -114,56 +114,58 @@ class AmoCRM:
             self.amo_hash = session_info.amo_hash
 
     async def get_unanswered_messages(self, search_info: list[list]):
+
         """Gets pipeline ids and stage ids and returned all talks"""
-        search_info = search_info[0]
-        self.headers["Host"] = self.host.replace("https://", "").replace("/", "")
+        try:
+            search_info = search_info[0]
+            self.headers["Host"] = self.host.replace("https://", "").replace("/", "")
 
-        url = f"{self.host}ajax/v4/inbox/list"
-        params = {
-            "limit": 100,
-            "order[sort_by]": "first_unanswered_message_at",
-            "order[sort_type]": "desc",
-            "filter[is_read][]": "false",
-        }
-        for index, param in enumerate(search_info[1]):
-            params[f"filter[pipe][{search_info[0]}][{index}]"] = param
+            url = f"{self.host}ajax/v4/inbox/list"
+            params = {
+                "limit": 100,
+                "order[sort_by]": "first_unanswered_message_at",
+                "order[sort_type]": "desc",
+                "filter[is_read][]": "false",
+            }
+            for index, param in enumerate(search_info[1]):
+                params[f"filter[pipe][{search_info[0]}][{index}]"] = param
 
-        async with aiohttp.ClientSession() as session:
-            talks = await session.get(url=url, headers=self.headers, params=params)
-            if talks.status != 200:
-                await self.update_session(self.host)
+            async with aiohttp.ClientSession() as session:
                 talks = await session.get(url=url, headers=self.headers, params=params)
 
-            talks = await talks.json()
-            """https://drive-b.amocrm.ru/download/7b294ea0-53f2-5ea1-bfa0-464c3c297b79/0e49c658-b1d0-498a-986f-b50bb509c896/0098a61d-c343-4df3-8135-b61a2f3cb593/file-11.m4a"""
-            response = []
-            for t in talks["_embedded"]["talks"]:
-                chat_id = t["chat_id"]
-                message = t["last_message"]["text"]
-                pipeline_id = int(t["entity"]["pipeline_id"])
-                lead_id = int(t["entity"]["id"])
-                status_id = int(t["entity"]["status_id"])
-                headers = {"X-Auth-Token": self.chat_token}
-                url = f"https://amojo.amocrm.ru/messages/{self.amo_hash}/merge?stand=v16&offset=0&limit=100&chat_id%5B%5D={chat_id}&get_tags=true&lang=ru"
-                r = await session.get(url, headers=headers)
-                messages_history = await r.json()
-                if message == "🔊":
-                    message = messages_history["message_list"][0]["message"][
-                        "attachment"
-                    ]["media"]
-                response.append(
-                    amocrm_connect_pb2.Chat(
-                        id=messages_history["message_list"][0]['id'],
-                        chat_id=chat_id,
-                        message=message,
-                        pipeline_id=pipeline_id,
-                        lead_id=lead_id,
-                        status_id=status_id,
-                        messages_history=json.dumps(messages_history),
+                talks = await talks.json()
+                """https://drive-b.amocrm.ru/download/7b294ea0-53f2-5ea1-bfa0-464c3c297b79/0e49c658-b1d0-498a-986f-b50bb509c896/0098a61d-c343-4df3-8135-b61a2f3cb593/file-11.m4a"""
+                response = []
+                for t in talks["_embedded"]["talks"]:
+                    chat_id = t["chat_id"]
+                    message = t["last_message"]["text"]
+                    pipeline_id = int(t["entity"]["pipeline_id"])
+                    lead_id = int(t["entity"]["id"])
+                    status_id = int(t["entity"]["status_id"])
+                    headers = {"X-Auth-Token": self.chat_token}
+                    url = f"https://amojo.amocrm.ru/messages/{self.amo_hash}/merge?stand=v16&offset=0&limit=100&chat_id%5B%5D={chat_id}&get_tags=true&lang=ru"
+                    r = await session.get(url, headers=headers)
+                    messages_history = await r.json()
+                    if message == "🔊":
+                        message = messages_history["message_list"][0]["message"][
+                            "attachment"
+                        ]["media"]
+                    response.append(
+                        amocrm_connect_pb2.Chat(
+                            id=messages_history["message_list"][0]['id'],
+                            chat_id=chat_id,
+                            message=message,
+                            pipeline_id=pipeline_id,
+                            lead_id=lead_id,
+                            status_id=status_id,
+                            messages_history=json.dumps(messages_history),
+                        )
                     )
-                )
-            await session.close()
-        return response
+                await session.close()
+            return response
+        except:
+            await self.update_session(self.host)
+            return []
 
     async def _create_chat_token(self):
         url = f"{self.host}ajax/v1/chats/session"
