@@ -2,6 +2,8 @@ import dataclasses
 import datetime
 import json
 import random
+import time
+
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker
@@ -9,6 +11,8 @@ import warnings
 from sqlalchemy.exc import SADeprecationWarning
 import dotenv
 import os
+
+import misc
 
 dotenv.load_dotenv()
 
@@ -49,6 +53,7 @@ for c in [MessagesEntity]:
     c.as_dict = as_dict
 
 
+@misc.timing_decorator
 def get_messages_history(lead_id: int):
     message_objects = (
         session.query(MessagesEntity).filter(MessagesEntity.lead_id == lead_id).all()
@@ -63,6 +68,7 @@ def get_messages_history(lead_id: int):
     return messages
 
 
+@misc.timing_decorator
 def add_message(message_id, lead_id, text, is_bot):
     obj = MessagesEntity(
         message_id=message_id,
@@ -74,6 +80,7 @@ def add_message(message_id, lead_id, text, is_bot):
     session.commit()
 
 
+@misc.timing_decorator
 def manager_intervened(lead_id, message_history):
     entity = json.loads(message_history)['message_list'][0]
     for id, message in enumerate(json.loads(message_history)['message_list']):
@@ -91,6 +98,7 @@ def manager_intervened(lead_id, message_history):
     return False
 
 
+@misc.timing_decorator
 def message_exists(lead_id, message_id):
     existing_message = session.query(MessagesEntity).filter(
         MessagesEntity.lead_id == lead_id,

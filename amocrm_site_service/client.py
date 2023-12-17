@@ -2,7 +2,11 @@ import grpc
 
 from amocrm_connect_service.proto import amocrm_connect_pb2_grpc, amocrm_connect_pb2
 
-server_host = '178.253.22.162:50060'
+import dotenv
+import os
+
+dotenv.load_dotenv()
+server_host = os.getenv("SERVER_HOST_RU") + ":50060"
 
 
 def try_connect(login, password, host):

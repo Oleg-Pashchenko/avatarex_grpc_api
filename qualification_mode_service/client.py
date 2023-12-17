@@ -5,7 +5,7 @@ import dotenv
 import os
 
 dotenv.load_dotenv()
-server_host = os.getenv("SERVER_HOST") + ":50054"
+server_host = os.getenv("SERVER_HOST_EN") + ":50054"
 
 
 async def run_qualification_client(text, enabled, amocrm, avatarex, finish, openai_key, model):

@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  amocrm_service:
+    build:
+      context: .
+      dockerfile: common/docker/Dockerfile_amocrm_connect
+    ports:
+      - "50051:50051"
+
+  core_service:
+    build:
+      context: .
+      dockerfile: common/docker/Dockerfile
+
+
+  amocrm_service_site:
+    build:
+      context: .
+      dockerfile: common/docker/Dockerfile_amocrm_site
+    ports:
+      - "50060:50060"

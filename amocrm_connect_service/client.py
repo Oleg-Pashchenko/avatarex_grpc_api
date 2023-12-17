@@ -1,6 +1,8 @@
 import time
 
 import grpc
+
+import misc
 from amocrm_connect_service.proto import amocrm_connect_pb2, amocrm_connect_pb2_grpc
 from amocrm_connect_service.proto.amocrm_connect_pb2_grpc import (
     AmocrmConnectServiceStub,
@@ -9,7 +11,7 @@ import dotenv
 import os
 
 dotenv.load_dotenv()
-server_host = os.getenv("SERVER_HOST") + ":50051"
+server_host = os.getenv("SERVER_HOST_RU") + ":50051"
 
 
 def try_connect(login, password, host):
@@ -35,6 +37,7 @@ def get_info(login, password, host):
     return response
 
 
+@misc.async_timing_decorator
 async def send_message(host, email, password, message, chat_hash):
     channel = grpc.aio.insecure_channel(server_host)
     stub = AmocrmConnectServiceStub(channel)
@@ -48,6 +51,7 @@ async def send_message(host, email, password, message, chat_hash):
     return response.answer
 
 
+@misc.async_timing_decorator
 async def read_unanswered_messages(host, email, password, pipeline_id, stage_ids):
     channel = grpc.aio.insecure_channel(server_host)
     stub = AmocrmConnectServiceStub(channel)
@@ -67,6 +71,7 @@ def set_field():
     pass
 
 
+@misc.async_timing_decorator
 async def get_fields_by_deal_id(deal_id, host, email, password):
     try:
         st = time.time()

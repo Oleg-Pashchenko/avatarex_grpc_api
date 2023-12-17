@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  openai_prompt_service:
+    build:
+      context: .
+      dockerfile: common/docker/Dockerfile_prompt_mode
+    ports:
+      - "50052:50052"
+
+  openai_whisper_service:
+    build:
+      context: .
+      dockerfile: common/docker/Dockerfile_whisper
+    ports:
+      - "50053:50053"
+
+  qualification_mode_service:
+    build:
+      context: .
+      dockerfile: common/docker/Dockerfile_qualification
+    ports:
+      - "50054:50054"

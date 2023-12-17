@@ -1,4 +1,6 @@
 import grpc
+
+import misc
 from whisper_service.proto import whisper_pb2, whisper_pb2_grpc
 from whisper_service.proto.whisper_pb2_grpc import WhisperServiceStub
 import os
@@ -9,6 +11,7 @@ dotenv.load_dotenv()
 server_host = os.getenv("SERVER_HOST") + ":50053"
 
 
+@misc.timing_decorator
 async def run(url, openai_api_key):
     channel = grpc.aio.insecure_channel(server_host)
     stub = WhisperServiceStub(channel)

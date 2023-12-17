@@ -1,6 +1,7 @@
 import time
 
 import knowledge_mode_hardcode
+import misc
 from database_connect_service.src import api
 import whisper_service.client
 from database_connect_service.src import site
@@ -11,6 +12,7 @@ from qualification_mode_service import client as qualification_mode
 import asyncio
 
 
+@misc.async_timing_decorator
 async def send_message_to_amocrm(setting, message, text, is_bot):
     message_id = await amocrm.send_message(
         setting.amo_host,
@@ -131,6 +133,6 @@ async def cycle():
             asyncio.ensure_future(process_settings(setting))
         await asyncio.sleep(2)
 
+
 # Run the event loop
 asyncio.run(cycle())
-

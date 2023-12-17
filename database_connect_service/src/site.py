@@ -11,6 +11,8 @@ from sqlalchemy.exc import SADeprecationWarning
 import dotenv
 import os
 
+import misc
+
 
 def as_dict(obj):
     data = obj.__dict__
@@ -68,6 +70,7 @@ class ApiSettings:
     amo_host: str
     api_token: str
     knowledge_data: list
+
 
 @dataclasses.dataclass
 class Settings:
@@ -182,6 +185,7 @@ for c in [
     c.as_dict = as_dict
 
 
+@misc.timing_decorator
 def get_enabled_api_settings() -> list[ApiSettings]:
     start_time = time.time()
     q = session.query(Settings).filter(Settings.is_enabled == True)
@@ -240,8 +244,5 @@ def get_enabled_api_settings() -> list[ApiSettings]:
             )
         except:
             print('error', s.name)
-    print("Database Mode Execution:", round(time.time() - start_time, 2))
     print("Settings:", len(result))
     return result
-
-
