@@ -92,7 +92,6 @@ async def process_settings(setting):
         setting.statuses_ids,
     )
     for message in messages.answer:
-        print('New message')
         try:
             if api.message_exists(message.lead_id, message.id):
                 continue  # Контроль дублей
@@ -119,9 +118,9 @@ async def cycle():
         settings: list[ApiSettings] = site.get_enabled_api_settings()
 
         for id, setting in enumerate(settings):
-            asyncio.create_task(process_settings(setting))
 
-        print("Total execution time: ", round(time.time() - start_time, 2))
+            await process_settings(setting)
+
         print('-' * 50)
 
 

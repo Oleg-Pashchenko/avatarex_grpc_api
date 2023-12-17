@@ -241,7 +241,7 @@ def get_enabled_api_settings() -> list[ApiSettings]:
         except:
             print('error', s.name)
     print("Database Mode Execution:", round(time.time() - start_time, 2))
-    print(len(result))
+    print("Settings:", len(result))
     return result
 
 
