@@ -8516,3 +8516,4 @@
 {"ts":1702828585899,"action":"FILE_OPENED","file":"/amocrm_connect_service/db.py","tags":{"FILE_LINE_OF_CODE":"80"}}
 {"ts":1702828587484,"action":"FILE_CLOSED","file":"/amocrm_connect_service/db.py","tags":{"FILE_LINE_OF_CODE":"80"}}
 {"ts":1702828587484,"action":"FILE_OPENED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"301"}}
+{"ts":1702828789580,"action":"IDE_DEACTIVATED"}
