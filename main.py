@@ -5,7 +5,7 @@ from database_connect_service.src import api
 import whisper_service.client
 from database_connect_service.src import site
 from amocrm_connect_service import client as amocrm
-from database_connect_service.src.site import ApiSettings
+from database_connect_service.src.site import ApiSettings, get_enabled_api_settings
 from prompt_mode_service import client as prompt_mode
 from qualification_mode_service import client as qualification_mode
 import asyncio
@@ -91,37 +91,47 @@ async def process_settings(setting):
         setting.pipeline_id,
         setting.statuses_ids,
     )
+
     for message in messages.answer:
         try:
             if api.message_exists(message.lead_id, message.id):
-                continue  # Контроль дублей
+                continue  # Duplicate check
 
             if api.manager_intervened(message.lead_id, message.messages_history):
-                continue  # Если менеджер вмешался
+                continue  # Manager intervention check
 
             if ".m4a" in message.message:
                 if setting.voice_detection is False:
                     continue
-                message.message = await whisper_service.client.run(
+                message.message = await whisper_run(
                     openai_api_key=setting.api_token, url=message.message
                 )
 
-            api.add_message(message.id, message.lead_id, message.message, False)
-            asyncio.create_task(process_message(message, setting))
-        except:
-            pass
+            # Assuming `api.add_message` is an asynchronous function
+            asyncio.ensure_future(api.add_message(message.id, message.lead_id, message.message, False))
+
+            # Create tasks for parallel processing of messages
+            asyncio.ensure_future(process_message(message, setting))
+        except Exception as e:
+            print(f"Error processing message: {e}")
 
 
 async def cycle():
     while True:
         start_time = time.time()
-        settings: list[ApiSettings] = site.get_enabled_api_settings()
+        settings: list[ApiSettings] = get_enabled_api_settings()
 
-        for id, setting in enumerate(settings):
-
-            await process_settings(setting)
+        # Create tasks for parallel processing of settings
+        for setting in settings:
+            asyncio.ensure_future(process_settings(setting))
 
         print('-' * 50)
+        elapsed_time = time.time() - start_time
+        print(f"Cycle completed in {elapsed_time} seconds")
+        await asyncio.sleep(5)
 
+
+# Run the event loop
+asyncio.run(cycle())
 
 asyncio.run(cycle())
