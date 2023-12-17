@@ -60,7 +60,6 @@ async def read_unanswered_messages(host, email, password, pipeline_id, stage_ids
         stage_ids=stage_ids,
     )
     response = await stub.ReadUnansweredMessages(request)
-    print("Amocrm Read Unanswered Execution Time: ", round(response.execution, 2))
     return response
 
 

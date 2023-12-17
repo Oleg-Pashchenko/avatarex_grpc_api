@@ -111,23 +111,16 @@ async def process_settings(setting):
             api.add_message(message.id, message.lead_id, message.message, False)
 
             # Create tasks for parallel processing of messages
-            asyncio.run(process_message(message, setting))
+            asyncio.ensure_future(process_message(message, setting))
         except Exception as e:
             print(f"Error processing message: {e}")
 
 
 async def cycle():
     while True:
-        start_time = time.time()
         settings: list[ApiSettings] = get_enabled_api_settings()
-
-        # Create tasks for parallel processing of settings
         for setting in settings:
             asyncio.ensure_future(process_settings(setting))
-
-        print('-' * 50)
-        elapsed_time = time.time() - start_time
-        print(f"Cycle completed in {elapsed_time} seconds")
         await asyncio.sleep(5)
 
 
