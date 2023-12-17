@@ -83,50 +83,43 @@ async def process_message(message, setting):
     #
 
 
+async def process_settings(setting):
+    messages = await amocrm.read_unanswered_messages(
+        setting.amo_host,
+        setting.amo_email,
+        setting.amo_password,
+        setting.pipeline_id,
+        setting.statuses_ids,
+    )
+    for message in messages.answer:
+        print('New message')
+        try:
+            if api.message_exists(message.lead_id, message.id):
+                continue  # Контроль дублей
+
+            if api.manager_intervened(message.lead_id, message.messages_history):
+                continue  # Если менеджер вмешался
+
+            if ".m4a" in message.message:
+                if setting.voice_detection is False:
+                    continue
+                message.message = await whisper_service.client.run(
+                    openai_api_key=setting.api_token, url=message.message
+                )
+
+            api.add_message(message.id, message.lead_id, message.message, False)
+            asyncio.create_task(process_message(message, setting))
+        except:
+            pass
+
+
 async def cycle():
     while True:
         start_time = time.time()
         settings: list[ApiSettings] = site.get_enabled_api_settings()
-        tasks = 0
 
-        # Создаем список корутин, каждая из которых представляет собой read_unanswered_messages
-        coroutines = [
-            amocrm.read_unanswered_messages(
-                setting.amo_host,
-                setting.amo_email,
-                setting.amo_password,
-                setting.pipeline_id,
-                setting.statuses_ids,
-            )
-            for setting in settings
-        ]
-
-        responses = await asyncio.gather(*coroutines)
-        print("Настроек:", len(settings))
-        # После получения всех ответов, создаем задачи для обработки каждого сообщения
         for id, setting in enumerate(settings):
-            messages = responses[id]
-            for message in messages.answer:
-                try:
-                    if api.message_exists(message.lead_id, message.id):
-                        continue  # Контроль дублей
-
-                    if api.manager_intervened(message.lead_id, message.messages_history):
-                        continue  # Если менеджер вмешался
-
-                    if ".m4a" in message.message:
-                        if setting.voice_detection is False:
-                            continue
-                        message.message = await whisper_service.client.run(
-                            openai_api_key=setting.api_token, url=message.message
-                        )
-
-                    api.add_message(message.id, message.lead_id, message.message, False)
-                    tasks += 1
-                    asyncio.create_task(process_message(message, setting))
-                except:
-                    pass
-        print("Задач:", tasks)
+            asyncio.create_task(process_settings(setting))
 
         print("Total execution time: ", round(time.time() - start_time, 2))
         print('-' * 50)

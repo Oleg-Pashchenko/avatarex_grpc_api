@@ -29,11 +29,6 @@ services:
     ports:
       - "50054:50054"
 
-  core_service:
-    build:
-      context: .
-      dockerfile: common/docker/Dockerfile
-
   amocrm_service_site:
     build:
       context: .
