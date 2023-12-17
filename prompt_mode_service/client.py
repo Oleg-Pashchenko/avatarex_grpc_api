@@ -46,7 +46,7 @@ async def run(messages, model, max_tokens, temperature, api_token):
         api_token=api_token,
     )
     response = await stub.CompletePrompt(request)
-    print("Prompt mode:", response.execution_time)
+    print("Prompt mode:", round(response.execution_time, 2))
     return response
 
 
