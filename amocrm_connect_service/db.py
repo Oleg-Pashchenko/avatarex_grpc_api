@@ -47,10 +47,11 @@ for c in [SessionsEntity]:
 
 
 def get_session(host: str):
+    print('lol0')
     s = session.query(SessionsEntity).filter(
         SessionsEntity.lead_id == host
     ).first()
-
+    print('lol')
     return s
 
 
