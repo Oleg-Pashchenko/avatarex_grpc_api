@@ -41,13 +41,11 @@ def get_info(login, password, host):
 async def send_message(host, email, password, message, chat_hash):
     channel = grpc.aio.insecure_channel(server_host)
     stub = AmocrmConnectServiceStub(channel)
-    print(host, email, password, message, chat_hash)
     request = amocrm_connect_pb2.SendMessageRequest(
         host=host, email=email, password=password, message=message, chat_hash=chat_hash
     )
 
     response = await stub.SendMessage(request)
-    print(f"SendMessage Execution time: {round(response.execution, 2)} seconds")
     return response.answer
 
 
@@ -82,7 +80,6 @@ async def get_fields_by_deal_id(deal_id, host, email, password):
         )
 
         response = await stub.GetFieldsByDealId(request)
-        print(f"GetFieldsByDealId Execution time: {round(time.time() - st, 2)} seconds")
         return response.fields
     except:
         return []

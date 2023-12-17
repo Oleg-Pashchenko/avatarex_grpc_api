@@ -9,7 +9,7 @@ def timing_decorator(func):
         result = func(*args, **kwargs)
         end_time = time.time()
         execution_time = end_time - start_time
-        print(f"Синхронная функция {func.__name__} выполнялась {execution_time} секунд")
+        print(f"{func.__name__} выполнялась {round(execution_time, 2)} секунд")
         return result
 
     return wrapper
@@ -22,7 +22,7 @@ def async_timing_decorator(func):
         result = await func(*args, **kwargs)
         end_time = time.time()
         execution_time = end_time - start_time
-        print(f"Асинхронная функция {func.__name__} выполнялась {execution_time} секунд")
+        print(f"{func.__name__} выполнялась {round(execution_time, 2)} секунд")
         return result
 
     return wrapper
