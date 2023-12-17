@@ -91,7 +91,6 @@ async def process_settings(setting):
         setting.pipeline_id,
         setting.statuses_ids,
     )
-    loop = asyncio.get_event_loop()
 
     for message in messages.answer:
         try:
@@ -109,10 +108,10 @@ async def process_settings(setting):
                 )
 
             # Assuming `api.add_message` is an asynchronous function
-            await loop.run_in_executor(None, api.add_message, message.id, message.lead_id, message.message, False)
+            api.add_message(message.id, message.lead_id, message.message, False)
 
             # Create tasks for parallel processing of messages
-            asyncio.ensure_future(process_message(message, setting))
+            asyncio.run(process_message(message, setting))
         except Exception as e:
             print(f"Error processing message: {e}")
 
