@@ -8122,3 +8122,11 @@
 {"ts":1702820366903,"action":"FILE_OPENED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"109"}}
 {"ts":1702820367583,"action":"FILE_CLOSED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"109"}}
 {"ts":1702820367585,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"139"}}
+{"ts":1702820386017,"action":"IDE_DEACTIVATED"}
+{"ts":1702820441912,"action":"IDE_ACTIVATED"}
+{"ts":1702820445008,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"139"}}
+{"ts":1702820445008,"action":"FILE_OPENED","file":"/.env","tags":{"FILE_LINE_OF_CODE":"10"}}
+{"ts":1702820446299,"action":"IDE_DEACTIVATED"}
+{"ts":1702820516877,"action":"IDE_ACTIVATED"}
+{"ts":1702820517308,"action":"IDE_DEACTIVATED"}
+{"ts":1702820523913,"action":"IDE_ACTIVATED"}

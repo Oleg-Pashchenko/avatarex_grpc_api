@@ -8,7 +8,7 @@ import dotenv
 
 dotenv.load_dotenv()
 
-server_host = os.getenv("SERVER_HOST") + ":50053"
+server_host = os.getenv("SERVER_HOST_EN") + ":50053"
 
 
 @misc.timing_decorator
