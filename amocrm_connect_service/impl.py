@@ -76,7 +76,7 @@ class AmoCRM:
         session_info = db.get_session(self.host)
         if session_info is None:
             await self._create_session_async()
-
+            print('ses created')
             url = f"{self.host}oauth2/authorize"
             payload = {
                 "csrf_token": self.csrf_token,
@@ -90,6 +90,7 @@ class AmoCRM:
                     if response.status != 200:
                         print('error connect')
                         return False  # TODO: оповестить об ошибке
+                    print('at')
                     self.access_token = self.cookies.get("access_token").value
                     self.refresh_token = self.cookies.get("refresh_token").value
 
@@ -100,7 +101,9 @@ class AmoCRM:
                     self.headers["Host"] = self.host.replace("https://", "").replace(
                         "/", ""
                     )
+                    print('ah')
                     await self._create_amo_hash()
+                    print('ct')
                     await self._create_chat_token()
                     db.update_session(self.host, self.headers, self.amo_hash, self.chat_token)
                     return True
