@@ -12,7 +12,6 @@ from qualification_mode_service import client as qualification_mode
 import asyncio
 
 
-@misc.async_timing_decorator
 async def send_message_to_amocrm(setting, message, text, is_bot):
     message_id = await amocrm.send_message(
         setting.amo_host,

@@ -11,7 +11,6 @@ dotenv.load_dotenv()
 server_host = os.getenv("SERVER_HOST_EN") + ":50053"
 
 
-@misc.timing_decorator
 async def run(url, openai_api_key):
     channel = grpc.aio.insecure_channel(server_host)
     stub = WhisperServiceStub(channel)

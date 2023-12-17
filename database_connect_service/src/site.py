@@ -185,7 +185,6 @@ for c in [
     c.as_dict = as_dict
 
 
-@misc.timing_decorator
 def get_enabled_api_settings() -> list[ApiSettings]:
     start_time = time.time()
     q = session.query(Settings).filter(Settings.is_enabled == True)

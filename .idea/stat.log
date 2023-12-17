@@ -8182,3 +8182,11 @@
 {"ts":1702820816041,"action":"FILE_OPENED","file":"/misc.py","tags":{"FILE_LINE_OF_CODE":"29"}}
 {"ts":1702820816254,"action":"IDE_DEACTIVATED"}
 {"ts":1702820817419,"action":"IDE_ACTIVATED"}
+{"ts":1702820839166,"action":"IDE_DEACTIVATED"}
+{"ts":1702820871221,"action":"IDE_ACTIVATED"}
+{"ts":1702820872373,"action":"IDE_DEACTIVATED"}
+{"ts":1702820947057,"action":"IDE_ACTIVATED"}
+{"ts":1702820950231,"action":"FILE_CLOSED","file":"/misc.py","tags":{"FILE_LINE_OF_CODE":"29"}}
+{"ts":1702820950231,"action":"FILE_OPENED","file":"/whisper_service/client.py","tags":{"FILE_LINE_OF_CODE":"21"}}
+{"ts":1702820951634,"action":"FILE_CLOSED","file":"/whisper_service/client.py","tags":{"FILE_LINE_OF_CODE":"21"}}
+{"ts":1702820951634,"action":"FILE_OPENED","file":"/amocrm_connect_service/client.py","tags":{"FILE_LINE_OF_CODE":"86"}}

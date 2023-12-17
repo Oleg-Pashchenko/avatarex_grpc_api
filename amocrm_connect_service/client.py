@@ -37,7 +37,6 @@ def get_info(login, password, host):
     return response
 
 
-@misc.async_timing_decorator
 async def send_message(host, email, password, message, chat_hash):
     channel = grpc.aio.insecure_channel(server_host)
     stub = AmocrmConnectServiceStub(channel)
@@ -68,7 +67,6 @@ def set_field():
     pass
 
 
-@misc.async_timing_decorator
 async def get_fields_by_deal_id(deal_id, host, email, password):
     try:
         st = time.time()

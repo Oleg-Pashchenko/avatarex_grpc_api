@@ -13,7 +13,6 @@ dotenv.load_dotenv()
 server_host = os.getenv("SERVER_HOST_EN") + ":50052"
 
 
-@misc.async_timing_decorator
 async def run(messages, model, max_tokens, temperature, api_token):
     channel = grpc.aio.insecure_channel(server_host)
     stub = OpenAIPromptServiceStub(channel)
@@ -63,7 +62,6 @@ def tokens_counter(messages: list[dict]):
     return num_tokens
 
 
-@misc.timing_decorator
 def get_messages_context(messages: list[dict], context: str, tokens: int, max_tokens, fields):
     tokens *= 0.95  # На всякий случай резервируем 5% в запас
     tokens -= max_tokens  # Вычитаем выделенные токены на ответ
