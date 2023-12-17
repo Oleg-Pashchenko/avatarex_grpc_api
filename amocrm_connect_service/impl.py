@@ -91,6 +91,7 @@ class AmoCRM:
                         print('error connect')
                         return False  # TODO: оповестить об ошибке
                     print('at')
+                    print(self.cookies)
                     self.access_token = self.cookies.get("access_token").value
                     self.refresh_token = self.cookies.get("refresh_token").value
                     print('at2')
