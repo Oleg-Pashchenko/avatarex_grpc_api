@@ -119,7 +119,7 @@ async def process_settings(setting):
 
         except Exception as e:
             print(f"Error processing message: {e}")
-
+    print(len(tasks))
     # Параллельное выполнение задач
     await asyncio.gather(*tasks)
 

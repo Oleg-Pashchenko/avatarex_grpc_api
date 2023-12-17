@@ -7851,3 +7851,7 @@
 {"ts":1702812098043,"action":"IDE_DEACTIVATED"}
 {"ts":1702812098307,"action":"IDE_ACTIVATED"}
 {"ts":1702812113399,"action":"IDE_DEACTIVATED"}
+{"ts":1702812130479,"action":"IDE_ACTIVATED"}
+{"ts":1702812133219,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"137"}}
+{"ts":1702812133219,"action":"FILE_OPENED","file":"/docker-compose.yml","tags":{"FILE_LINE_OF_CODE":"9"}}
+{"ts":1702812141856,"action":"IDE_DEACTIVATED"}
