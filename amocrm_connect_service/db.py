@@ -71,11 +71,14 @@ def update_session(host: str, headers: dict, amo_hash: str, chat_token: str):
 
 
 def create_session(host: str, headers: dict, amo_hash: str, chat_token: str):
-    new_session = SessionsEntity(
-        host=host,
-        headers=headers,
-        amo_hash=amo_hash,
-        chat_token=chat_token
-    )
-    session.add(new_session)
-    session.commit()
+    try:
+        new_session = SessionsEntity(
+            host=host,
+            headers=headers,
+            amo_hash=amo_hash,
+            chat_token=chat_token
+        )
+        session.add(new_session)
+        session.commit()
+    except Exception as e:
+        print(e)

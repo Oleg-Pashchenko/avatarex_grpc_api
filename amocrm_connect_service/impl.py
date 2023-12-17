@@ -73,9 +73,7 @@ class AmoCRM:
         return True
 
     async def connect_async(self) -> bool:
-        print('yes')
         session_info = db.get_session(self.host)
-        print('haha', session_info)
         if session_info is None:
             await self._create_session_async()
 
