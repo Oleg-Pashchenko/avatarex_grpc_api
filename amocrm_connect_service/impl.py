@@ -83,7 +83,7 @@ class AmoCRM:
                 "username": self.login,
                 "password": self.password,
             }
-            async with aiohttp.ClientSession() as session:
+            async with aiohttp.ClientSession(cookies=self.cookies) as session:
                 async with session.post(
                         url=url, data=payload, headers=self.headers
                 ) as response:
