@@ -46,6 +46,7 @@ async def run(messages, model, max_tokens, temperature, api_token):
         api_token=api_token,
     )
     response = await stub.CompletePrompt(request)
+    print("Prompt mode:", response.execution_time)
     return response
 
 
@@ -82,4 +83,5 @@ def get_messages_context(messages: list[dict], context: str, tokens: int, max_to
             break
     for f in fields_to_view:
         response.append(f)
+
     return response
