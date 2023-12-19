@@ -161,7 +161,12 @@ class AmoCRM:
     def get_pipelines_info(self):
         response = self.session.get(
             f"{self.host}ajax/v1/pipelines/list", headers=self.headers
-        ).json()["response"]["pipelines"]
+        )
+        print(response.status_code)
+        if response.status_code != 200:
+            response = response.json()["response"]["pipelines"]
+        else:
+            return []
         pipelines = []
         for p in response.values():
             p_id = p["id"]
