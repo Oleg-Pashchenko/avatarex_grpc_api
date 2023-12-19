@@ -80,11 +80,12 @@ class AmoCRM:
         session_info = db.get_session(self.host)
         if session_info is None or session_info.chat_token == '':
             await self._create_session_async()
+            self.host = self.host.strip()
             url = f"{self.host}oauth2/authorize"
             payload = {
                 "csrf_token": self.csrf_token,
-                "username": self.login,
-                "password": self.password,
+                "username": self.login.strip(),
+                "password": self.password.strip(),
             }
             async with aiohttp.ClientSession(cookies=self.cookies) as session:
                 async with session.post(
