@@ -44,11 +44,11 @@ class AmocrmConnectService(amocrm_site_pb2_grpc.AmocrmConnectServiceServicer):
         print(host, login, password)
         amo = impl.AmoCRM(host, login, password)
         status = amo.connect()
+        print(status)
         if not status:
             return amocrm_site_pb2.GetInfoResponse(
                 pipelines=[], fields=[]
             )
-        print(status)
         response = amocrm_site_pb2.GetInfoResponse(
             pipelines=amo.get_pipelines_info(), fields=amo.get_custom_fields()
         )
