@@ -40,7 +40,7 @@ class AmocrmConnectService(amocrm_site_pb2_grpc.AmocrmConnectServiceServicer):
         return response
 
     def GetInfo(self, request, context):
-        host, login, password = request.host, request.email, request.password
+        host, login, password = request.host.strip(), request.email.strip(), request.password.strip()
         print(host, login, password)
         amo = impl.AmoCRM(host, login, password)
         status = amo.connect()
