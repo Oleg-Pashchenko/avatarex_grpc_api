@@ -2,6 +2,7 @@ version: '3'
 
 services:
   amocrm_service_site:
+    restart: always
     build:
       context: .
       dockerfile: common/docker/Dockerfile_amocrm_site

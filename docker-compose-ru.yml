@@ -2,6 +2,7 @@ version: '3'
 
 services:
   amocrm_service:
+    restart: always
     build:
       context: .
       dockerfile: common/docker/Dockerfile_amocrm_connect
@@ -9,6 +10,7 @@ services:
       - "50051:50051"
 
   core_service:
+    restart: always
     build:
       context: .
       dockerfile: common/docker/Dockerfile
