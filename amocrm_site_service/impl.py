@@ -167,6 +167,7 @@ class AmoCRM:
             response = response.json()["response"]["pipelines"]
         else:
             return []
+        print(response)
         pipelines = []
         for p in response.values():
             p_id = p["id"]

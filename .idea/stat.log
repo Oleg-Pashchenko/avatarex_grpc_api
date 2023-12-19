@@ -9137,3 +9137,6 @@
 {"ts":1702982872276,"action":"FILE_OPENED","file":"/amocrm_site_service/impl.py","tags":{"FILE_LINE_OF_CODE":"233"}}
 {"ts":1702982880613,"action":"IDE_DEACTIVATED"}
 {"ts":1702982906672,"action":"IDE_ACTIVATED"}
+{"ts":1702982913840,"action":"IDE_DEACTIVATED"}
+{"ts":1702982914342,"action":"IDE_ACTIVATED"}
+{"ts":1702982923698,"action":"IDE_DEACTIVATED"}
