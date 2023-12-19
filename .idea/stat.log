@@ -9181,3 +9181,9 @@
 {"ts":1702984650194,"action":"IDE_ACTIVATED"}
 {"ts":1702984657804,"action":"FILE_CLOSED","file":"/amocrm_site_service/impl.py","tags":{"FILE_LINE_OF_CODE":"234"}}
 {"ts":1702984657804,"action":"FILE_OPENED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"316"}}
+{"ts":1702984711267,"action":"IDE_DEACTIVATED"}
+{"ts":1702984741714,"action":"IDE_ACTIVATED"}
+{"ts":1702984742228,"action":"IDE_DEACTIVATED"}
+{"ts":1702984744378,"action":"IDE_ACTIVATED"}
+{"ts":1702984748937,"action":"FILE_CLOSED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"317"}}
+{"ts":1702984748937,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"137"}}

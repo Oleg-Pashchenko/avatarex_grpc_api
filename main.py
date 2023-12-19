@@ -24,6 +24,7 @@ async def send_message_to_amocrm(setting, message, text, is_bot):
 
 
 async def process_message(message, setting):
+    print('Обрабатывается сообщение!')
     fields = await amocrm.get_fields_by_deal_id(message.lead_id,
                                                 setting.amo_host,
                                                 setting.amo_email,
