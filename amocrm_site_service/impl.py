@@ -163,7 +163,7 @@ class AmoCRM:
             f"{self.host}ajax/v1/pipelines/list", headers=self.headers
         )
         print(response.status_code)
-        if response.status_code != 200:
+        if response.status_code == 200:
             response = response.json()["response"]["pipelines"]
         else:
             return []
