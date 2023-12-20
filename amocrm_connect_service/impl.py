@@ -124,7 +124,7 @@ class AmoCRM:
 
             url = f"{self.host}ajax/v4/inbox/list"
             params = {
-                "limit": 100,
+                "limit": 10,
                 "order[sort_by]": "first_unanswered_message_at",
                 "order[sort_type]": "desc",
                 "filter[is_read][]": "false",
@@ -146,7 +146,7 @@ class AmoCRM:
                     lead_id = int(t["entity"]["id"])
                     status_id = int(t["entity"]["status_id"])
                     headers = {"X-Auth-Token": self.chat_token}
-                    url = f"https://amojo.amocrm.ru/messages/{self.amo_hash}/merge?stand=v16&offset=0&limit=100&chat_id%5B%5D={chat_id}&get_tags=true&lang=ru"
+                    url = f"https://amojo.amocrm.ru/messages/{self.amo_hash}/merge?stand=v16&offset=0&limit=20&chat_id%5B%5D={chat_id}&get_tags=true&lang=ru"
                     r = await session.get(url, headers=headers)
                     try:
                         messages_history = await r.json()
@@ -170,6 +170,7 @@ class AmoCRM:
                 await session.close()
             return response
         except Exception as e:
+            print(e, await r.text())
             await self.update_session(self.host)
             return []
 
