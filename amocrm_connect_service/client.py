@@ -40,7 +40,8 @@ def get_info(login, password, host):
 
 
 async def send_message(host, email, password, message, chat_hash):
-    channel = grpc.aio.insecure_channel(server_host)
+    options = [('grpc.max_receive_message_length', 14242778)]
+    channel = grpc.aio.insecure_channel(server_host, options=options)
     stub = AmocrmConnectServiceStub(channel)
     request = amocrm_connect_pb2.SendMessageRequest(
         host=host, email=email, password=password, message=message, chat_hash=chat_hash
@@ -51,7 +52,8 @@ async def send_message(host, email, password, message, chat_hash):
 
 
 async def read_unanswered_messages(host, email, password, pipeline_id, stage_ids):
-    channel = grpc.aio.insecure_channel(server_host)
+    options = [('grpc.max_receive_message_length', 14242778)]
+    channel = grpc.aio.insecure_channel(server_host, options=options)
     stub = AmocrmConnectServiceStub(channel)
 
     request = amocrm_connect_pb2.ReadUnansweredMessagesRequest(
@@ -72,7 +74,9 @@ def set_field():
 async def get_fields_by_deal_id(deal_id, host, email, password):
     try:
         st = time.time()
-        channel = grpc.aio.insecure_channel(server_host)
+        options = [('grpc.max_receive_message_length', 14242778)]
+
+        channel = grpc.aio.insecure_channel(server_host, options=options)
         stub = AmocrmConnectServiceStub(channel)
 
         request = amocrm_connect_pb2.GetFieldsRequest(
