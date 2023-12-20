@@ -132,6 +132,8 @@ class AmoCRM:
                 'filter[status][]': 'opened'
             }
             index = 0
+            if len(search_info[1]) == 0:
+                return []
             for param in search_info[1]:
                 params[f"filter[pipe][{search_info[0]}][{index}]"] = param
                 index += 1
