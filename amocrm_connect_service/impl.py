@@ -149,7 +149,7 @@ class AmoCRM:
                     url = f"https://amojo.amocrm.ru/messages/{self.amo_hash}/merge?stand=v16&offset=0&limit=20&chat_id%5B%5D={chat_id}&get_tags=true&lang=ru"
                     r = await session.get(url, headers=headers)
                     try:
-                        messages_history = json.loads(await r.text())
+                        messages_history = await r.json()
                         if message == "🔊":
                             message = messages_history["message_list"][0]["message"][
                                 "attachment"
