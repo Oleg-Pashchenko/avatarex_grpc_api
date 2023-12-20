@@ -175,7 +175,7 @@ class AmoCRM:
                 await session.close()
             return response
         except Exception as e:
-            print("HAHHAHA", e)
+            # print("HAHHAHA", e)  неведомые ошибки
             await self.update_session(self.host)
             return []
 
