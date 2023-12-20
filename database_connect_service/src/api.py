@@ -90,7 +90,7 @@ def manager_intervened(lead_id, message_history):
             current_datetime = datetime.datetime.now()
             time_difference = current_datetime - datetime_from_timestamp
 
-            if time_difference.total_seconds() < 60:
+            if time_difference.total_seconds() < 60 * 60:
                 return True  # Больше часа
     return False
 
