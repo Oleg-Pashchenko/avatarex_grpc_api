@@ -1,5 +1,6 @@
 import asyncio
 import json
+import time
 
 import aiohttp
 import requests
@@ -125,9 +126,10 @@ class AmoCRM:
             url = f"{self.host}ajax/v4/inbox/list"
             params = {
                 "limit": 100,
-                "order[sort_by]": "first_unanswered_message_at",
+                "order[sort_by]": "last_message_at",
                 "order[sort_type]": "desc",
                 "filter[is_read][]": "false",
+                'filter[status][]': 'opened'
             }
             index = 0
             for param in search_info[1]:
@@ -142,7 +144,9 @@ class AmoCRM:
                 for t in talks["_embedded"]["talks"]:
                     chat_id = t["chat_id"]
                     message = t["last_message"]["text"]
-
+                    date = t['last_message']['last_message_at']
+                    if int(time.time()) - date > 60 * 60:
+                        continue
                     pipeline_id = int(t["entity"]["pipeline_id"])
                     lead_id = int(t["entity"]["id"])
                     status_id = int(t["entity"]["status_id"])
@@ -308,6 +312,7 @@ class AmoCRM:
         }
         self.session.post(url=url, data=data, headers=self.headers)
 
+
 # amo = AmoCRM(email="havaisaeva19999@gmail.com", password="A12345mo", host="https://olegtest12.amocrm.ru/")
 # amo.connect()
 # amo.get_fields_by_deal_id(361335)
@@ -321,15 +326,18 @@ class AmoCRM:
 # print(response)
 # for r in response:
 #     amo.send_message("Лол", r['chat_id'])
-
+#
 # async def main():
 #     stages = [21679132, 60147942, 42011356, 42011413, 39441121, 42927400, 26079310, 21966199, 21593752, 21677467,
 #               21677470, 39837472, 40032241, 28575823, 142, 143, 25450495, 51076282, 57470634, 57471506]
+#
+#     print(stages)
 #     pipeline = 1342063
 #     amo = AmoCRM(email='general@mosdommebel.ru', host='https://mdmbase.amocrm.ru/', password='31081220Vl')
 #     await amo.connect_async()
-#     ans = await amo.get_unanswered_messages([[pipeline, stages]])
-#     print(ans)
 #
+#     ans = await amo.get_unanswered_messages([[pipeline, stages]])
+#     for i, el in enumerate(ans):
+#         print(i, el.message)
 #
 # asyncio.run(main())
