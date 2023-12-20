@@ -124,7 +124,7 @@ class AmoCRM:
 
             url = f"{self.host}ajax/v4/inbox/list"
             params = {
-                "limit": 10,
+                "limit": 100,
                 "order[sort_by]": "first_unanswered_message_at",
                 "order[sort_type]": "desc",
                 "filter[is_read][]": "false",
@@ -142,6 +142,8 @@ class AmoCRM:
                 for t in talks["_embedded"]["talks"]:
                     chat_id = t["chat_id"]
                     message = t["last_message"]["text"]
+                    print(message)
+
                     pipeline_id = int(t["entity"]["pipeline_id"])
                     lead_id = int(t["entity"]["id"])
                     status_id = int(t["entity"]["status_id"])
