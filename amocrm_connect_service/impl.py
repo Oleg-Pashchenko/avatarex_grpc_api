@@ -149,7 +149,7 @@ class AmoCRM:
                     url = f"https://amojo.amocrm.ru/messages/{self.amo_hash}/merge?stand=v16&offset=0&limit=20&chat_id%5B%5D={chat_id}&get_tags=true&lang=ru"
                     r = await session.get(url, headers=headers)
                     try:
-                        messages_history = await r.json()
+                        messages_history = await json.loads(await r.text())
                         if message == "🔊":
                             message = messages_history["message_list"][0]["message"][
                                 "attachment"
@@ -165,12 +165,12 @@ class AmoCRM:
                                 messages_history=json.dumps(messages_history),
                             )
                         )
-                    except:
-                        print('Error')
+                    except Exception as e:
+                        print('Error', e)
                 await session.close()
             return response
         except Exception as e:
-            # print(e, await r.text())
+            print(e, await r.text())
             await self.update_session(self.host)
             return []
 
@@ -321,3 +321,15 @@ class AmoCRM:
 # print(response)
 # for r in response:
 #     amo.send_message("Лол", r['chat_id'])
+
+async def main():
+    stages = [21679132, 60147942, 42011356, 42011413, 39441121, 42927400, 26079310, 21966199, 21593752, 21677467,
+              21677470, 39837472, 40032241, 28575823, 142, 143, 25450495, 51076282, 57470634, 57471506]
+    pipeline = 1342063
+    amo = AmoCRM(email='general@mosdommebel.ru', host='https://mdmbase.amocrm.ru/', password='31081220Vl')
+    await amo.connect_async()
+    ans = await amo.get_unanswered_messages([[pipeline, stages]])
+    print(ans)
+
+
+asyncio.run(main())
