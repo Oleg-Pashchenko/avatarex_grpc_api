@@ -166,11 +166,11 @@ class AmoCRM:
                             )
                         )
                     except Exception as e:
-                        print('Error', e)
+                        print('Error', e, json.loads(await r.text()))
                 await session.close()
             return response
         except Exception as e:
-            print(e)
+            print("HAHHAHA", e)
             await self.update_session(self.host)
             return []
 
