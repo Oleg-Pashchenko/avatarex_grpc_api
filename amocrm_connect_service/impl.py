@@ -142,7 +142,6 @@ class AmoCRM:
                 for t in talks["_embedded"]["talks"]:
                     chat_id = t["chat_id"]
                     message = t["last_message"]["text"]
-                    print(message)
 
                     pipeline_id = int(t["entity"]["pipeline_id"])
                     lead_id = int(t["entity"]["id"])
