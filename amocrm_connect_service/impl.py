@@ -166,7 +166,7 @@ class AmoCRM:
                             )
                         )
                     except Exception as e:
-                        print('Error', self.host, self.login, self.password, url, lead_id)
+                        pass  # Пользователь удалил сообщение
                 await session.close()
             return response
         except Exception as e:
@@ -306,7 +306,6 @@ class AmoCRM:
             "ID": deal_id,
         }
         self.session.post(url=url, data=data, headers=self.headers)
-
 
 # amo = AmoCRM(email="havaisaeva19999@gmail.com", password="A12345mo", host="https://olegtest12.amocrm.ru/")
 # amo.connect()
