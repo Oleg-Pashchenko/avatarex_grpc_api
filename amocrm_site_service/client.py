@@ -10,7 +10,8 @@ server_host = os.getenv("SERVER_HOST_RU") + ":50060"
 
 
 def try_connect(login, password, host):
-    channel = grpc.insecure_channel(server_host)
+    options = [('grpc.max_receive_message_length', 14242778)]
+    channel = grpc.insecure_channel(server_host, options=options)
     stub = amocrm_connect_pb2_grpc.AmocrmConnectServiceStub(channel)
     request = amocrm_connect_pb2.AmocrmConnectRequest(
         login=login,

@@ -170,6 +170,7 @@ class AmoCRM:
                 await session.close()
             return response
         except Exception as e:
+            print(e, await r.text())
             await self.update_session(self.host)
             return []
 
