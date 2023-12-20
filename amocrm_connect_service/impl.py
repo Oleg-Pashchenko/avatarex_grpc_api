@@ -166,7 +166,7 @@ class AmoCRM:
                             )
                         )
                     except Exception as e:
-                        print('Error', e, json.loads(await r.text()))
+                        print('Error', self.host, self.login, self.password, url)
                 await session.close()
             return response
         except Exception as e:
