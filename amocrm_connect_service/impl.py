@@ -1,3 +1,4 @@
+import asyncio
 import json
 
 import aiohttp
@@ -128,9 +129,10 @@ class AmoCRM:
                 "order[sort_type]": "desc",
                 "filter[is_read][]": "false",
             }
-            for index, param in enumerate(search_info[1]):
+            index = 0
+            for param in search_info[1]:
                 params[f"filter[pipe][{search_info[0]}][{index}]"] = param
-
+                index += 1
             async with aiohttp.ClientSession() as session:
                 talks = await session.get(url=url, headers=self.headers, params=params)
 
@@ -146,25 +148,29 @@ class AmoCRM:
                     headers = {"X-Auth-Token": self.chat_token}
                     url = f"https://amojo.amocrm.ru/messages/{self.amo_hash}/merge?stand=v16&offset=0&limit=100&chat_id%5B%5D={chat_id}&get_tags=true&lang=ru"
                     r = await session.get(url, headers=headers)
-                    messages_history = await r.json()
-                    if message == "🔊":
-                        message = messages_history["message_list"][0]["message"][
-                            "attachment"
-                        ]["media"]
-                    response.append(
-                        amocrm_connect_pb2.Chat(
-                            id=messages_history["message_list"][0]['id'],
-                            chat_id=chat_id,
-                            message=message,
-                            pipeline_id=pipeline_id,
-                            lead_id=lead_id,
-                            status_id=status_id,
-                            messages_history=json.dumps(messages_history),
+                    try:
+                        messages_history = await r.json()
+                        if message == "🔊":
+                            message = messages_history["message_list"][0]["message"][
+                                "attachment"
+                            ]["media"]
+                        response.append(
+                            amocrm_connect_pb2.Chat(
+                                id=messages_history["message_list"][0]['id'],
+                                chat_id=chat_id,
+                                message=message,
+                                pipeline_id=pipeline_id,
+                                lead_id=lead_id,
+                                status_id=status_id,
+                                messages_history=json.dumps(messages_history),
+                            )
                         )
-                    )
+                    except:
+                        print('Error')
                 await session.close()
             return response
-        except:
+        except Exception as e:
+            print(e, await r.text())
             await self.update_session(self.host)
             return []
 
@@ -300,6 +306,7 @@ class AmoCRM:
             "ID": deal_id,
         }
         self.session.post(url=url, data=data, headers=self.headers)
+
 
 # amo = AmoCRM(email="havaisaeva19999@gmail.com", password="A12345mo", host="https://olegtest12.amocrm.ru/")
 # amo.connect()
