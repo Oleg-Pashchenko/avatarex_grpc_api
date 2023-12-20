@@ -166,7 +166,7 @@ class AmoCRM:
                             )
                         )
                     except Exception as e:
-                        print('Error', self.host, self.login, self.password, url)
+                        print('Error', self.host, self.login, self.password, url, lead_id)
                 await session.close()
             return response
         except Exception as e:

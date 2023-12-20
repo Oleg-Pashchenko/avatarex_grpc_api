@@ -79,20 +79,23 @@ def add_message(message_id, lead_id, text, is_bot):
 
 
 def manager_intervened(lead_id, message_history):
-    entity = json.loads(message_history)['message_list'][0]
-    for id, message in enumerate(json.loads(message_history)['message_list']):
-        if id == 5:
-            break
+    try:
+        entity = json.loads(message_history)['message_list'][0]
+        for id, message in enumerate(json.loads(message_history)['message_list']):
+            if id == 5:
+                break
 
-        if not message_exists(lead_id, message['id']) and entity['author']['id'] != message['author']['id']:
-            created_at = message['created_at']
-            datetime_from_timestamp = datetime.datetime.fromtimestamp(created_at)
-            current_datetime = datetime.datetime.now()
-            time_difference = current_datetime - datetime_from_timestamp
+            if not message_exists(lead_id, message['id']) and entity['author']['id'] != message['author']['id']:
+                created_at = message['created_at']
+                datetime_from_timestamp = datetime.datetime.fromtimestamp(created_at)
+                current_datetime = datetime.datetime.now()
+                time_difference = current_datetime - datetime_from_timestamp
 
-            if time_difference.total_seconds() < 60 * 60:
-                return True  # Больше часа
-    return False
+                if time_difference.total_seconds() < 60 * 60:
+                    return True  # Больше часа
+        return False
+    except:
+        return False
 
 
 def message_exists(lead_id, message_id):
