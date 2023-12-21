@@ -62,6 +62,7 @@ class AmoCRM:
             },
             headers=self.headers,
         )
+        print(response.text)
 
         if response.status_code != 200:
             return False

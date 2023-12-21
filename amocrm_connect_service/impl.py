@@ -328,18 +328,18 @@ class AmoCRM:
 # print(response)
 # for r in response:
 #     amo.send_message("Лол", r['chat_id'])
-#
-# async def main():
-#     stages = [21679132, 60147942, 42011356, 42011413, 39441121, 42927400, 26079310, 21966199, 21593752, 21677467,
-#               21677470, 39837472, 40032241, 28575823, 142, 143, 25450495, 51076282, 57470634, 57471506]
-#
-#     print(stages)
-#     pipeline = 1342063
-#     amo = AmoCRM(email='general@mosdommebel.ru', host='https://mdmbase.amocrm.ru/', password='31081220Vl')
-#     await amo.connect_async()
-#
-#     ans = await amo.get_unanswered_messages([[pipeline, stages]])
-#     for i, el in enumerate(ans):
-#         print(i, el.message)
-#
-# asyncio.run(main())
+
+async def main():
+    stages = [21679132, 60147942, 42011356, 42011413, 39441121, 42927400, 26079310, 21966199, 21593752, 21677467,
+              21677470, 39837472, 40032241, 28575823, 142, 143, 25450495, 51076282, 57470634, 57471506]
+
+    print(stages)
+    pipeline = 1342063
+    amo = AmoCRM(email='ckuralmarket@gmail.com', host='https://ckuralmarket.amocrm.ru/', password='MCrmVsgdRdts12//')
+    await amo.connect_async()
+
+    ans = await amo.get_unanswered_messages([[pipeline, stages]])
+    for i, el in enumerate(ans):
+        print(i, el.message)
+
+asyncio.run(main())
