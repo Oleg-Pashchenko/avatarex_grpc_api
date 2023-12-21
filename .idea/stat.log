@@ -10518,3 +10518,11 @@
 {"ts":1703149147489,"action":"IDE_ACTIVATED"}
 {"ts":1703149162347,"action":"FILE_CLOSED","file":"/amocrm_site_service/server.py","tags":{"FILE_LINE_OF_CODE":"70"}}
 {"ts":1703149162347,"action":"FILE_OPENED","file":"/amocrm_site_service/impl.py","tags":{"FILE_LINE_OF_CODE":"234"}}
+{"ts":1703149177242,"action":"IDE_DEACTIVATED"}
+{"ts":1703149199265,"action":"IDE_ACTIVATED"}
+{"ts":1703149208506,"action":"IDE_DEACTIVATED"}
+{"ts":1703149233427,"action":"IDE_ACTIVATED"}
+{"ts":1703149251092,"action":"IDE_DEACTIVATED"}
+{"ts":1703149256098,"action":"IDE_ACTIVATED"}
+{"ts":1703149281824,"action":"IDE_DEACTIVATED"}
+{"ts":1703149288305,"action":"IDE_ACTIVATED"}

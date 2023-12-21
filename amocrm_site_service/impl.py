@@ -17,10 +17,11 @@ class AmoCRM:
             self.host += "/"
         if "https://" not in self.host:
             self.host = "https://" + self.host
-
+        print(f'a{self.host}a')
         response = self.session.get(self.host)
         session_id = response.cookies.get("session_id")
         self.csrf_token = response.cookies.get("csrf_token")
+        print(self.csrf_token)
         self.headers = {
             "Accept": "application/json",
             "X-Requested-With": "XMLHttpRequest",
@@ -62,7 +63,7 @@ class AmoCRM:
             },
             headers=self.headers,
         )
-        print(response.text)
+        print(response.cookies)
 
         if response.status_code != 200:
             return False
