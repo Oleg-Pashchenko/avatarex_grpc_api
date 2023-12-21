@@ -17,11 +17,9 @@ class AmoCRM:
             self.host += "/"
         if "https://" not in self.host:
             self.host = "https://" + self.host
-        print(f'a{self.host}a')
         response = self.session.get(self.host)
         session_id = response.cookies.get("session_id")
         self.csrf_token = response.cookies.get("csrf_token")
-        print(self.csrf_token)
         self.headers = {
             "Accept": "application/json",
             "X-Requested-With": "XMLHttpRequest",
@@ -63,7 +61,7 @@ class AmoCRM:
             },
             headers=self.headers,
         )
-        print(response.cookies)
+        print(response.status_code)
 
         if response.status_code != 200:
             return False
@@ -99,7 +97,6 @@ class AmoCRM:
                 )
                 return True
 
-
     async def _create_chat_token(self):
         url = f"{self.host}ajax/v1/chats/session"
         payload = {"request[chats][session][action]": "create"}
@@ -128,7 +125,6 @@ class AmoCRM:
             answer = await response.json()
 
             return answer['id']
-
 
     def get_custom_fields(self):
         try:
@@ -220,14 +216,15 @@ class AmoCRM:
         }
         self.session.post(url=url, data=data, headers=self.headers)
 
-# amo = AmoCRM(email="havaisaeva19999@gmail.com", password="A12345mo", host="https://olegtest12.amocrm.ru/")
-# amo.connect()
+
+amo = AmoCRM(email="aai.cdo@yandex.ru", password="U28ofr4w", host="https://berfort.amocrm.ru/")
+amo.connect()
 # amo.get_fields_by_deal_id(361335)
 
 # amo.set_field_by_id(449327, "19", 7519106, 361335)
 # amo.set_field_by_id(449329, 254631, 7519106, 361335)
 
-# amo.get_custom_fields()
+print(amo.get_custom_fields())
 # print(amo.get_pipelines_info())
 # response = amo.get_unanswered_messages([[7519106, [62333722]], [7556182, [62592642]]])
 # print(response)
