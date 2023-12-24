@@ -102,7 +102,7 @@ async def process_settings(setting):
             if api.message_exists(message.lead_id, message.id):
                 continue  # Duplicate check
 
-            if api.manager_intervened(message.lead_id, message.messages_history):
+            if setting.manager_intervented_active and api.manager_intervened(message.lead_id, message.messages_history):
                 continue  # Manager intervention check
 
             if ".m4a" in message.message:

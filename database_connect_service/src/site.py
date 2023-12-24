@@ -64,6 +64,7 @@ class ApiSettings:
     temperature: float
     fine_tuned_model: str
     use_fine_tuned: bool
+    manager_intervented_active: bool
 
     amo_email: str
     amo_password: str
@@ -89,6 +90,7 @@ class Settings:
     statuses: list
     prompt_settings_id: int
     fields: list
+    is_manager_intervented_active: bool
 
     database_data: list
     database_link: str
@@ -238,7 +240,8 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                     amo_password=amo.password,
                     amo_host=amo.host,
                     api_token=user.openai_api_key,
-                    knowledge_data=s.knowledge_data
+                    knowledge_data=s.knowledge_data,
+                    manager_intervented_active=s.manager_intervented_active
                 )
             )
         except:
