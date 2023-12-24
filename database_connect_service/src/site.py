@@ -241,10 +241,10 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                     amo_host=amo.host,
                     api_token=user.openai_api_key,
                     knowledge_data=s.knowledge_data,
-                    manager_intervented_active=s.manager_intervented_active
+                    manager_intervented_active=s.is_manager_intervented_active
                 )
             )
-        except:
-            print('error', s.name)
+        except Exception as e:
+            print('error', s.name, e)
     print("Settings:", len(result))
     return result
