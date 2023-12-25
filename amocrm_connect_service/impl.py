@@ -115,6 +115,7 @@ class AmoCRM:
             self.headers = session_info.headers
             self.chat_token = session_info.chat_token
             self.amo_hash = session_info.amo_hash
+            return True
 
     async def get_unanswered_messages(self, search_info: list[list]):
 
@@ -155,8 +156,12 @@ class AmoCRM:
                     headers = {"X-Auth-Token": self.chat_token}
                     url = f"https://amojo.amocrm.ru/messages/{self.amo_hash}/merge?stand=v16&offset=0&limit=20&chat_id%5B%5D={chat_id}&get_tags=true&lang=ru"
                     r = await session.get(url, headers=headers)
+                    if r.status == 401:
+                        await self.connect_async()
+                        return await self.get_unanswered_messages(search_info)
                     try:
                         messages_history = await r.json()
+                        print(messages_history)
                         if message == "🔊":
                             message = messages_history["message_list"][0]["message"][
                                 "attachment"
@@ -173,13 +178,15 @@ class AmoCRM:
                             )
                         )
                     except Exception as e:
+                        print('error 2', e)
                         pass  # Пользователь удалил сообщение
                 await session.close()
             return response
         except Exception as e:
+            print('error', e)
             # print("HAHHAHA", e)  неведомые ошибки
             await self.update_session(self.host)
-            return []
+            return self.get_unanswered_messages(search_info)
 
     async def _create_chat_token(self):
         url = f"{self.host}ajax/v1/chats/session"
@@ -218,7 +225,6 @@ class AmoCRM:
         async with aiohttp.ClientSession() as session:
             response = await session.get(url, headers=self.headers)
             response = await response.json()
-            print(response.status)
             fields = []
             for f in response["custom_fields_values"]:
                 fields.append(
@@ -330,15 +336,15 @@ class AmoCRM:
 #     amo.send_message("Лол", r['chat_id'])
 
 async def main():
-    stages = [21679132, 60147942, 42011356, 42011413, 39441121, 42927400, 26079310, 21966199, 21593752, 21677467,
-              21677470, 39837472, 40032241, 28575823, 142, 143, 25450495, 51076282, 57470634, 57471506]
+    stages = [61592070, 61592074]
 
     print(stages)
-    pipeline = 1342063
-    amo = AmoCRM(email='ckuralmarket@gmail.com', host='https://ckuralmarket.amocrm.ru/', password='MCrmVsgdRdts12//')
-    await amo.connect_async()
-
+    pipeline = 7412586
+    amo = AmoCRM(email='ceo@business-robots.ru', host='https://chatgpt.amocrm.ru/', password='cxh6pyk4TGN!mwb.vtg')
+    status = await amo.connect_async()
+    print(status)
     ans = await amo.get_unanswered_messages([[pipeline, stages]])
+    print(ans)
     for i, el in enumerate(ans):
         print(i, el.message)
 
