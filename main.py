@@ -98,8 +98,10 @@ async def process_settings(setting):
     tasks = []
 
     for message in messages.answer:
+        print(message)
         try:
             if api.message_exists(message.lead_id, message.id):
+                print('Сообщение существует!')
                 continue  # Duplicate check
 
             if setting.manager_intervented_active and api.manager_intervened(message.lead_id, message.messages_history):
