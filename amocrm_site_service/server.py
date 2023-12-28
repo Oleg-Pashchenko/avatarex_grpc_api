@@ -18,8 +18,10 @@ class AmocrmConnectService(amocrm_site_pb2_grpc.AmocrmConnectServiceServicer):
                 request.login,
                 request.password,
             )
+            print(self.host, self.login, self.login)
             amo = impl.AmoCRM(self.host, self.login, self.password)
             connection_status = amo.connect()
+
             if not connection_status:
                 error = "Проверьте логин и пароль!"
             else:
