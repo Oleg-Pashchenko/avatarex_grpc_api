@@ -117,7 +117,11 @@ class AmoCRM:
         await self._create_chat_token()
         await self._create_amo_hash()
         headers = {"X-Auth-Token": self.chat_token}
-        url = f"https://amojo.amocrm.ru/v1/chats/{self.amo_hash}/{chat_id}/messages?with_video=true&stand=v16"
+        if 'amocrm' in self.host:
+            url = f"https://amojo.amocrm.ru/v1/chats/{self.amo_hash}/{chat_id}/messages?with_video=true&stand=v16"
+        else:
+            url = f"https://amojo.kommo.com/v1/chats/{self.amo_hash}/{chat_id}/messages?with_video=true&stand=v16"
+
         async with aiohttp.ClientSession() as session:
             response = await session.post(
                 url=url, data=json.dumps({"text": message}), headers=headers

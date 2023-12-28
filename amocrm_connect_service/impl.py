@@ -8,12 +8,23 @@ import requests
 import db
 from proto import amocrm_connect_pb2
 
+amojo_host_amo = 'https://amojo.amocrm.ru/'
+amojo_host_kommo = 'https://amojo.kommo.com/'
+kommo_host = 'https://www.kommo.com/'
+amo_host = 'https://www.amocrm.ru/'
+
 
 class AmoCRM:
     def __init__(self, host, email, password):
         self.host = host
         self.login = email
         self.password = password
+        if 'amo' in self.host:
+            self.amojo_host = amojo_host_amo
+            self.ak_host = amo_host
+        else:
+            self.amojo_host = amojo_host_kommo
+            self.ak_host = kommo_host
 
     def _create_session(self):
         self.session = requests.Session()
@@ -50,7 +61,7 @@ class AmoCRM:
         await self.connect_async()
 
     def is_host_supported(self):
-        url = "https://www.amocrm.ru/v3/accounts"
+        url = f"{self.ak_host}v3/accounts"
         response = self.session.get(url)
         if response.status_code != 200:
             return False
@@ -62,7 +73,7 @@ class AmoCRM:
     def connect(self) -> bool:
         self._create_session()
         response = self.session.post(
-            f"https://www.amocrm.ru/oauth2/authorize",
+            f"{self.ak_host}oauth2/authorize",
             data={
                 "csrf_token": self.csrf_token,
                 "username": self.login,
@@ -154,7 +165,7 @@ class AmoCRM:
                     lead_id = int(t["entity"]["id"])
                     status_id = int(t["entity"]["status_id"])
                     headers = {"X-Auth-Token": self.chat_token}
-                    url = f"https://amojo.amocrm.ru/messages/{self.amo_hash}/merge?stand=v16&offset=0&limit=20&chat_id%5B%5D={chat_id}&get_tags=true&lang=ru"
+                    url = f"{self.amojo_host}messages/{self.amo_hash}/merge?stand=v16&offset=0&limit=20&chat_id%5B%5D={chat_id}&get_tags=true&lang=ru"
                     r = await session.get(url, headers=headers)
                     if r.status == 401:
                         await self.connect_async()
@@ -206,7 +217,7 @@ class AmoCRM:
 
     async def send_message(self, message: str, chat_id: str):
         headers = {"X-Auth-Token": self.chat_token}
-        url = f"https://amojo.amocrm.ru/v1/chats/{self.amo_hash}/{chat_id}/messages?with_video=true&stand=v16"
+        url = f"{self.amojo_host}v1/chats/{self.amo_hash}/{chat_id}/messages?with_video=true&stand=v16"
         async with aiohttp.ClientSession() as session:
             response = await session.post(
                 url=url, data=json.dumps({"text": message}), headers=headers
@@ -336,16 +347,20 @@ class AmoCRM:
 #     amo.send_message("Лол", r['chat_id'])
 
 async def main():
-    stages = [61592070, 61592074]
-
-    print(stages)
-    pipeline = 7412586
-    amo = AmoCRM(email='ceo@business-robots.ru', host='https://chatgpt.amocrm.ru/', password='cxh6pyk4TGN!mwb.vtg')
+    amo = AmoCRM(email='info@kristalexperts.com', host='https://realestate24.kommo.com/', password='123456')
     status = await amo.connect_async()
-    print(status)
-    ans = await amo.get_unanswered_messages([[pipeline, stages]])
-    print(ans)
-    for i, el in enumerate(ans):
-        print(i, el.message)
+
+    # stages = [61592070, 61592074]
+
+    # print(stages)
+    # pipeline = 7412586
+    # amo = AmoCRM(email='ceo@business-robots.ru', host='https://chatgpt.amocrm.ru/', password='cxh6pyk4TGN!mwb.vtg')
+    # status = await amo.connect_async()
+   #  print(status)
+   #  ans = await amo.get_unanswered_messages([[pipeline, stages]])
+   #  print(ans)
+   #  for i, el in enumerate(ans):
+  #      print(i, el.message)
+
 
 asyncio.run(main())

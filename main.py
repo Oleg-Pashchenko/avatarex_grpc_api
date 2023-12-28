@@ -1,14 +1,8 @@
-import time
-
-import knowledge_mode_hardcode
-import misc
 from database_connect_service.src import api
 import whisper_service.client
-from database_connect_service.src import site
 from amocrm_connect_service import client as amocrm
 from database_connect_service.src.site import ApiSettings, get_enabled_api_settings
 from prompt_mode_service import client as prompt_mode
-from qualification_mode_service import client as qualification_mode
 import asyncio
 
 
