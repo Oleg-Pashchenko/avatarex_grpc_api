@@ -41,7 +41,11 @@ class AmoCRM:
                 }
 
     def is_host_supported(self):
-        url = "https://www.amocrm.ru/v3/accounts"
+        if 'amocrm' in self.host:
+            url = "https://www.amocrm.ru/v3/accounts"
+        else:
+            url = 'https://www.kommo.com/v3/accounts'
+
         response = self.session.get(url)
         if response.status_code != 200:
             return False
@@ -52,8 +56,12 @@ class AmoCRM:
 
     def connect(self) -> bool:
         self._create_session()
+        if 'amocrm' in self.host:
+            u = f"https://www.amocrm.ru/oauth2/authorize"
+        else:
+            u = f"https://www.kommo.com/oauth2/authorize"
         response = self.session.post(
-            f"https://www.amocrm.ru/oauth2/authorize",
+            u,
             data={
                 "csrf_token": self.csrf_token,
                 "username": self.login,
@@ -221,7 +229,7 @@ class AmoCRM:
         self.session.post(url=url, data=data, headers=self.headers)
 
 
-amo = AmoCRM(email="aai.cdo@yandex.ru", password="U28ofr4w", host="https://berfort.amocrm.ru/")
+amo = AmoCRM(email='info@kristalexperts.com', host='https://realestate24.kommo.com/', password='123456')
 amo.connect()
 # amo.get_fields_by_deal_id(361335)
 
