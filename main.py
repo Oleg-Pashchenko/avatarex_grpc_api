@@ -14,6 +14,7 @@ async def send_message_to_amocrm(setting, message, text, is_bot):
         text,
         message.chat_id,
     )
+    api.add_message(message.id, message.lead_id, message.message, False)
     api.add_message(message_id, message.lead_id, text, is_bot)
 
 
@@ -49,6 +50,7 @@ async def process_message(message, setting):
             temperature=setting.temperature,
         )
         await send_message_to_amocrm(setting, message, answer.data.message, True)
+
     # elif setting.mode_id == 2:  # Prompt + Knowledge
     #     status, message_text = await knowledge_mode_hardcode.main(setting.knowledge_data, message, setting.api_token)
     #     if status:
@@ -108,7 +110,6 @@ async def process_settings(setting):
                 )
 
             # Assuming `api.add_message` is an asynchronous function
-            api.add_message(message.id, message.lead_id, message.message, False)
 
             # Создаем задачу для асинхронной обработки сообщения
             task = process_message(message, setting)
