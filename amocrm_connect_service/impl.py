@@ -159,7 +159,7 @@ class AmoCRM:
                     chat_id = t["chat_id"]
                     message = t["last_message"]["text"]
                     date = t['last_message']['last_message_at']
-                    if int(time.time()) - date > 60 * 60:
+                    if int(time.time()) - date > 60 * 60 * 24:
                         continue
                     pipeline_id = int(t["entity"]["pipeline_id"])
                     lead_id = int(t["entity"]["id"])
@@ -353,11 +353,13 @@ async def main():
     # pipeline = 7412586
     # amo = AmoCRM(email='ceo@business-robots.ru', host='https://chatgpt.amocrm.ru/', password='cxh6pyk4TGN!mwb.vtg')
     # status = await amo.connect_async()
-   #  print(status)
-   #  ans = await amo.get_unanswered_messages([[pipeline, stages]])
-   #  print(ans)
-   #  for i, el in enumerate(ans):
-  #      print(i, el.message)
+
+
+#  print(status)
+#  ans = await amo.get_unanswered_messages([[pipeline, stages]])
+#  print(ans)
+#  for i, el in enumerate(ans):
+#      print(i, el.message)
 
 
 asyncio.run(main())
