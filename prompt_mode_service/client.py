@@ -14,6 +14,7 @@ server_host = os.getenv("SERVER_HOST_EN") + ":50052"
 
 
 async def run(messages, model, max_tokens, temperature, api_token):
+    print('Запустил prompt мод')
     channel = grpc.aio.insecure_channel(server_host)
     stub = OpenAIPromptServiceStub(channel)
 
