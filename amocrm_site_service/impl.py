@@ -236,7 +236,6 @@ amo.connect()
 # amo.set_field_by_id(449327, "19", 7519106, 361335)
 # amo.set_field_by_id(449329, 254631, 7519106, 361335)
 
-print(amo.get_custom_fields())
 # print(amo.get_pipelines_info())
 # response = amo.get_unanswered_messages([[7519106, [62333722]], [7556182, [62592642]]])
 # print(response)

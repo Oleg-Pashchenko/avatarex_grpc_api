@@ -87,12 +87,11 @@ async def process_settings(setting):
         setting.pipeline_id,
         setting.statuses_ids,
     )
-    print(messages)
+    print('Задач:', len(messages))
     # Список задач для параллельной обработки сообщений
     tasks = []
 
     for message in messages.answer:
-        print(message)
         try:
             if api.message_exists(message.lead_id, message.id):
                 print('Сообщение существует!')

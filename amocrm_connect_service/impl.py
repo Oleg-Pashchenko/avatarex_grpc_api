@@ -172,7 +172,6 @@ class AmoCRM:
                         return await self.get_unanswered_messages(search_info)
                     try:
                         messages_history = await r.json()
-                        print(messages_history)
                         if message == "🔊":
                             message = messages_history["message_list"][0]["message"][
                                 "attachment"

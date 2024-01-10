@@ -52,7 +52,8 @@ def get_session(host: str):
             SessionsEntity.host == host
         ).first()
     except Exception as e:
-        print(e)
+        pass
+
     return s
 
 
