@@ -17,18 +17,18 @@ async def complete_openai(prompt, model, max_tokens, temperature, api_token):
             )
             return completion.choices[0].message.content
     except:
-        try:
-            async with openai.AsyncOpenAI(api_key=api_token) as client:
-                completion = await client.chat.completions.create(
-                    model='gpt-3.5-turbo', messages=prompt, max_tokens=max_tokens, temperature=temperature
-                )
-                return completion.choices[0].message.content
-        except:
-            async with openai.AsyncOpenAI(api_key=api_token) as client:
-                completion = await client.chat.completions.create(
-                    model='gpt-4', messages=prompt, max_tokens=max_tokens, temperature=temperature
-                )
-                return completion.choices[0].message.content
+        for model in ['gpt-3.5-turbo', 'gpt-4', 'gpt-4-32k']:
+            fl = True
+            try:
+                async with openai.AsyncOpenAI(api_key=api_token) as client:
+                    completion = await client.chat.completions.create(
+                        model=model, messages=prompt, max_tokens=max_tokens, temperature=temperature
+                    )
+                    return completion.choices[0].message.content
+            except:
+                fl = False
+            if fl:
+                break
 
 class OpenAIPromptServicer(prompt_mode_pb2_grpc.OpenAIPromptServiceServicer):
     async def CompletePrompt(self, request, context):
