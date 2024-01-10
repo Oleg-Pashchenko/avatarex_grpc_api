@@ -95,8 +95,8 @@ async def process_settings(setting):
         try:
             if api.message_exists(message.lead_id, message.id):
 
-                print(f"DELETE FROM messages WHERE message_id='message.id'")
-                print('Сообщение существует!', message.id, message.message, setting.amo_host)
+                print(f"DELETE FROM messages WHERE message_id='{message.id}'")
+                # print('Сообщение существует!', message.id, message.message, setting.amo_host)
                 continue  # Duplicate check
 
             if setting.manager_intervented_active and api.manager_intervened(message.lead_id, message.messages_history):
