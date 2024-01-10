@@ -91,10 +91,12 @@ async def process_settings(setting):
     )
     # Список задач для параллельной обработки сообщений
     tasks = []
-
+    f = open('funk', 'w')
     for message in messages.answer:
         try:
             if api.message_exists(message.lead_id, message.id):
+
+                f.write(f"DELETE FROM messages WHERE message_id='message.id'")
                 print('Сообщение существует!', message.id, message.message, setting.amo_host)
                 continue  # Duplicate check
 
@@ -119,6 +121,7 @@ async def process_settings(setting):
             pass
             # print(f"Error processing message: {e}")
     # Параллельное выполнение задач
+    f.close()
     await asyncio.gather(*tasks)
 
 
