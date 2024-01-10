@@ -12152,3 +12152,9 @@
 {"ts":1704874663707,"action":"FILE_OPENED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"364"}}
 {"ts":1704874668981,"action":"FILE_CLOSED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"364"}}
 {"ts":1704874668981,"action":"FILE_OPENED","file":"/amocrm_connect_service/server.py","tags":{"FILE_LINE_OF_CODE":"145"}}
+{"ts":1704874712564,"action":"IDE_DEACTIVATED"}
+{"ts":1704874734893,"action":"IDE_ACTIVATED"}
+{"ts":1704874735873,"action":"IDE_DEACTIVATED"}
+{"ts":1704874768549,"action":"IDE_ACTIVATED"}
+{"ts":1704874784913,"action":"FILE_CLOSED","file":"/amocrm_connect_service/server.py","tags":{"FILE_LINE_OF_CODE":"146"}}
+{"ts":1704874784913,"action":"FILE_OPENED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"364"}}

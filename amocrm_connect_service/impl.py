@@ -194,7 +194,7 @@ class AmoCRM:
         except Exception as e:
             # print("HAHHAHA", e)  неведомые ошибки
             await self.update_session(self.host)
-            return self.get_unanswered_messages(search_info)
+            return await self.get_unanswered_messages(search_info)
 
     async def _create_chat_token(self):
         url = f"{self.host}ajax/v1/chats/session"
