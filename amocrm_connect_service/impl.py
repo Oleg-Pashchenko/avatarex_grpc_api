@@ -188,12 +188,10 @@ class AmoCRM:
                             )
                         )
                     except Exception as e:
-                        print('error 2', e)
                         pass  # Пользователь удалил сообщение
                 await session.close()
             return response
         except Exception as e:
-            print('error', e)
             # print("HAHHAHA", e)  неведомые ошибки
             await self.update_session(self.host)
             return self.get_unanswered_messages(search_info)

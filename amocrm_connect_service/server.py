@@ -92,6 +92,7 @@ class AmocrmConnectService(amocrm_connect_pb2_grpc.AmocrmConnectServiceServicer)
         except Exception as e:
             success, status, error = False, False, str(e)
             chats = []
+        print('CHATS', chats)
         return amocrm_connect_pb2.AmocrmReadMessagesResponse(
             answer=chats,
             success=success,
