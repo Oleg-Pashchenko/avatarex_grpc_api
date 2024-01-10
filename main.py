@@ -95,7 +95,7 @@ async def process_settings(setting):
     for message in messages.answer:
         try:
             if api.message_exists(message.lead_id, message.id):
-                print('Сообщение существует!', message.message, setting.amo_host)
+                print('Сообщение существует!', message.id, message.message, setting.amo_host)
                 continue  # Duplicate check
 
             if setting.manager_intervented_active and api.manager_intervened(message.lead_id, message.messages_history):
