@@ -7,7 +7,7 @@ import asyncio
 
 
 async def send_message_to_amocrm(setting, message, text, is_bot):
-    print('Отправляю сообщение', text, message.chat.id)
+    print('Отправляю сообщение', text, message.chat_id)
     message_id = await amocrm.send_message(
         setting.amo_host,
         setting.amo_email,
