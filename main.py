@@ -93,7 +93,7 @@ async def process_settings(setting):
     for message in messages.answer:
         try:
             if api.message_exists(message.lead_id, message.id):
-                print('Сообщение существует!')
+                print('Сообщение существует!', message.text, setting.amo_host)
                 continue  # Duplicate check
 
             if setting.manager_intervented_active and api.manager_intervened(message.lead_id, message.messages_history):
@@ -115,7 +115,8 @@ async def process_settings(setting):
             tasks.append(task)
 
         except Exception as e:
-            print(f"Error processing message: {e}")
+            pass
+            # print(f"Error processing message: {e}")
     # Параллельное выполнение задач
     await asyncio.gather(*tasks)
 

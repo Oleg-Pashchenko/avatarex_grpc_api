@@ -12031,3 +12031,16 @@
 {"ts":1704872839848,"action":"FILE_CLOSED","file":"/amocrm_connect_service/db.py","tags":{"FILE_LINE_OF_CODE":"85"}}
 {"ts":1704872839850,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"134"}}
 {"ts":1704872861482,"action":"IDE_DEACTIVATED"}
+{"ts":1704873031686,"action":"IDE_ACTIVATED"}
+{"ts":1704873039099,"action":"IDE_DEACTIVATED"}
+{"ts":1704873041704,"action":"IDE_ACTIVATED"}
+{"ts":1704873042779,"action":"IDE_DEACTIVATED"}
+{"ts":1704873085549,"action":"IDE_ACTIVATED"}
+{"ts":1704873100498,"action":"IDE_DEACTIVATED"}
+{"ts":1704873137151,"action":"IDE_ACTIVATED"}
+{"ts":1704873137873,"action":"IDE_DEACTIVATED"}
+{"ts":1704873144209,"action":"IDE_ACTIVATED"}
+{"ts":1704873144976,"action":"IDE_DEACTIVATED"}
+{"ts":1704873149484,"action":"IDE_ACTIVATED"}
+{"ts":1704873150087,"action":"IDE_DEACTIVATED"}
+{"ts":1704873342361,"action":"IDE_ACTIVATED"}
