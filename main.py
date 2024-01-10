@@ -87,7 +87,6 @@ async def process_settings(setting):
         setting.pipeline_id,
         setting.statuses_ids,
     )
-    print('Задач:', len(messages))
     # Список задач для параллельной обработки сообщений
     tasks = []
 
