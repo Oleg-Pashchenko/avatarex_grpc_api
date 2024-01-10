@@ -14,7 +14,6 @@ async def send_message_to_amocrm(setting, message, text, is_bot):
         text,
         message.chat_id,
     )
-    api.add_message(message.id, message.lead_id, message.message, False)
     api.add_message(message_id, message.lead_id, text, is_bot)
 
 
@@ -110,7 +109,7 @@ async def process_settings(setting):
                 )
 
             # Assuming `api.add_message` is an asynchronous function
-
+            api.add_message(message.id, message.lead_id, message.message, False)
             # Создаем задачу для асинхронной обработки сообщения
             task = process_message(message, setting)
             tasks.append(task)
