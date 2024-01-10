@@ -91,6 +91,7 @@ async def process_settings(setting):
     tasks = []
 
     for message in messages.answer:
+        print(message.text)
         try:
             if api.message_exists(message.lead_id, message.id):
                 print('Сообщение существует!', message.text, setting.amo_host)
