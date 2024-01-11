@@ -155,8 +155,8 @@ class AmoCRM:
                 talks = await talks.json()
                 """https://drive-b.amocrm.ru/download/7b294ea0-53f2-5ea1-bfa0-464c3c297b79/0e49c658-b1d0-498a-986f-b50bb509c896/0098a61d-c343-4df3-8135-b61a2f3cb593/file-11.m4a"""
                 response = []
+                await asyncio.sleep(1)
                 for t in talks["_embedded"]["talks"]:
-                    await asyncio.sleep(1)
                     chat_id = t["chat_id"]
                     message = t["last_message"]["text"]
                     date = t['last_message']['last_message_at']

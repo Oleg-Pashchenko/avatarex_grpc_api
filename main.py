@@ -95,7 +95,7 @@ async def process_settings(setting):
         try:
             if api.message_exists(message.lead_id, message.id):
 
-                print(f"DELETE FROM messages WHERE message_id='{message.id}'")
+                # print(f"DELETE FROM messages WHERE message_id='{message.id}'")
                 # print('Сообщение существует!', message.id, message.message, setting.amo_host)
                 continue  # Duplicate check
 
