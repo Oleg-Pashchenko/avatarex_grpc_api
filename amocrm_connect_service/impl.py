@@ -90,8 +90,8 @@ class AmoCRM:
         return True
 
     async def connect_async(self) -> bool:
-        session_info = db.get_session(self.host)
-        if session_info is None or session_info.chat_token == '':
+        # session_info = db.get_session(self.host)
+        if True: # session_info is None or session_info.chat_token == '':
             await self._create_session_async()
             self.host = self.host.strip()
             url = f"{self.host}oauth2/authorize"
@@ -344,9 +344,10 @@ class AmoCRM:
 #     amo.send_message("Лол", r['chat_id'])
 
 async def main():
-    amo = AmoCRM(email='info@kristalexperts.com', host='https://realestate24.kommo.com/', password='123456')
+    amo = AmoCRM(email='ceo@business-robots.ru', host='https://chatgpt.amocrm.ru/', password='cxh6pyk4TGN!mwb.vtg')
     status = await amo.connect_async()
-
+    # print(await amo.get_unanswered_messages(''))
+    # print(status)
     # stages = [61592070, 61592074]
 
     # print(stages)
