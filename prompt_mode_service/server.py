@@ -27,6 +27,7 @@ async def complete_openai(prompt, model, max_tokens, temperature, api_token):
             except:
                 pass
 
+
 class OpenAIPromptServicer(prompt_mode_pb2_grpc.OpenAIPromptServiceServicer):
     async def CompletePrompt(self, request, context):
         start = time.time()
