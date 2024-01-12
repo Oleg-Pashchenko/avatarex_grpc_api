@@ -90,8 +90,8 @@ class AmoCRM:
         return True
 
     async def connect_async(self) -> bool:
-        # session_info = db.get_session(self.host)
-        if True: # session_info is None or session_info.chat_token == '':
+        session_info = db.get_session(self.host)
+        if session_info is None or session_info.chat_token == '':
             await self._create_session_async()
             self.host = self.host.strip()
             url = f"{self.host}oauth2/authorize"
