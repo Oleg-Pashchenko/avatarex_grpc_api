@@ -12784,3 +12784,14 @@
 {"ts":1705197977340,"action":"FILE_CLOSED","file":"/.env","tags":{"FILE_LINE_OF_CODE":"10"}}
 {"ts":1705197977348,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"145"}}
 {"ts":1705197979466,"action":"IDE_DEACTIVATED"}
+{"ts":1705197985599,"action":"IDE_ACTIVATED"}
+{"ts":1705197993749,"action":"IDE_DEACTIVATED"}
+{"ts":1705198005342,"action":"IDE_ACTIVATED"}
+{"ts":1705198041580,"action":"IDE_DEACTIVATED"}
+{"ts":1705198059459,"action":"IDE_ACTIVATED"}
+{"ts":1705198090153,"action":"IDE_DEACTIVATED"}
+{"ts":1705198094796,"action":"IDE_ACTIVATED"}
+{"ts":1705198098817,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"145"}}
+{"ts":1705198098817,"action":"FILE_OPENED","file":"/.env","tags":{"FILE_LINE_OF_CODE":"10"}}
+{"ts":1705198100756,"action":"IDE_DEACTIVATED"}
+{"ts":1705198103552,"action":"IDE_ACTIVATED"}
