@@ -134,8 +134,9 @@ async def cycle():
                 if 'olegtest' in setting.amo_host:
                     await process_settings(setting)
             else:
-                if 'chatgpt.amocrm' not in setting.amo_host:
-                    asyncio.ensure_future(process_settings(setting))
+                if 'olegtest' not in setting.amo_host:
+            #    if 'chatgpt.amocrm' not in setting.amo_host:
+                asyncio.ensure_future(process_settings(setting))
 
         await asyncio.sleep(3)
 
