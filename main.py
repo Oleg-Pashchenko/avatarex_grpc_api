@@ -4,7 +4,8 @@ from amocrm_connect_service import client as amocrm
 from database_connect_service.src.site import ApiSettings, get_enabled_api_settings
 from prompt_mode_service import client as prompt_mode
 import asyncio
-
+import dotenv
+import os
 
 async def send_message_to_amocrm(setting, message, text, is_bot):
     print('Отправляю сообщение', text, message.chat_id)
@@ -24,18 +25,18 @@ async def process_message(message, setting):
                                                 setting.amo_host,
                                                 setting.amo_email,
                                                 setting.amo_password)
-
+    print(fields)
     # qualification_response = await qualification_mode.run_qualification_client(message.message,
     #                                                                            True,
     #                                                                            fields,
-    #                                                                            setting.amocrm_fields,
-    #                                                                            setting.qualification_finished,
-    #                                                                            setting.api_token,
+    #                                                                           setting.amocrm_fields,
+    #                                                                           setting.qualification_finished,
+    #                                                                           setting.api_token,
     #                                                                           setting.model_title)
 
-    # if qualification_response.success:
-    #     if qualification_response.data.message:
-    #         return await send_message_to_amocrm(setting, message, qualification_response.data.message, True)
+    #if qualification_response.success:
+    #    if qualification_response.data.message:
+    #        return await send_message_to_amocrm(setting, message, qualification_response.data.message, True)
 
     # Если есть сообщение - новая квалификация и больше нет режимов
     #  Если нет - идем в режим
@@ -94,7 +95,6 @@ async def process_settings(setting):
     for message in messages.answer:
         try:
             if api.message_exists(message.lead_id, message.id):
-
                 # print(f"DELETE FROM messages WHERE message_id='{message.id}'")
                 # print('Сообщение существует!', message.id, message.message, setting.amo_host)
                 continue  # Duplicate check
@@ -127,7 +127,16 @@ async def cycle():
     while True:
         settings: list[ApiSettings] = get_enabled_api_settings()
         for setting in settings:
-            asyncio.ensure_future(process_settings(setting))
+            if os.getenv('MODE') == 'testing':
+                if 'chatgpt.amocrm' in setting.amo_host:
+                    asyncio.ensure_future(process_settings(setting))
+            elif os.getenv('MODE') == 'developing':
+                if 'olegtest' in setting.amo_host:
+                    await process_settings(setting)
+            else:
+                if 'chatgpt.amocrm' not in setting.amo_host:
+                    asyncio.ensure_future(process_settings(setting))
+
         await asyncio.sleep(3)
 
 
