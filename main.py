@@ -90,6 +90,7 @@ async def process_settings(setting):
         setting.pipeline_id,
         setting.statuses_ids,
     )
+    print(messages)
     # Список задач для параллельной обработки сообщений
     tasks = []
     for message in messages.answer:
@@ -130,12 +131,15 @@ async def cycle():
             if os.getenv('MODE') == 'testing':
                 if 'chatgpt.amocrm' in setting.amo_host:
                     asyncio.ensure_future(process_settings(setting))
-            elif os.getenv('MODE') == 'developing':
-                if 'olegtest' in setting.amo_host:
-                    await process_settings(setting)
             else:
-                if 'olegtest' not in setting.amo_host:            #    if 'chatgpt.amocrm' not in setting.amo_host:
+                if 'chatgpt.amocrm' not in setting.amo_host:
                     asyncio.ensure_future(process_settings(setting))
+            #elif os.getenv('MODE') == 'developing':
+            #    if 'pickpar' in setting.amo_host:
+            #        await process_settings(setting)
+           # else:
+           #     if 'pickpar' not in setting.amo_host:            #    if 'chatgpt.amocrm' not in setting.amo_host:
+           #         asyncio.ensure_future(process_settings(setting))
 
         await asyncio.sleep(3)
 
