@@ -7,6 +7,7 @@ import asyncio
 import dotenv
 import os
 
+
 async def send_message_to_amocrm(setting, message, text, is_bot):
     print('Отправляю сообщение', text, message.chat_id)
     message_id = await amocrm.send_message(
@@ -34,7 +35,7 @@ async def process_message(message, setting):
     #                                                                           setting.api_token,
     #                                                                           setting.model_title)
 
-    #if qualification_response.success:
+    # if qualification_response.success:
     #    if qualification_response.data.message:
     #        return await send_message_to_amocrm(setting, message, qualification_response.data.message, True)
 
@@ -90,7 +91,6 @@ async def process_settings(setting):
         setting.pipeline_id,
         setting.statuses_ids,
     )
-    print(messages)
     # Список задач для параллельной обработки сообщений
     tasks = []
     for message in messages.answer:
@@ -101,7 +101,7 @@ async def process_settings(setting):
                 continue  # Duplicate check
 
             if setting.manager_intervented_active and api.manager_intervened(message.lead_id, message.messages_history):
-                print('Вмешательство менеджеров!')
+                print(setting.amo_host, 'Вмешательство менеджеров!', message.message)
                 continue  # Manager intervention check
 
             if ".m4a" in message.message:
@@ -110,10 +110,10 @@ async def process_settings(setting):
                 message.message = await whisper_service.client.run(
                     openai_api_key=setting.api_token, url=message.message
                 )
-
             # Assuming `api.add_message` is an asynchronous function
             api.add_message(message.id, message.lead_id, message.message, False)
             # Создаем задачу для асинхронной обработки сообщения
+            print(f'[{setting.amo_host}] Обрабатываю сообщение {message.message}')
             task = process_message(message, setting)
             tasks.append(task)
 
@@ -128,18 +128,22 @@ async def cycle():
     while True:
         settings: list[ApiSettings] = get_enabled_api_settings()
         for setting in settings:
+            # if 'https://bosswonderscakeru.amocrm.ru' in setting.amo_host:
+            #     await process_settings(setting)
+            #    exit(0)
+
             if os.getenv('MODE') == 'testing':
                 if 'chatgpt.amocrm' in setting.amo_host:
                     asyncio.ensure_future(process_settings(setting))
             else:
                 if 'chatgpt.amocrm' not in setting.amo_host:
                     asyncio.ensure_future(process_settings(setting))
-            #elif os.getenv('MODE') == 'developing':
+            # elif os.getenv('MODE') == 'developing':
             #    if 'pickpar' in setting.amo_host:
             #        await process_settings(setting)
-           # else:
-           #     if 'pickpar' not in setting.amo_host:            #    if 'chatgpt.amocrm' not in setting.amo_host:
-           #         asyncio.ensure_future(process_settings(setting))
+        # else:
+        #     if 'pickpar' not in setting.amo_host:            #    if 'chatgpt.amocrm' not in setting.amo_host:
+        #         asyncio.ensure_future(process_settings(setting))
 
         await asyncio.sleep(3)
 
