@@ -1,6 +1,6 @@
 from aiohttp import web
 
-from . import impl
+import impl
 
 
 async def handle(request):

@@ -13424,3 +13424,4 @@
 {"ts":1705647557746,"action":"FILE_OPENED","file":"/knowledge_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"35"}}
 {"ts":1705647560525,"action":"FILE_CLOSED","file":"/knowledge_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"35"}}
 {"ts":1705647560525,"action":"FILE_OPENED","file":"/knowledge_mode_service/server.py","tags":{"FILE_LINE_OF_CODE":"28"}}
+{"ts":1705647571553,"action":"IDE_DEACTIVATED"}
