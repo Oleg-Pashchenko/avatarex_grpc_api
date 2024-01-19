@@ -20,7 +20,8 @@ async def handle(request):
         return web.Response(
             text=f"{thread_id}|||{text}", content_type="application/json"
         )
-    except:
+    except Exception as e:
+        print(e)
         return web.Response(
             text='Ошибка настроек', content_type='application/json'
         )
