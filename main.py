@@ -42,6 +42,8 @@ async def process_message(message, setting):
 
     # Если есть сообщение - новая квалификация и больше нет режимов
     #  Если нет - идем в режим
+
+    print(setting.mode_id)
     if setting.mode_id == 1:
         database_messages = api.get_messages_history(message.lead_id)
         answer = await prompt_mode.run(
@@ -57,7 +59,6 @@ async def process_message(message, setting):
 
     elif setting.mode_id == 2:
         pass
-
 
     elif setting.mode_id == 3:
         if len(setting.knowledge_data) == 0:
