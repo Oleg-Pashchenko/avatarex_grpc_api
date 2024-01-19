@@ -39,6 +39,7 @@ async def classificate(questions: list, question: str, api_key: str):
 
 async def run(knowledge_data: dict, question: str, api_key: str, classification_error_message: str,
               detecting_error_message: str):
+    print('Запустил knowledge')
     try:
         classifications = await classificate(list(knowledge_data.keys()), question, api_key)
     except:
