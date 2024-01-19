@@ -57,10 +57,10 @@ async def process_message(message, setting):
         await send_message_to_amocrm(setting, message, answer.data.message, True)
 
 
-    elif setting.mode_id == 2:
+    elif setting.mode_id == 3:
         pass
 
-    elif setting.mode_id == 3:
+    elif setting.mode_id == 2:
         if len(setting.knowledge_data) == 0:
             answer = 'Обратитесь к поддержке. База знаний не настроена!'
         else:

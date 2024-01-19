@@ -13580,3 +13580,11 @@
 {"ts":1705650035525,"action":"IDE_ACTIVATED"}
 {"ts":1705650044750,"action":"FILE_CLOSED","file":"/knowledge_mode_service/impl.py","tags":{"FILE_LINE_OF_CODE":"68"}}
 {"ts":1705650044750,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"174"}}
+{"ts":1705650061974,"action":"IDE_DEACTIVATED"}
+{"ts":1705650062629,"action":"IDE_ACTIVATED"}
+{"ts":1705650062900,"action":"IDE_DEACTIVATED"}
+{"ts":1705650120531,"action":"IDE_ACTIVATED"}
+{"ts":1705650121873,"action":"IDE_DEACTIVATED"}
+{"ts":1705650126406,"action":"IDE_ACTIVATED"}
+{"ts":1705650127219,"action":"IDE_DEACTIVATED"}
+{"ts":1705650138950,"action":"IDE_ACTIVATED"}
