@@ -164,7 +164,6 @@ async def process_settings(setting):
         setting.pipeline_id,
         setting.statuses_ids,
     )
-    print(len(messages.answer))
     # Список задач для параллельной обработки сообщений
     tasks = []
     for message in messages.answer:
@@ -185,13 +184,14 @@ async def process_settings(setting):
                     openai_api_key=setting.api_token, url=message.message
                 )
             # Assuming `api.add_message` is an asynchronous function
+            print(f'[{setting.amo_host}] Обрабатываю сообщение {message.message}')
+
             api.add_message(message.id, message.lead_id, message.message, False)
            #  api.create_stats(message.id, )
             api.add_stats(st, 'Start Time', message.id)
             api.add_stats(time.time() - st, 'CRM Read', message.id)
-
+            print('yes')
             # Создаем задачу для асинхронной обработки сообщения
-            print(f'[{setting.amo_host}] Обрабатываю сообщение {message.message}')
             task = process_message(message, setting)
             tasks.append(task)
 
