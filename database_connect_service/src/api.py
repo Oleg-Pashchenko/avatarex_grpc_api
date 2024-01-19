@@ -128,6 +128,7 @@ def save_thread(lead_id: int, thread_id: int):
 
 
 def add_stats(t, name, message_id):
+    return
     t = round(int(t), 2)
     if name == 'CRM Fields':
         pass

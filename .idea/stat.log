@@ -14223,3 +14223,6 @@
 {"ts":1705682857735,"action":"FILE_OPENED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"141"}}
 {"ts":1705682861356,"action":"FILE_CLOSED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"141"}}
 {"ts":1705682861359,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"231"}}
+{"ts":1705682863179,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"231"}}
+{"ts":1705682863179,"action":"FILE_OPENED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"141"}}
+{"ts":1705682873647,"action":"IDE_DEACTIVATED"}
