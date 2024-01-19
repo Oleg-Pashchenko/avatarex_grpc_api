@@ -77,8 +77,8 @@ async def process_message(message, setting):
             'assistant_id': setting.assistant_id
         })
         answer = answer.split('|||')
-        if not thread_id:
-            save_thread(lead_id=message.lead_id, thread_id=answer[0])
+        # if not thread_id:
+        #    save_thread(lead_id=message.lead_id, thread_id=answer[0])
         await send_message_to_amocrm(setting, message, answer[1], True)
 
     elif setting.mode_id == 3:

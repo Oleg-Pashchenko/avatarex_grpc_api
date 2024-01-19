@@ -14226,3 +14226,14 @@
 {"ts":1705682863179,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"231"}}
 {"ts":1705682863179,"action":"FILE_OPENED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"141"}}
 {"ts":1705682873647,"action":"IDE_DEACTIVATED"}
+{"ts":1705682907801,"action":"IDE_ACTIVATED"}
+{"ts":1705682915271,"action":"IDE_DEACTIVATED"}
+{"ts":1705682979929,"action":"IDE_ACTIVATED"}
+{"ts":1705682983763,"action":"FILE_CLOSED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"142"}}
+{"ts":1705682983763,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"231"}}
+{"ts":1705682990495,"action":"IDE_DEACTIVATED"}
+{"ts":1705683004117,"action":"IDE_ACTIVATED"}
+{"ts":1705683004758,"action":"IDE_DEACTIVATED"}
+{"ts":1705683005660,"action":"IDE_ACTIVATED"}
+{"ts":1705683006292,"action":"IDE_DEACTIVATED"}
+{"ts":1705683006659,"action":"IDE_ACTIVATED"}
