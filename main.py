@@ -73,7 +73,7 @@ async def process_message(message, setting):
                     'detecting_error_message': setting.avatarex_error_message
                 }
             )
-        await send_message_to_amocrm(setting, message, answer.data.message, True)
+        await send_message_to_amocrm(setting, message, answer, True)
 
     # elif setting.mode_id == 2:  # Prompt + Knowledge
     #     status, message_text = await knowledge_mode_hardcode.main(setting.knowledge_data, message, setting.api_token)
