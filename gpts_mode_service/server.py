@@ -7,11 +7,17 @@ async def handle(request):
     data = await request.json()
 
     # Access the required parameters
-    knowledge_data = data.get("knowledge_data", {})
-    text, thread_id = await impl.execute(question='', token='', thread_id='', assistant_id='')
+    question = data.get("question", '')
+    token = data.get("token", '')
+    thread_id = data.get("thread_id", '')
+    assistant_id = data.get("assistant_id", '')
+    text, thread_id = await impl.execute(question=question,
+                                         token=token,
+                                         thread_id=thread_id,
+                                         assistant_id=assistant_id)
 
     return web.Response(
-        body={'': response, '': ''}, content_type="application/json"
+        body={'thread_id': thread_id, 'text': text}, content_type="application/json"
     )
 
 
