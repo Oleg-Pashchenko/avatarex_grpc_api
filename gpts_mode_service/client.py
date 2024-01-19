@@ -19,7 +19,7 @@ async def send_request(request):
 if __name__ == '__main__':
     print(asyncio.run(send_request({
         'question': 'Привет',
-        'token': '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',
+        'token': '',
         'thread_id': None,
-        'assistant_id': 'asst_eUTMQDPg5X17rG6WuAeLzx7m'}
+        'assistant_id': 'asst_KwmbWZ73fMCLA9my8Wy86MNm'}
     )))

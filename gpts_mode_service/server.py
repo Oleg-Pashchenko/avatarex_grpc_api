@@ -17,7 +17,7 @@ async def handle(request):
                                          assistant_id=assistant_id)
 
     return web.Response(
-        body={'thread_id': thread_id, 'text': text}, content_type="application/json"
+        text=f"{thread_id}|||{text}", content_type="application/json"
     )
 
 
