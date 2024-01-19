@@ -1,6 +1,6 @@
 from aiohttp import web
 
-from knowledge_mode_service import impl
+from . import impl
 
 
 async def handle(request):

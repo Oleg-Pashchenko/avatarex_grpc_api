@@ -60,15 +60,18 @@ async def process_message(message, setting):
 
 
     elif setting.mode_id == 3:
-        answer = await knowledge_mode.send_request(
-            {
-                "knowledge_data": setting.knowledge_data,
-                "question": message.message,
-                'api_key': setting.api_token,
-                'classification_error_message': setting.openai_error_message,
-                'detecting_error_message': setting.avatarex_error_message
-            }
-        )
+        if len(setting.knowledge_data) == 0:
+            answer = 'Обратитесь к поддержке. База знаний не настроена!'
+        else:
+            answer = await knowledge_mode.send_request(
+                {
+                    "knowledge_data": setting.knowledge_data,
+                    "question": message.message,
+                    'api_key': setting.api_token,
+                    'classification_error_message': setting.openai_error_message,
+                    'detecting_error_message': setting.avatarex_error_message
+                }
+            )
         await send_message_to_amocrm(setting, message, answer.data.message, True)
 
     # elif setting.mode_id == 2:  # Prompt + Knowledge
