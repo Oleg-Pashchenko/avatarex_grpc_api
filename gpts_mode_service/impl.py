@@ -2,7 +2,8 @@ from openai import AsyncOpenAI
 
 
 async def execute(question: str, token: str, thread_id=None, assistant_id=''):
-    with AsyncOpenAI(api_key=token) as client:
+    client = AsyncOpenAI(api_key=token)
+    if True:
         if thread_id is None:
             thread = await client.beta.threads.create()
             thread_id = thread.id
