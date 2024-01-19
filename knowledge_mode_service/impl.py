@@ -42,12 +42,14 @@ async def run(knowledge_data: dict, question: str, api_key: str, classification_
     print('Запустил knowledge')
     try:
         classifications = await classificate(list(knowledge_data.keys()), question, api_key)
-    except:
+    except Exception as e:
+        print('Classification error', e)
         return detecting_error_message
     try:
         first_true_key = next(key for key, value in classifications.items() if value)
         return knowledge_data[first_true_key]
-    except:
+    except Exception as e:
+        print('Detection error', e)
         return classification_error_message
 
 
