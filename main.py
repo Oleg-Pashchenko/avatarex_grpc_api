@@ -164,6 +164,7 @@ async def process_settings(setting):
         setting.pipeline_id,
         setting.statuses_ids,
     )
+    print(messages)
     # Список задач для параллельной обработки сообщений
     tasks = []
     for message in messages.answer:
