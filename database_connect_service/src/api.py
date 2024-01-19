@@ -127,7 +127,7 @@ def save_thread(lead_id: int, thread_id: int):
     session.commit()
 
 
-def add_stats(name, t, message_id):
+def add_stats(t, name, message_id):
     t = round(int(t), 2)
     if name == 'CRM Fields':
         pass
