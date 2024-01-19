@@ -3,6 +3,7 @@ import whisper_service.client
 from amocrm_connect_service import client as amocrm
 from database_connect_service.src.site import ApiSettings, get_enabled_api_settings
 from prompt_mode_service import client as prompt_mode
+from knowledge_mode_service import client as knowledge_mode
 import asyncio
 import dotenv
 import os
@@ -50,6 +51,23 @@ async def process_message(message, setting):
             api_token=setting.api_token,
             max_tokens=setting.max_tokens,
             temperature=setting.temperature,
+        )
+        await send_message_to_amocrm(setting, message, answer.data.message, True)
+
+
+    elif setting.mode_id == 2:
+        pass
+
+
+    elif setting.mode_id == 3:
+        answer = await knowledge_mode.send_request(
+            {
+                "knowledge_data": setting.knowledge_data,
+                "question": message.message,
+                'api_key': setting.api_token,
+                'classification_error_message': setting.openai_error_message,
+                'detecting_error_message': setting.avatarex_error_message
+            }
         )
         await send_message_to_amocrm(setting, message, answer.data.message, True)
 

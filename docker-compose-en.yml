@@ -24,3 +24,11 @@ services:
       dockerfile: common/docker/Dockerfile_qualification
     ports:
       - "50054:50054"
+
+  knowledge_mode_service:
+    restart: always
+    build:
+      context: .
+      dockerfile: common/docker/Dockerfile_knowledge
+    ports:
+      - "50055:50055"
