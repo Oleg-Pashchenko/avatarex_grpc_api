@@ -1,8 +1,6 @@
 import dataclasses
 import datetime
 import json
-import random
-import time
 
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -12,7 +10,6 @@ from sqlalchemy.exc import SADeprecationWarning
 import dotenv
 import os
 
-import misc
 
 dotenv.load_dotenv()
 
@@ -36,6 +33,13 @@ class Messages:
     is_bot: bool
 
 
+@dataclasses.dataclass
+class Threads:
+    id: int
+    lead_id: int
+    thread_id: str
+
+
 dotenv.load_dotenv()
 engine = sqlalchemy.create_engine(
     f'postgresql://{os.getenv("DB_USER")}:{os.getenv("DB_PASSWORD")}'
@@ -48,8 +52,9 @@ session = Session()
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 MessagesEntity = Base.classes.messages
+ThreadsEntity = Base.classes.threads
 
-for c in [MessagesEntity]:
+for c in [MessagesEntity, ThreadsEntity]:
     c.as_dict = as_dict
 
 
@@ -105,3 +110,32 @@ def message_exists(lead_id, message_id):
     ).first()
 
     return existing_message is not None
+
+
+def get_thread_by_lead_id(lead_id: int):
+    existing_lead = session.query(MessagesEntity).filter(
+        ThreadsEntity.lead_id == lead_id
+    ).first()
+    if existing_lead:
+        return existing_lead.thread_id
+
+
+def save_thread(lead_id: int, thread_id: int):
+    obj = ThreadsEntity(lead_id=lead_id,
+                        thread_id=thread_id)
+    session.add(obj)
+    session.commit()
+
+
+def add_stats(name, t, message_id):
+    t = round(int(t), 2)
+    if name == 'CRM Fields':
+        pass
+    elif name == 'Prompt mode':
+        pass
+    elif name == 'Finish time':
+        pass
+    elif name == 'CRM Read':
+        pass
+    elif name == 'Start Time':
+        pass

@@ -72,6 +72,8 @@ class ApiSettings:
     api_token: str
     knowledge_data: list
 
+    assistant_id: str
+
 
 @dataclasses.dataclass
 class Settings:
@@ -99,6 +101,7 @@ class Settings:
     knowledge_data: list
     knowledge_link: str
     knowledge_name: str
+    assistant_id: str
 
 
 @dataclasses.dataclass
@@ -241,7 +244,8 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                     amo_host=amo.host,
                     api_token=user.openai_api_key,
                     knowledge_data=s.knowledge_data,
-                    manager_intervented_active=s.is_manager_intervented_active
+                    manager_intervented_active=s.is_manager_intervented_active,
+                    assistant_id=s.assistant_id
                 )
             )
         except Exception as e:

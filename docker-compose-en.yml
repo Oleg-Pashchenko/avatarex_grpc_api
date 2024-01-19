@@ -32,3 +32,10 @@ services:
       dockerfile: common/docker/Dockerfile_knowledge
     ports:
       - "50055:50055"
+  gpts_mode_service:
+    restart: always
+    build:
+      context: .
+      dockerfile: common/docker/Dockerfile_assistants
+    ports:
+      - "50056:50056"

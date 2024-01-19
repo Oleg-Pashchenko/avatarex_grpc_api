@@ -1,16 +1,20 @@
+import time
+
 from database_connect_service.src import api
 import whisper_service.client
 from amocrm_connect_service import client as amocrm
+from database_connect_service.src.api import get_thread_by_lead_id, save_thread
 from database_connect_service.src.site import ApiSettings, get_enabled_api_settings
 from prompt_mode_service import client as prompt_mode
 from knowledge_mode_service import client as knowledge_mode
+from gpts_mode_service import client as gpts
 import asyncio
-import dotenv
 import os
 
 
 async def send_message_to_amocrm(setting, message, text, is_bot):
     print('Отправляю сообщение', text, message.chat_id)
+    st = time.time()
     message_id = await amocrm.send_message(
         setting.amo_host,
         setting.amo_email,
@@ -19,15 +23,17 @@ async def send_message_to_amocrm(setting, message, text, is_bot):
         message.chat_id,
     )
     api.add_message(message_id, message.lead_id, text, is_bot)
+    api.add_stats('Crm Send', time.time() - st, message.id)
 
 
 async def process_message(message, setting):
     print('Обрабатывается сообщение!', setting.amo_host)
+    st = time.time()
     fields = await amocrm.get_fields_by_deal_id(message.lead_id,
                                                 setting.amo_host,
                                                 setting.amo_email,
                                                 setting.amo_password)
-    print(fields)
+    api.add_stats('CRM Fields', time.time() - st, message.id)
     # qualification_response = await qualification_mode.run_qualification_client(message.message,
     #                                                                            True,
     #                                                                            fields,
@@ -45,6 +51,7 @@ async def process_message(message, setting):
 
     print(setting.mode_id)
     if setting.mode_id == 1:
+        st = time.time()
         database_messages = api.get_messages_history(message.lead_id)
         answer = await prompt_mode.run(
             messages=prompt_mode.get_messages_context(database_messages, setting.prompt_context, setting.model_limit,
@@ -54,11 +61,52 @@ async def process_message(message, setting):
             max_tokens=setting.max_tokens,
             temperature=setting.temperature,
         )
+        api.add_stats(time.time() - st, 'Prompt mode', message.id)
         await send_message_to_amocrm(setting, message, answer.data.message, True)
 
+    elif setting.mode_id == 4:  # Datbase mode
+        answer = 'Метод в финальной разработке!'
+        await send_message_to_amocrm(setting, message, answer, True)
+
+    elif setting.mode_id == 7:  # Gpt's API
+        thread_id = get_thread_by_lead_id(message.lead_id)
+        answer = await gpts.send_request({
+            'question': message.message,
+            'token': setting.api_token,
+            'thread_id': thread_id,
+            'assistant_id': setting.assistant_id
+        })
+        if not thread_id:
+            save_thread(lead_id=message.lead_id, thread_id=answer['thread_id'])
+        await send_message_to_amocrm(setting, message, answer['text'], True)
 
     elif setting.mode_id == 3:
-        pass
+        if len(setting.knowledge_data) == 0:
+            answer = 'Обратитесь к поддержке. База знаний не настроена!'
+        else:
+            answer = await knowledge_mode.send_request(
+                {
+                    "knowledge_data": setting.knowledge_data,
+                    "question": message.message,
+                    'api_key': setting.api_token,
+                    'classification_error_message': setting.openai_error_message,
+                    'detecting_error_message': setting.avatarex_error_message
+                }
+            )
+            if answer == setting.openai_error_message or answer == setting.avatarex_error_message:
+                database_messages = api.get_messages_history(message.lead_id)
+                answer = await prompt_mode.run(
+                    messages=prompt_mode.get_messages_context(database_messages, setting.prompt_context,
+                                                              setting.model_limit,
+                                                              setting.max_tokens,
+                                                              fields if setting.use_amocrm_fields else []),
+                    model=setting.model_title,
+                    api_token=setting.api_token,
+                    max_tokens=setting.max_tokens,
+                    temperature=setting.temperature,
+                )
+                answer = answer.data.message
+        await send_message_to_amocrm(setting, message, answer, True)
 
     elif setting.mode_id == 2:
         if len(setting.knowledge_data) == 0:
@@ -74,6 +122,7 @@ async def process_message(message, setting):
                 }
             )
         await send_message_to_amocrm(setting, message, answer, True)
+    api.add_stats('Finish time', time.time(), message.id)
 
     # elif setting.mode_id == 2:  # Prompt + Knowledge
     #     status, message_text = await knowledge_mode_hardcode.main(setting.knowledge_data, message, setting.api_token)
@@ -106,6 +155,7 @@ async def process_message(message, setting):
 
 
 async def process_settings(setting):
+    st = time.time()
     messages = await amocrm.read_unanswered_messages(
         setting.amo_host,
         setting.amo_email,
@@ -134,6 +184,10 @@ async def process_settings(setting):
                 )
             # Assuming `api.add_message` is an asynchronous function
             api.add_message(message.id, message.lead_id, message.message, False)
+           #  api.create_stats(message.id, )
+            api.add_stats(st, 'Start Time', message.id)
+            api.add_stats(time.time() - st, 'CRM Read', message.id)
+
             # Создаем задачу для асинхронной обработки сообщения
             print(f'[{setting.amo_host}] Обрабатываю сообщение {message.message}')
             task = process_message(message, setting)
