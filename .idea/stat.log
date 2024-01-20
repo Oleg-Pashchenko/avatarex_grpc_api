@@ -14581,3 +14581,13 @@
 {"ts":1705763340693,"action":"IDE_ACTIVATED"}
 {"ts":1705763370991,"action":"IDE_DEACTIVATED"}
 {"ts":1705763450425,"action":"IDE_ACTIVATED"}
+{"ts":1705763469012,"action":"IDE_DEACTIVATED"}
+{"ts":1705763575743,"action":"IDE_ACTIVATED"}
+{"ts":1705763582233,"action":"IDE_DEACTIVATED"}
+{"ts":1705763593335,"action":"IDE_ACTIVATED"}
+{"ts":1705763601503,"action":"FILE_CLOSED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"370"}}
+{"ts":1705763601503,"action":"FILE_OPENED","file":"/prompt_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"89"}}
+{"ts":1705763606769,"action":"IDE_DEACTIVATED"}
+{"ts":1705763608110,"action":"IDE_ACTIVATED"}
+{"ts":1705763614193,"action":"FILE_CLOSED","file":"/prompt_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"89"}}
+{"ts":1705763614193,"action":"FILE_OPENED","file":"/prompt_mode_service/server.py","tags":{"FILE_LINE_OF_CODE":"84"}}
