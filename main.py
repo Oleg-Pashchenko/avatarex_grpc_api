@@ -8,6 +8,7 @@ from database_connect_service.src.site import ApiSettings, get_enabled_api_setti
 from prompt_mode_service import client as prompt_mode
 from knowledge_mode_service import client as knowledge_mode
 from gpts_mode_service import client as gpts
+from search_mode_service import client as search
 import asyncio
 import os
 
@@ -65,7 +66,52 @@ async def process_message(message, setting):
         await send_message_to_amocrm(setting, message, answer.data.message, True)
 
     elif setting.mode_id == 4:  # Datbase mode
-        answer = 'Метод в финальной разработке!'
+        answer = await search.send_request({
+            'database': setting.database_data,
+            'search_rules': setting.search_rules,
+            'message_format': setting.message_format,
+            'repeat': setting.repeat,
+            'question': message.message,
+            'api_key': setting.api_token,
+            'detecting_error_message': setting.openai_error_message,
+            'classification_error_message': setting.avatarex_error_message
+        })
+        await send_message_to_amocrm(setting, message, answer, True)
+
+    elif setting.mode_id == 8:  # Database + Knowledge + Prompt mode
+        answer = await search.send_request({
+            'database': setting.database_data,
+            'search_rules': setting.search_rules,
+            'message_format': setting.message_format,
+            'repeat': setting.repeat,
+            'question': message.message,
+            'api_key': setting.api_token,
+            'detecting_error_message': setting.openai_error_message,
+            'classification_error_message': setting.avatarex_error_message
+        })
+        if answer == setting.openai_error_message or answer == setting.avatarex_error_message:
+            answer = await knowledge_mode.send_request(
+                {
+                    "knowledge_data": setting.knowledge_data,
+                    "question": message.message,
+                    'api_key': setting.api_token,
+                    'classification_error_message': setting.openai_error_message,
+                    'detecting_error_message': setting.avatarex_error_message
+                }
+            )
+            if answer == setting.openai_error_message or answer == setting.avatarex_error_message:
+                database_messages = api.get_messages_history(message.lead_id)
+                answer = await prompt_mode.run(
+                    messages=prompt_mode.get_messages_context(database_messages, setting.prompt_context,
+                                                              setting.model_limit,
+                                                              setting.max_tokens,
+                                                              fields if setting.use_amocrm_fields else []),
+                    model=setting.model_title,
+                    api_token=setting.api_token,
+                    max_tokens=setting.max_tokens,
+                    temperature=setting.temperature,
+                )
+                answer = answer.data.message
         await send_message_to_amocrm(setting, message, answer, True)
 
     elif setting.mode_id == 7:  # Gpt's API

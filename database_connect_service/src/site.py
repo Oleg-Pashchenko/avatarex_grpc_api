@@ -74,6 +74,12 @@ class ApiSettings:
 
     assistant_id: str
 
+    database_data: list
+    search_rules: dict
+    message_format: str
+    repeat: int
+
+
 
 @dataclasses.dataclass
 class Settings:
@@ -245,7 +251,11 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                     api_token=user.openai_api_key,
                     knowledge_data=s.knowledge_data,
                     manager_intervented_active=s.is_manager_intervented_active,
-                    assistant_id=s.assistant_id
+                    assistant_id=s.assistant_id,
+                    database_data=s.database_data,
+                    search_rules={},
+                    repeat=1,
+                    message_format=''
                 )
             )
         except Exception as e:

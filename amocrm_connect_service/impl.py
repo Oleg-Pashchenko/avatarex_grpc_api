@@ -225,6 +225,7 @@ class AmoCRM:
                 response = await session.post(
                     url=url, data=json.dumps({"text": message}), headers=headers
                 )
+            print(response.status)
             answer = await response.json()
 
             return answer['id']
