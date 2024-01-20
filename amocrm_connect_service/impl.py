@@ -125,8 +125,7 @@ class AmoCRM:
             self.host = session_info.host
             self.headers = session_info.headers
             self.chat_token = session_info.chat_token
-            await self._create_amo_hash()
-            db.update_session(self.host, self.headers, self.amo_hash, self.chat_token)
+            self.amo_hash = session_info.amo_hash
             return True
 
     async def get_unanswered_messages(self, search_info: list[list]):
@@ -226,7 +225,7 @@ class AmoCRM:
                 response = await session.post(
                     url=url, data=json.dumps({"text": message}), headers=headers
                 )
-            print(response.status)
+            print(response.text)
             answer = await response.json()
 
             return answer['id']
