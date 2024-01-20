@@ -14551,3 +14551,5 @@
 {"ts":1705762830676,"action":"FILE_OPENED","file":"/amocrm_connect_service/server.py","tags":{"FILE_LINE_OF_CODE":"145"}}
 {"ts":1705762847857,"action":"FILE_CLOSED","file":"/amocrm_connect_service/server.py","tags":{"FILE_LINE_OF_CODE":"145"}}
 {"ts":1705762847857,"action":"FILE_OPENED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"369"}}
+{"ts":1705762865872,"action":"IDE_DEACTIVATED"}
+{"ts":1705762947942,"action":"IDE_ACTIVATED"}
