@@ -214,6 +214,7 @@ class AmoCRM:
             self.amo_hash = data["amojo_id"]
 
     async def send_message(self, message: str, chat_id: str):
+        print(chat_id, message)
         headers = {"X-Auth-Token": self.chat_token}
         url = f"{self.amojo_host}v1/chats/{self.amo_hash}/{chat_id}/messages?with_video=true&stand=v16"
         async with aiohttp.ClientSession() as session:
