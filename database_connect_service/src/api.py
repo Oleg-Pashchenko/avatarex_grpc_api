@@ -113,7 +113,7 @@ def message_exists(lead_id, message_id):
 
 
 def get_thread_by_lead_id(lead_id: int):
-    existing_lead = session.query(MessagesEntity).filter(
+    existing_lead = session.query(ThreadsEntity).filter(
         ThreadsEntity.lead_id == lead_id
     ).first()
     if existing_lead:
