@@ -14703,3 +14703,5 @@
 {"ts":1705931364687,"action":"FILE_OPENED","file":"/gpts_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"26"}}
 {"ts":1705931374340,"action":"FILE_CLOSED","file":"/gpts_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"26"}}
 {"ts":1705931374340,"action":"FILE_OPENED","file":"/gpts_mode_service/impl.py","tags":{"FILE_LINE_OF_CODE":"41"}}
+{"ts":1705931469767,"action":"IDE_DEACTIVATED"}
+{"ts":1705931511813,"action":"IDE_ACTIVATED"}

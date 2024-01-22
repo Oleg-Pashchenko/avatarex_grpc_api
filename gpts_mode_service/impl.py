@@ -36,6 +36,9 @@ async def execute(question: str, token: str, thread_id=None, assistant_id='', at
 
         answer = answer.replace('*', '')
         answer = re.sub(r'\【.*?】', '', answer)
-        if answer.lower().strip() == question.lower().strip() and attempt == 1:
-            return await execute(question, token, thread_id, assistant_id, 2)
+        if answer.lower().strip() == question.lower().strip():
+            if attempt == 1:
+                return await execute(question, token, thread_id, assistant_id, 2)
+            else:
+                answer = 'Извините, я Вас не понял, пожалуйста, переформулируйте вопрос!'
         return answer.strip(), thread_id
