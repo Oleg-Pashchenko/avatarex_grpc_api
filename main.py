@@ -116,12 +116,14 @@ async def process_message(message, setting):
 
     elif setting.mode_id == 7:  # Gpt's API
         thread_id = get_thread_by_lead_id(message.lead_id)
+        print('Assistants запущен!')
         answer = await gpts.send_request({
             'question': message.message,
             'token': setting.api_token,
             'thread_id': thread_id,
             'assistant_id': setting.assistant_id
         })
+        print(answer)
         a = answer.split('|||')
         if not thread_id:
             save_thread(lead_id=message.lead_id, thread_id=a[0])

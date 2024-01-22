@@ -1,3 +1,5 @@
+import re
+
 from openai import AsyncOpenAI
 
 
@@ -31,4 +33,8 @@ async def execute(question: str, token: str, thread_id=None, assistant_id=''):
         answer = ''
         for message in messages.data[0].content:
             answer += message.text.value + '\n'
+
+        answer = answer.replace('*', '')
+        answer = re.sub(r'\【.*?】', '', answer)
+
         return answer.strip(), thread_id
