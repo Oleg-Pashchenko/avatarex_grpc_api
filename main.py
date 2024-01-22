@@ -123,8 +123,8 @@ async def process_message(message, setting):
             'assistant_id': setting.assistant_id
         })
         a = answer.split('|||')
-        # if not thread_id:
-        #    save_thread(lead_id=message.lead_id, thread_id=answer[0])
+        if not thread_id:
+            save_thread(lead_id=message.lead_id, thread_id=a[0])
         try:
             await send_message_to_amocrm(setting, message, a[1], True)
         except:
