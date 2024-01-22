@@ -3,7 +3,7 @@ import re
 from openai import AsyncOpenAI
 
 
-async def execute(question: str, token: str, thread_id=None, assistant_id=''):
+async def execute(question: str, token: str, thread_id=None, assistant_id='', attempt=1):
     client = AsyncOpenAI(api_key=token)
     if True:
         if thread_id is None:
@@ -36,5 +36,6 @@ async def execute(question: str, token: str, thread_id=None, assistant_id=''):
 
         answer = answer.replace('*', '')
         answer = re.sub(r'\【.*?】', '', answer)
-
+        if answer.lower().strip() == question.lower().strip() and attempt == 1:
+            return await execute(question, token, thread_id, assistant_id, 2)
         return answer.strip(), thread_id
