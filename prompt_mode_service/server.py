@@ -24,8 +24,8 @@ async def complete_openai(prompt, model, max_tokens, temperature, api_token):
                         model=model, messages=prompt, max_tokens=max_tokens, temperature=temperature
                     )
                     return completion.choices[0].message.content
-            except:
-                pass
+            except Exception as e:
+                print(e)
 
 
 class OpenAIPromptServicer(prompt_mode_pb2_grpc.OpenAIPromptServiceServicer):

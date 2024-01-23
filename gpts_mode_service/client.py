@@ -14,13 +14,3 @@ async def send_request(request):
     async with aiohttp.ClientSession() as session:
         async with session.post(server_url, json=request) as response:
             return await response.text()
-
-
-print(asyncio.run(send_request(
-    {
-        'question': 'Привет',
-        'token': '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',
-        'thread_id': None,
-        'assistant_id': 'asst_eUTMQDPg5X17rG6WuAeLzx7m'
-    }
-)))
