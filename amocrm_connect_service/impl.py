@@ -353,9 +353,6 @@ class AmoCRM:
 
     async def set_field_by_id(self, field_id: int, value, pipeline_id, deal_id):
         url = f"{self.host}ajax/leads/detail/"
-        if value.is_digit():
-            value = int(value)
-
         data = {
             f"CFV[{field_id}]": value,
             "lead[STATUS]": "",

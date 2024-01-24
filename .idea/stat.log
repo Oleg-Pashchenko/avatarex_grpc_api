@@ -15945,3 +15945,13 @@
 {"ts":1706114159505,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"269"}}
 {"ts":1706114166767,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"269"}}
 {"ts":1706114166767,"action":"FILE_OPENED","file":"/amocrm_connect_service/rest_client.py","tags":{"FILE_LINE_OF_CODE":"21"}}
+{"ts":1706114185338,"action":"IDE_DEACTIVATED"}
+{"ts":1706114284316,"action":"IDE_ACTIVATED"}
+{"ts":1706114289088,"action":"FILE_CLOSED","file":"/amocrm_connect_service/rest_client.py","tags":{"FILE_LINE_OF_CODE":"21"}}
+{"ts":1706114289088,"action":"FILE_OPENED","file":"/amocrm_connect_service/rest_server.py","tags":{"FILE_LINE_OF_CODE":"59"}}
+{"ts":1706114293020,"action":"IDE_DEACTIVATED"}
+{"ts":1706114298696,"action":"IDE_ACTIVATED"}
+{"ts":1706114299238,"action":"IDE_DEACTIVATED"}
+{"ts":1706114309445,"action":"IDE_ACTIVATED"}
+{"ts":1706114311321,"action":"FILE_CLOSED","file":"/amocrm_connect_service/rest_server.py","tags":{"FILE_LINE_OF_CODE":"59"}}
+{"ts":1706114311321,"action":"FILE_OPENED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"366"}}
