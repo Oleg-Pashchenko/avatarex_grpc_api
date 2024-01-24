@@ -249,7 +249,7 @@ class AmoCRM:
                     }
                 )
 
-        return {'fields': fields, 'all_fields': self.get_custom_fields_async()}
+        return {'fields': fields, 'all_fields': await self.get_custom_fields_async()}
 
     async def get_custom_fields_async(self):
         url = f"{self.host}api/v4/leads/custom_fields"
