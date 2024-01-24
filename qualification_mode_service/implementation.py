@@ -21,14 +21,11 @@ async def qualification_passed(question, field, message, openai_key):
             properties['param']['enum'].append(f['value'])
 
     else:
-        required = ['is_correct']
-        properties = {'is_correct':
-                          {'type': 'boolean',
-                           'description': question,
-                           }}
+        required = []
+        properties = {}
     func = [{
         "name": "Function",
-        "description": "Является ли ответ пользователя одним из предоставленных вариантом",
+        "description": "Выведи вариант ответа с которым совпадает вопрос. Если нет совпадения - ничего не выводи",
         "parameters": {
             "type": "object",
             "properties": properties,
@@ -38,7 +35,7 @@ async def qualification_passed(question, field, message, openai_key):
 
     try:
         messages = [
-            {'role': 'system', 'content': 'Является ли ответ пользователя на заданный вопрос'},
+            {'role': 'system', 'content': 'Выведи вариант ответа с которым совпадает вопрос. Если нет совпадения - ничего не выводи'},
             {"role": "user",
              "content": message}]
 
