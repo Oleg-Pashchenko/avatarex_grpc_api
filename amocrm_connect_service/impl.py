@@ -361,4 +361,4 @@ class AmoCRM:
         }
         print(data)
         async with aiohttp.ClientSession() as session:
-            response = await session.get(url, headers=self.headers, data=data)
+            response = await session.post(url, headers=self.headers, data=data)

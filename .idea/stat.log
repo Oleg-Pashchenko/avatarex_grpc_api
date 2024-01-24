@@ -15980,3 +15980,7 @@
 {"ts":1706114547371,"action":"FILE_CLOSED","file":"/amocrm_connect_service/rest_server.py","tags":{"FILE_LINE_OF_CODE":"59"}}
 {"ts":1706114547371,"action":"FILE_OPENED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"363"}}
 {"ts":1706114553590,"action":"IDE_DEACTIVATED"}
+{"ts":1706114562871,"action":"IDE_ACTIVATED"}
+{"ts":1706114568574,"action":"IDE_DEACTIVATED"}
+{"ts":1706114662289,"action":"IDE_ACTIVATED"}
+{"ts":1706114680225,"action":"IDE_DEACTIVATED"}
