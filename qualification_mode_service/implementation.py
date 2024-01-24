@@ -112,6 +112,7 @@ async def execute(user_message: str, token: str, fields_from_amo, fields_to_fill
                     fl = False
                     break
             if fl and field_to_fill['field_name'] != filled_field:
+                print(field_to_fill)
                 return {
                     'qualification_status': status,
                     'finished': False,
