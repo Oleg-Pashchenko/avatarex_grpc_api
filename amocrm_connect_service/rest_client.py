@@ -7,7 +7,7 @@ import os
 
 dotenv.load_dotenv()
 
-server_url = 'http://' + '178.253.22.162' + ':50050'
+server_url = 'http://' + os.getenv('SERVER_HOST_RU') + ':50050'
 
 
 async def send_request(request):
