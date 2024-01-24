@@ -11,14 +11,22 @@ async def handle(request):
         token = data.get("token", '')
         fields_from_amo = data.get('fields_from_amo', '')
         fields_to_fill = data.get('fields_to_fill', '')
-        text = await implementation.execute(question=question,
-                                            token=token,
-                                            fields_from_amo=fields_from_amo,
-                                            fields_to_fill=fields_to_fill)
+        pipeline = data.get('pipeline', '')
+        host = data.get('host', '')
+        email = data.get('email', '')
+        password = data.get('password', '')
+        lead_id = data.get('lead_id', '')
+        answer = await implementation.execute(user_message=question,
+                                              token=token,
+                                              fields_from_amo=fields_from_amo,
+                                              fields_to_fill=fields_to_fill,
+                                              pipeline=pipeline,
+                                              host=host,
+                                              email=email,
+                                              password=password,
+                                              lead_id=lead_id)
 
-        return web.Response(
-            text=text, content_type="application/json"
-        )
+        return web.json_response(answer)
     except Exception as e:
         print(e)
         return web.Response(

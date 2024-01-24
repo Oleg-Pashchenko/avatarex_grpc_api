@@ -53,33 +53,74 @@ async def qualification_passed(question, field, message, openai_key):
         return False, ''
 
 
-async def execute(question: str, token: str, fields_from_amo, fields_to_fill):
+async def fill_field(pipeline, host, email, password, lead_id, field_id, value):
+    import asyncio
+    import aiohttp
+    import json
+
+    import dotenv
+    import os
+
+    dotenv.load_dotenv()
+
+    server_url = 'http://' + os.getenv('SERVER_HOST_RU') + ':50050'
+
+    async def send_request(request):
+        async with aiohttp.ClientSession() as session:
+            async with session.post(server_url, json=request) as response:
+                response_text = await response.text()
+                response_json = json.loads(response_text)
+                return response_json
+
+    await send_request(
+        {'lead_id': lead_id,
+         'field_id': field_id,
+         'pipeline_id': pipeline,
+         'value': value,
+         'amo_host': host,
+         'amo_email': email,
+         'amo_password': password}
+    )
+
+
+async def execute(user_message: str, token: str, fields_from_amo, fields_to_fill, pipeline,
+                  host, email, password, lead_id):
+    # Проверка ответа пользователя поля
+    is_filled = False
+    status = True
+    filled_field = ''
     for field_to_fill in fields_to_fill:
         if field_to_fill['enabled']:  # поле нужно заполнять
-            field = None
-            for field_from_amo in fields_from_amo:
+            fl = True
+            for field_from_amo in fields_from_amo['fields']:
                 if field_from_amo['name'] == field_to_fill['name']:
-                    field = fields_from_amo  # находим нужное поле
-            if not field:  # если поля нет, значит его нужно заполнить, следовательно берем вопрос и возвращаем его
-                await qualification_passed(question, field, )
-                return field_to_fill['message']
-    return ''
+                    fl = False
+                    break
+            if fl:
+                for f in field_from_amo['all_fields']:
+                    if f['name'] == field_to_fill['name']:
+                        status, result = await qualification_passed(field_to_fill['message'], f, user_message, token)
+                        if status:
+                            print(f)
+                            await fill_field(pipeline, host, email, password, lead_id, f['id'], result)
+                        break
+                break
 
-
-question = 'fds'
-token = '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'
-fields_from_amo = [{'id': 1265635, 'name': 'Check', 'type': 'checkbox', 'active_value': True, 'possible_values': None},
-                   {'id': 1287843, 'name': 'CRM', 'type': 'select', 'active_value': 'Есть', 'possible_values': None}]
-fields_to_fill = [{'qualid': 1, 'enabled': False, 'message': '', 'field_name': 'Check', 'additional_messages': []},
-                  {'qualid': 2, 'enabled': False, 'message': '', 'field_name': 'Тариф', 'additional_messages': []},
-                  {'qualid': 3, 'enabled': False, 'message': '', 'field_name': 'Объявление', 'additional_messages': []},
-                  {'qualid': 4, 'enabled': False, 'message': '', 'field_name': 'URL объявления',
-                   'additional_messages': []},
-                  {'qualid': 7, 'enabled': False, 'message': '', 'field_name': 'CRM', 'additional_messages': []},
-                  {'qualid': 6, 'enabled': False, 'message': '', 'field_name': 'Вид бизнеса',
-                   'additional_messages': []},
-                  {'qualid': 7, 'enabled': False, 'message': '', 'field_name': 'CRM', 'additional_messages': []},
-                  {'qualid': 8, 'enabled': False, 'message': '', 'field_name': 'Готовность', 'additional_messages': []},
-                  {'qualid': 9, 'enabled': False, 'message': '', 'field_name': 'Ссылка zoom',
-                   'additional_messages': []}]
-print(asyncio.run(execute(question, token, fields_from_amo, fields_to_fill)))
+    # Заполнение полей
+    for field_to_fill in fields_to_fill:
+        if field_to_fill['enabled']:  # поле нужно заполнять
+            fl = True
+            for field_from_amo in fields_from_amo['fields']:
+                if field_from_amo['name'] == field_to_fill['name']:
+                    fl = False
+                    break
+            if fl and field_to_fill['name'] != filled_field:
+                return {
+                    'qualification_status': status,
+                    'finished': False,
+                    'has_updates': True,
+                    'message': field_to_fill['message']
+                }
+    if is_filled:
+        return {'qualification_status': True, 'finished': True, 'has_updates': True, 'message': ''}
+    return {'qualification_status': True, 'finished': True, 'has_updates': False, 'message': ''}

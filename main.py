@@ -43,18 +43,24 @@ async def process_message(message, setting):
         print(e)
         fields = []
 
-    print(fields)
     api.add_stats('CRM Fields', time.time() - st, message.id)
     qualification_answer = await qualification.send_request({
         'question': message.message,
         'token': setting.api_token,
         'fields_from_amo': fields,
-        'fields_to_fill': setting.qualification_fields
+        'fields_to_fill': setting.qualification_fields,
+        'pipeline': setting.pipeline_id,
+        'host': setting.amo_host,
+        'email': setting.amo_email,
+        'password': setting.amo_password,
+        'lead_id': message.lead_id
     })
-    if qualification_answer == 'finish':
-        return await send_message_to_amocrm(setting, message, setting.qualification_finished, True)
-    if qualification_answer != '':
-        return await send_message_to_amocrm(setting, message, qualification_answer, True)
+    if qualification_answer['has_updates'] and qualification_answer['qualification_status']:
+        setting.mode_id = -1
+        if qualification_answer['finished']:
+            await send_message_to_amocrm(setting, message, setting.qualification_finished, True)
+        else:
+            await send_message_to_amocrm(setting, message, qualification_answer['message'], True)
 
     if setting.mode_id == 1:
         st = time.time()
@@ -179,6 +185,9 @@ async def process_message(message, setting):
                 }
             )
         await send_message_to_amocrm(setting, message, answer, True)
+    if not qualification_answer['qualification_status']:
+        await send_message_to_amocrm(setting, message, qualification_answer['message'], True)
+
     api.add_stats('Finish time', time.time(), message.id)
 
 

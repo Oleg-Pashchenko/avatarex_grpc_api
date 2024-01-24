@@ -249,7 +249,38 @@ class AmoCRM:
                     }
                 )
 
-        return fields
+        return {'fields': fields, 'all_fields': self.get_custom_fields_async()}
+
+    async def get_custom_fields_async(self):
+        url = f"{self.host}api/v4/leads/custom_fields"
+        async with aiohttp.ClientSession() as session:
+            response = await session.get(url, headers=self.headers)
+            response = await response.json()
+            response = response['_embedded']['custom_fields']
+            result = []
+            for f in response:
+                possible_values = []
+                if f["enums"] is not None:
+                    for v in f["enums"]:
+                        possible_values.append(
+                            {
+                                'id': v['id'],
+                                'value': v['value'],
+                                'sort': v['sort']
+                            }
+                        )
+                if f["type"] != "tracking_data":
+                    result.append(
+                        {
+                            'id': f["id"],
+                            'name': f["name"],
+                            'type': f["type"],
+                            'active_value': None,
+                            'possible_values': possible_values,
+                        }
+                    )
+
+            return result
 
     def get_custom_fields(self):
         url = f"{self.host}api/v4/leads/custom_fields"
@@ -320,7 +351,7 @@ class AmoCRM:
         except:
             return "", "contact"
 
-    def set_field_by_id(self, field_id: int, value, pipeline_id, deal_id):
+    async def set_field_by_id(self, field_id: int, value, pipeline_id, deal_id):
         url = f"{self.host}ajax/leads/detail/"
         if value.is_digit():
             value = int(value)
@@ -331,4 +362,5 @@ class AmoCRM:
             "lead[PIPELINE_ID]": pipeline_id,
             "ID": deal_id,
         }
-        self.session.post(url=url, data=data, headers=self.headers)
+        async with aiohttp.ClientSession() as session:
+            response = await session.get(url, headers=self.headers, data=data)
