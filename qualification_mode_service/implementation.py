@@ -116,8 +116,13 @@ async def execute(user_message: str, token: str, fields_from_amo, fields_to_fill
                         status, result = await qualification_passed(field_to_fill['message'], f, user_message, token)
                         print(status, result)
                         if status:
-                            print(f)
+                            if f['type'] != 'field':
+                                for v in f['possible_values']:
+                                    if v['value'].lower() == result.lower():
+                                        result = v['id']
+                                        break
                             await fill_field(pipeline, host, email, password, lead_id, f['id'], result)
+
                         break
                 break
 
