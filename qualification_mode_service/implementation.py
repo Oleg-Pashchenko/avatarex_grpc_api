@@ -61,7 +61,7 @@ async def qualification_passed(question, field, message, openai_key):
                 return True, message
             return False, ''
         else:
-            return False, ''
+            return True, function_args['param']
     else:
         return False, ''
 
