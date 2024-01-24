@@ -99,6 +99,7 @@ async def execute(user_message: str, token: str, fields_from_amo, fields_to_fill
             if fl:
                 for f in fields_from_amo['all_fields']:
                     if f['name'] == field_to_fill['field_name']:
+                        print(field_to_fill['message'], f, user_message)
                         status, result = await qualification_passed(field_to_fill['message'], f, user_message, token)
                         print(status, result)
                         if status:
