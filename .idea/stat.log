@@ -15875,3 +15875,11 @@
 {"ts":1706112415074,"action":"IDE_ACTIVATED"}
 {"ts":1706112415728,"action":"IDE_DEACTIVATED"}
 {"ts":1706112458578,"action":"IDE_ACTIVATED"}
+{"ts":1706112536196,"action":"IDE_DEACTIVATED"}
+{"ts":1706112627490,"action":"IDE_ACTIVATED"}
+{"ts":1706112636606,"action":"FILE_CLOSED","file":"/qualification_mode_service/implementation.py","tags":{"FILE_LINE_OF_CODE":"145"}}
+{"ts":1706112636606,"action":"FILE_OPENED","file":"/amocrm_connect_service/rest_server.py","tags":{"FILE_LINE_OF_CODE":"59"}}
+{"ts":1706112654185,"action":"FILE_CLOSED","file":"/amocrm_connect_service/rest_server.py","tags":{"FILE_LINE_OF_CODE":"59"}}
+{"ts":1706112654185,"action":"FILE_OPENED","file":"/qualification_mode_service/implementation.py","tags":{"FILE_LINE_OF_CODE":"145"}}
+{"ts":1706112688530,"action":"IDE_DEACTIVATED"}
+{"ts":1706112702796,"action":"IDE_ACTIVATED"}

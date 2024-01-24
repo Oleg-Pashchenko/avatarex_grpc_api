@@ -80,8 +80,7 @@ async def fill_field(pipeline, host, email, password, lead_id, field_id, value):
         async with aiohttp.ClientSession() as session:
             async with session.post(server_url + '/fill-field', json=request) as response:
                 response_text = await response.text()
-                response_json = json.loads(response_text)
-                return response_json
+                print(response_text)
 
     await send_request(
         {'lead_id': lead_id,
@@ -119,6 +118,8 @@ async def execute(user_message: str, token: str, fields_from_amo, fields_to_fill
                                     if v['value'].lower() == result.lower():
                                         result = v['id']
                                         break
+                            is_filled = True
+                            filled_field = f['name']
                             await fill_field(pipeline, host, email, password, lead_id, f['id'], result)
 
                         break
