@@ -54,7 +54,7 @@ async def qualification_passed(question, field, message, openai_key):
 
 async def execute(question: str, token: str, fields_from_amo, fields_to_fill):
     print(question, token, fields_from_amo, fields_to_fill)
-    exit(0)
+    return ''
 
 
 class QualificationServiceImplementation(qualification_pb2_grpc.QualificationServiceServicer):

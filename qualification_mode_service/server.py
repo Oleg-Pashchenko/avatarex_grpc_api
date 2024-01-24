@@ -11,10 +11,10 @@ async def handle(request):
         token = data.get("token", '')
         fields_from_amo = data.get('fields_from_amo', '')
         fields_to_fill = data.get('fields_to_fill', '')
-        text, thread_id = await implementation.execute(question=question,
-                                                       token=token,
-                                                       fields_from_amo=fields_from_amo,
-                                                       fields_to_fill=fields_to_fill)
+        text = await implementation.execute(question=question,
+                                            token=token,
+                                            fields_from_amo=fields_from_amo,
+                                            fields_to_fill=fields_to_fill)
 
         return web.Response(
             text=text, content_type="application/json"
