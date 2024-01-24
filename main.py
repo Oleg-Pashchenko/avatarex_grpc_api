@@ -32,13 +32,17 @@ async def send_message_to_amocrm(setting, message, text, is_bot):
 async def process_message(message, setting):
     print('Обрабатывается сообщение!', setting.amo_host)
     st = time.time()
+    try:
+        fields = await rest_amo.send_request({
+            'lead_id': message.lead_id,
+            'amo_host': setting.amo_host,
+            'amo_email': setting.amo_email,
+            'amo_password': setting.amo_password
+        })
+    except Exception as e:
+        print(e)
+        fields = []
 
-    fields = await rest_amo.send_request({
-        'lead_id': message.lead_id,
-        'amo_host': setting.amo_host,
-        'amo_email': setting.amo_email,
-        'amo_password': setting.amo_password
-    })
     print(fields)
     api.add_stats('CRM Fields', time.time() - st, message.id)
     # qualification_answer = await qualification.send_request({
