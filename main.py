@@ -9,6 +9,7 @@ from prompt_mode_service import client as prompt_mode
 from knowledge_mode_service import client as knowledge_mode
 from gpts_mode_service import client as gpts
 from search_mode_service import client as search
+from qualification_mode_service import client as qualification
 import asyncio
 import os
 
@@ -35,22 +36,15 @@ async def process_message(message, setting):
                                                 setting.amo_email,
                                                 setting.amo_password)
     api.add_stats('CRM Fields', time.time() - st, message.id)
-    # qualification_response = await qualification_mode.run_qualification_client(message.message,
-    #                                                                            True,
-    #                                                                            fields,
-    #                                                                           setting.amocrm_fields,
-    #                                                                           setting.qualification_finished,
-    #                                                                           setting.api_token,
-    #                                                                           setting.model_title)
+    qualification_answer = await qualification.send_request({
+        'question': message.message,
+        'token': setting.api_token,
+        'fields_from_amo': fields,
+        'fields_to_fill': setting.qualification_fields
+    })
+    if qualification_answer != '':
+        return await send_message_to_amocrm(setting, message, qualification_answer, True)
 
-    # if qualification_response.success:
-    #    if qualification_response.data.message:
-    #        return await send_message_to_amocrm(setting, message, qualification_response.data.message, True)
-
-    # Если есть сообщение - новая квалификация и больше нет режимов
-    #  Если нет - идем в режим
-
-    print(setting.mode_id)
     if setting.mode_id == 1:
         st = time.time()
         database_messages = api.get_messages_history(message.lead_id)
@@ -176,35 +170,6 @@ async def process_message(message, setting):
         await send_message_to_amocrm(setting, message, answer, True)
     api.add_stats('Finish time', time.time(), message.id)
 
-    # elif setting.mode_id == 2:  # Prompt + Knowledge
-    #     status, message_text = await knowledge_mode_hardcode.main(setting.knowledge_data, message, setting.api_token)
-    #     if status:
-    #         await send_message_to_amocrm(setting, message, message_text, True)
-    #     else:
-    #         await send_message_to_amocrm(setting, message, setting.openai_error_message, True)
-    #
-    # elif setting.mode_id == 33:
-    #     status, message_text = await knowledge_mode_hardcode.main(setting.knowledge_data, message, setting.api_token)
-    #     if status:
-    #         await send_message_to_amocrm(setting, message, message_text, True)
-    #     else:
-    #         database_messages = api.get_messages_history(message.lead_id)
-    #         answer = await prompt_mode.run(
-    #             messages=prompt_mode.get_messages_context(database_messages, setting.prompt_context,
-    #                                                       setting.model_limit,
-    #                                                       setting.max_tokens,
-    #                                                       fields if setting.use_amocrm_fields else []),
-    #             model=setting.model_title,
-    #             api_token=setting.api_token,
-    #             max_tokens=setting.max_tokens,
-    #             temperature=setting.temperature,
-    #         )
-    #         await send_message_to_amocrm(setting, message, answer.data.message, True)
-    #
-    # if not qualification_response.success and qualification_response.data.message:
-    #     await send_message_to_amocrm(setting, message, qualification_response.data.message, True)
-    #
-
 
 async def process_settings(setting):
     st = time.time()
@@ -238,7 +203,7 @@ async def process_settings(setting):
             print(f'[{setting.amo_host}] Обрабатываю сообщение {message.message}')
 
             api.add_message(message.id, message.lead_id, message.message, False)
-           #  api.create_stats(message.id, )
+            #  api.create_stats(message.id, )
             api.add_stats(st, 'Start Time', message.id)
             api.add_stats(time.time() - st, 'CRM Read', message.id)
             print('yes')
