@@ -85,5 +85,6 @@ async def get_fields_by_deal_id(deal_id, host, email, password):
 
         response = await stub.GetFieldsByDealId(request)
         return response.fields
-    except:
+    except Exception as e:
+        print(e)
         return []
