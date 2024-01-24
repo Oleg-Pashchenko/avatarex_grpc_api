@@ -35,7 +35,8 @@ async def qualification_passed(question, field, message, openai_key):
 
     try:
         messages = [
-            {'role': 'system', 'content': 'Выведи вариант ответа с которым совпадает вопрос. Если нет совпадения - ничего не выводи'},
+            {'role': 'system',
+             'content': 'Выведи вариант ответа с которым совпадает вопрос. Если нет совпадения - ничего не выводи'},
             {"role": "user",
              "content": message}]
 
@@ -63,41 +64,12 @@ async def qualification_passed(question, field, message, openai_key):
         return False, ''
 
 
-async def fill_field(pipeline, host, email, password, lead_id, field_id, value):
-    import asyncio
-    import aiohttp
-    import json
-
-    import dotenv
-    import os
-
-    dotenv.load_dotenv()
-
-    server_url = 'http://' + os.getenv('SERVER_HOST_RU') + ':50050'
-
-    async def send_request(request):
-        print('Fill', request)
-        async with aiohttp.ClientSession() as session:
-            async with session.post(server_url + '/fill-field', json=request) as response:
-                response_text = await response.text()
-                print(response_text)
-
-    await send_request(
-        {'lead_id': lead_id,
-         'field_id': field_id,
-         'pipeline_id': pipeline,
-         'value': value,
-         'amo_host': host,
-         'amo_email': email,
-         'amo_password': password}
-    )
-
-
 async def execute(user_message: str, token: str, fields_from_amo, fields_to_fill, pipeline,
                   host, email, password, lead_id):
     # Проверка ответа пользователя поля
     is_filled = False
     status = True
+    fill_command = None
     filled_field = ''
     for field_to_fill in fields_to_fill:
         if field_to_fill['enabled']:  # поле нужно заполнять
@@ -120,7 +92,13 @@ async def execute(user_message: str, token: str, fields_from_amo, fields_to_fill
                                         break
                             is_filled = True
                             filled_field = f['name']
-                            await fill_field(pipeline, host, email, password, lead_id, f['id'], result)
+                            fill_command = {'lead_id': lead_id,
+                                            'field_id': f['id'],
+                                            'pipeline_id': pipeline,
+                                            'value': result,
+                                            'amo_host': host,
+                                            'amo_email': email,
+                                            'amo_password': password}
 
                         break
                 break
@@ -138,8 +116,12 @@ async def execute(user_message: str, token: str, fields_from_amo, fields_to_fill
                     'qualification_status': status,
                     'finished': False,
                     'has_updates': True,
-                    'message': field_to_fill['message']
+                    'message': field_to_fill['message'],
+                    'fill_command': fill_command
                 }
     if is_filled:
-        return {'qualification_status': True, 'finished': True, 'has_updates': True, 'message': ''}
-    return {'qualification_status': True, 'finished': True, 'has_updates': False, 'message': ''}
+        return {'qualification_status': True, 'finished': True, 'has_updates': True, 'message': '',
+                'fill_command': fill_command}
+    return {'qualification_status': True, 'finished': True, 'has_updates': False, 'message': '',
+            'fill_command': fill_command
+            }
