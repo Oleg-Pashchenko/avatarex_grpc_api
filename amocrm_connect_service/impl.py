@@ -359,5 +359,6 @@ class AmoCRM:
             "lead[PIPELINE_ID]": pipeline_id,
             "ID": deal_id,
         }
+        print(data)
         async with aiohttp.ClientSession() as session:
             response = await session.get(url, headers=self.headers, data=data)
