@@ -28,7 +28,7 @@ async def qualification_passed(question, field, message, openai_key):
                            }}
     func = [{
         "name": "Function",
-        "description": "Является ли ответ пользователя на заданный вопрос",
+        "description": "Является ли ответ пользователя одним из предоставленных вариантом",
         "parameters": {
             "type": "object",
             "properties": properties,
@@ -61,7 +61,7 @@ async def qualification_passed(question, field, message, openai_key):
                 return True, message
             return False, ''
         else:
-            return True, function_args['param']
+            return False, ''
     else:
         return False, ''
 
