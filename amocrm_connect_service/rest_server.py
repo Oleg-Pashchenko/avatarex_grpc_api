@@ -45,9 +45,7 @@ async def handle2(request):
 
     except Exception as e:
         print(e)
-        return web.Response(
-            text='Ошибка настроек', content_type='application/json'
-        )
+        return web.json_response({'status': 'err'})
 
 
 app = web.Application()
