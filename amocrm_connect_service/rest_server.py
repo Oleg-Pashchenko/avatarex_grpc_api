@@ -13,7 +13,7 @@ async def handle(request):
         amo_email = data.get("amo_email", '')
         amo_password = data.get("amo_password", '')
         amo = impl.AmoCRM(amo_host, amo_email, amo_password)
-
+        await amo.connect_async()
         text = await amo.get_fields_by_deal_id(lead_id)
         return web.json_response({"result": text})
 
