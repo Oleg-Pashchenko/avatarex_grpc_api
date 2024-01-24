@@ -14,3 +14,11 @@ services:
     build:
       context: .
       dockerfile: common/docker/Dockerfile
+
+  amocrm_rest_service:
+    restart: always
+    build:
+      context: .
+      dockerfile: common/docker/Dockerfile_amocrm_rest
+    ports:
+      - "50050:50050"
