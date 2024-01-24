@@ -237,7 +237,9 @@ class AmoCRM:
             response = await session.get(url, headers=self.headers)
             response = await response.json()
             fields = []
+
             for f in response["custom_fields_values"]:
+                print(f)
                 fields.append(
                     amocrm_connect_pb2.Field(
                         id=f["field_id"],
@@ -347,8 +349,8 @@ class AmoCRM:
 #     amo.send_message("Лол", r['chat_id'])
 
 async def main():
-    amo = AmoCRM(email='ceo@business-robots.ru', host='https://chatgpt.amocrm.ru/', password='cxh6pyk4TGN!mwb.vtg')
-    status = await amo.connect_async()
+    #amo = AmoCRM(email='ceo@business-robots.ru', host='https://chatgpt.amocrm.ru/', password='cxh6pyk4TGN!mwb.vtg')
+    #status = await amo.connect_async()
     # print(await amo.get_unanswered_messages(''))
     # print(status)
     # stages = [61592070, 61592074]
@@ -357,8 +359,8 @@ async def main():
     # pipeline = 7412586
     # amo = AmoCRM(email='ceo@business-robots.ru', host='https://chatgpt.amocrm.ru/', password='cxh6pyk4TGN!mwb.vtg')
     # status = await amo.connect_async()
-
-
+    # resp = await amo.get_fields_by_deal_id(17503967)
+    # print(resp)
 #  print(status)
 #  ans = await amo.get_unanswered_messages([[pipeline, stages]])
 #  print(ans)
