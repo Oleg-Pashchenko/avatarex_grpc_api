@@ -239,16 +239,16 @@ class AmoCRM:
             fields = []
 
             for f in response["custom_fields_values"]:
-                print(f)
                 fields.append(
-                    amocrm_connect_pb2.Field(
-                        id=f["field_id"],
-                        name=f["field_name"],
-                        type=f["field_type"],
-                        active_value=f["values"][0]["value"],
-                        possible_values=None,
-                    )
+                    {
+                        "id": f["field_id"],
+                        "name": f["field_name"],
+                        "type": f["field_type"],
+                        "active_value": f["values"][0]["value"],
+                        "possible_values": None,
+                    }
                 )
+
         return fields
 
     def get_custom_fields(self):

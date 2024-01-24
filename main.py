@@ -3,6 +3,7 @@ import time
 from database_connect_service.src import api
 import whisper_service.client
 from amocrm_connect_service import client as amocrm
+from amocrm_connect_service import rest_client as rest_amo
 from database_connect_service.src.api import get_thread_by_lead_id, save_thread
 from database_connect_service.src.site import ApiSettings, get_enabled_api_settings
 from prompt_mode_service import client as prompt_mode
@@ -31,10 +32,14 @@ async def send_message_to_amocrm(setting, message, text, is_bot):
 async def process_message(message, setting):
     print('Обрабатывается сообщение!', setting.amo_host)
     st = time.time()
-    fields = await amocrm.get_fields_by_deal_id(message.lead_id,
-                                                setting.amo_host,
-                                                setting.amo_email,
-                                                setting.amo_password)
+
+    fields = await rest_amo.send_request({
+        'lead_id': message.lead_id,
+        'amo_host': setting.amo_host,
+        'amo_email': setting.amo_email,
+        'amo_password': setting.amo_password
+    })
+    print(fields)
     api.add_stats('CRM Fields', time.time() - st, message.id)
     # qualification_answer = await qualification.send_request({
     #    'question': message.message,
