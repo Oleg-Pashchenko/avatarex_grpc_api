@@ -15787,3 +15787,15 @@
 {"ts":1706109558701,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"266"}}
 {"ts":1706109697048,"action":"IDE_DEACTIVATED"}
 {"ts":1706109813899,"action":"IDE_ACTIVATED"}
+{"ts":1706109823514,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"267"}}
+{"ts":1706109823514,"action":"FILE_OPENED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"366"}}
+{"ts":1706109832007,"action":"IDE_DEACTIVATED"}
+{"ts":1706109849114,"action":"IDE_ACTIVATED"}
+{"ts":1706109850452,"action":"IDE_DEACTIVATED"}
+{"ts":1706109851304,"action":"IDE_ACTIVATED"}
+{"ts":1706109852476,"action":"IDE_DEACTIVATED"}
+{"ts":1706110065128,"action":"IDE_ACTIVATED"}
+{"ts":1706110069464,"action":"FILE_CLOSED","file":"/amocrm_connect_service/impl.py","tags":{"FILE_LINE_OF_CODE":"366"}}
+{"ts":1706110069464,"action":"FILE_OPENED","file":"/qualification_mode_service/implementation.py","tags":{"FILE_LINE_OF_CODE":"127"}}
+{"ts":1706110079150,"action":"IDE_DEACTIVATED"}
+{"ts":1706110080626,"action":"IDE_ACTIVATED"}

@@ -93,6 +93,8 @@ async def execute(user_message: str, token: str, fields_from_amo, fields_to_fill
         if field_to_fill['enabled']:  # поле нужно заполнять
             fl = True
             for field_from_amo in fields_from_amo['fields']:
+                print(field_from_amo)
+                print(field_to_fill)
                 if field_from_amo['name'] == field_to_fill['name']:
                     fl = False
                     break
