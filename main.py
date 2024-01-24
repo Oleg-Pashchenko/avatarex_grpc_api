@@ -60,7 +60,7 @@ async def process_message(message, setting):
     if qualification_answer['has_updates'] and qualification_answer['qualification_status']:
         setting.mode_id = -1
         if qualification_answer['finished']:
-            await send_message_to_amocrm(setting, message, setting.qualification_finished, True)
+            await send_message_to_amocrm(setting, message, setting.qualification_finished if len(setting.qualification_finished) == 0 else 'Спасибо! Что вы хотели узнать?', True)
         else:
             await send_message_to_amocrm(setting, message, qualification_answer['message'], True)
 
