@@ -54,4 +54,6 @@ async def qualification_passed(question, field, message, openai_key):
 
 async def execute(question: str, token: str, fields_from_amo, fields_to_fill):
     print(question, token, fields_from_amo, fields_to_fill)
+    for amo_field in fields_from_amo:
+        pass
     return ''

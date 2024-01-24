@@ -45,14 +45,16 @@ async def process_message(message, setting):
 
     print(fields)
     api.add_stats('CRM Fields', time.time() - st, message.id)
-    # qualification_answer = await qualification.send_request({
-    #    'question': message.message,
-    #   'token': setting.api_token,
-    #    'fields_from_amo': fields,
-    #    'fields_to_fill': setting.qualification_fields
-    #})
-    #if qualification_answer != '':
-    #    return await send_message_to_amocrm(setting, message, qualification_answer, True)
+    qualification_answer = await qualification.send_request({
+        'question': message.message,
+        'token': setting.api_token,
+        'fields_from_amo': fields,
+        'fields_to_fill': setting.qualification_fields
+    })
+    if qualification_answer == 'finish':
+        return await send_message_to_amocrm(setting, message, setting.qualification_finished, True)
+    if qualification_answer != '':
+        return await send_message_to_amocrm(setting, message, qualification_answer, True)
 
     if setting.mode_id == 1:
         st = time.time()

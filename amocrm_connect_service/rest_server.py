@@ -15,7 +15,7 @@ async def handle(request):
         amo = impl.AmoCRM(amo_host, amo_email, amo_password)
         await amo.connect_async()
         text = await amo.get_fields_by_deal_id(lead_id)
-        return web.json_response({"result": text})
+        return web.json_response(text)
 
     except Exception as e:
         print(e)
