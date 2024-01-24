@@ -16,3 +16,5 @@ async def send_request(request):
             response_text = await response.text()
             response_json = json.loads(response_text)
             return response_json
+
+
