@@ -17,16 +17,19 @@ import os
 
 async def send_message_to_amocrm(setting, message, text, is_bot):
     print('Отправляю сообщение', text, message.chat_id)
-    st = time.time()
-    message_id = await amocrm.send_message(
-        setting.amo_host,
-        setting.amo_email,
-        setting.amo_password,
-        text,
-        message.chat_id,
-    )
-    api.add_message(message_id, message.lead_id, text, is_bot)
-    api.add_stats('Crm Send', time.time() - st, message.id)
+    try:
+        st = time.time()
+        message_id = await amocrm.send_message(
+            setting.amo_host,
+            setting.amo_email,
+            setting.amo_password,
+            text,
+            message.chat_id,
+        )
+        api.add_message(message_id, message.lead_id, text, is_bot)
+        api.add_stats('Crm Send', time.time() - st, message.id)
+    except:
+        pass
 
 
 async def process_message(message, setting):
