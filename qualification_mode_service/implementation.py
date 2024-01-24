@@ -93,14 +93,12 @@ async def execute(user_message: str, token: str, fields_from_amo, fields_to_fill
         if field_to_fill['enabled']:  # поле нужно заполнять
             fl = True
             for field_from_amo in fields_from_amo['fields']:
-                print(field_from_amo)
-                print(field_to_fill)
-                if field_from_amo['name'] == field_to_fill['name']:
+                if field_from_amo['name'] == field_to_fill['field_name']:
                     fl = False
                     break
             if fl:
                 for f in field_from_amo['all_fields']:
-                    if f['name'] == field_to_fill['name']:
+                    if f['name'] == field_to_fill['field_name']:
                         status, result = await qualification_passed(field_to_fill['message'], f, user_message, token)
                         if status:
                             print(f)
@@ -113,10 +111,10 @@ async def execute(user_message: str, token: str, fields_from_amo, fields_to_fill
         if field_to_fill['enabled']:  # поле нужно заполнять
             fl = True
             for field_from_amo in fields_from_amo['fields']:
-                if field_from_amo['name'] == field_to_fill['name']:
+                if field_from_amo['name'] == field_to_fill['field_name']:
                     fl = False
                     break
-            if fl and field_to_fill['name'] != filled_field:
+            if fl and field_to_fill['field_name'] != filled_field:
                 return {
                     'qualification_status': status,
                     'finished': False,
