@@ -87,7 +87,6 @@ async def process_message(message, setting):
 
     if not qualification_answer['qualification_status']:
         setting.mode_id = -1
-    api.add_message(message.id, message.lead_id, message.message, qualification_answer['has_updates'] is False)
 
     if setting.mode_id == 1:
         st = time.time()
@@ -266,6 +265,7 @@ async def process_settings(setting):
             api.add_stats(st, 'Start Time', message.id)
             api.add_stats(time.time() - st, 'CRM Read', message.id)
             print('yes')
+            api.add_message(message.id, message.lead_id, message.message, False)
             # Создаем задачу для асинхронной обработки сообщения
             task = process_message(message, setting)
             tasks.append(task)
