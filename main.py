@@ -298,7 +298,7 @@ async def cycle():
         #     if 'pickpar' not in setting.amo_host:            #    if 'chatgpt.amocrm' not in setting.amo_host:
         #         asyncio.ensure_future(process_settings(setting))
 
-        await asyncio.sleep(3)
+        await asyncio.sleep(5)
 
 
 # Run the event loop
