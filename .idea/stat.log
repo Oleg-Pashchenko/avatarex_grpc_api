@@ -16696,3 +16696,5 @@
 {"ts":1706182651053,"action":"FILE_OPENED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"153"}}
 {"ts":1706182696539,"action":"FILE_CLOSED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"157"}}
 {"ts":1706182696539,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"304"}}
+{"ts":1706182743392,"action":"IDE_DEACTIVATED"}
+{"ts":1706183213070,"action":"IDE_ACTIVATED"}
