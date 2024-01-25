@@ -44,7 +44,7 @@ async def qualification_passed(question, field, message, openai_key):
 
         async with openai.AsyncOpenAI(api_key=openai_key) as client:
 
-            response = await client.chat.completions.create(model='gpt-3.5-turbo',
+            response = await client.chat.completions.create(model='gpt-4',
                                                             messages=messages,
                                                             functions=func,
                                                             function_call="auto")
