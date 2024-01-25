@@ -206,7 +206,7 @@ async def process_message(message, setting):
     if not qualification_answer['qualification_status']:
         # without_questions_answer = delete_questions(answer_to_sent)
         without_questions_answer = await prompt_mode.run(
-            messages=[{'role': 'system', 'content': 'Переформулируй без вопросов'},
+            messages=[{'role': 'system', 'content': 'Не задавай вопросов!'},
                       {'role': 'user', 'content': answer_to_sent}],
             model=setting.model_title,
             api_token=setting.api_token,

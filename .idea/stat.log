@@ -16386,3 +16386,5 @@
 {"ts":1706171847665,"action":"IDE_ACTIVATED"}
 {"ts":1706171854335,"action":"FILE_CLOSED","file":"/prompt_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"90"}}
 {"ts":1706171854335,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"287"}}
+{"ts":1706172001694,"action":"IDE_DEACTIVATED"}
+{"ts":1706172113092,"action":"IDE_ACTIVATED"}
