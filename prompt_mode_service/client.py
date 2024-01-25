@@ -78,7 +78,7 @@ def get_messages_context(messages: list[dict], context: str, tokens: int, max_to
                                    'content': f'Какой у вас {field["name"]}?'})
             fields_to_view.append({'role': 'user', 'content': f'{field["active_value"]}'})
 
-        fields_to_view.append({'role': 'system', 'content': context})
+    fields_to_view.append({'role': 'system', 'content': context})
 
     system_settings = tokens_counter(fields_to_view)
     response = []
