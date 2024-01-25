@@ -238,6 +238,7 @@ class AmoCRM:
             response = await response.json()
             fields = []
             print(response)
+            print(response)
             for f in response["custom_fields_values"]:
                 fields.append(
                     {
