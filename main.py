@@ -90,7 +90,7 @@ async def process_message(message, setting):
         database_messages = api.get_messages_history(message.lead_id)
         answer = await prompt_mode.run(
             messages=prompt_mode.get_messages_context(database_messages, setting.prompt_context, setting.model_limit,
-                                                      setting.max_tokens, fields if setting.use_amocrm_fields else []),
+                                                      setting.max_tokens, fields if setting.use_amocrm_fields else {}),
             model=setting.model_title,
             api_token=setting.api_token,
             max_tokens=setting.max_tokens,
@@ -139,7 +139,7 @@ async def process_message(message, setting):
                     messages=prompt_mode.get_messages_context(database_messages, setting.prompt_context,
                                                               setting.model_limit,
                                                               setting.max_tokens,
-                                                              fields if setting.use_amocrm_fields else []),
+                                                              fields if setting.use_amocrm_fields else {}),
                     model=setting.model_title,
                     api_token=setting.api_token,
                     max_tokens=setting.max_tokens,
@@ -182,7 +182,7 @@ async def process_message(message, setting):
                     messages=prompt_mode.get_messages_context(database_messages, setting.prompt_context,
                                                               setting.model_limit,
                                                               setting.max_tokens,
-                                                              fields if setting.use_amocrm_fields else []),
+                                                              fields if setting.use_amocrm_fields else {}),
                     model=setting.model_title,
                     api_token=setting.api_token,
                     max_tokens=setting.max_tokens,

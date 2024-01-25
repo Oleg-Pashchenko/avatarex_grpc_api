@@ -70,6 +70,7 @@ def get_messages_context(messages: list[dict], context: str, tokens: int, max_to
     messages.reverse()
     fields_to_view = []
     print(fields)
+
     if 'fields' in fields.keys():
         for field in fields['fields']:
             fields_to_view.append({'role': 'assistant',
