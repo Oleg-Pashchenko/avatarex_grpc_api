@@ -16796,3 +16796,15 @@
 {"ts":1706205511103,"action":"FILE_OPENED","file":"/misc.py","tags":{"FILE_LINE_OF_CODE":"29"}}
 {"ts":1706205511647,"action":"FILE_CLOSED","file":"/misc.py","tags":{"FILE_LINE_OF_CODE":"29"}}
 {"ts":1706205511647,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"306"}}
+{"ts":1706205580508,"action":"IDE_DEACTIVATED"}
+{"ts":1706205675903,"action":"IDE_ACTIVATED"}
+{"ts":1706205677044,"action":"IDE_DEACTIVATED"}
+{"ts":1706205736176,"action":"IDE_ACTIVATED"}
+{"ts":1706205791235,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"306"}}
+{"ts":1706205791235,"action":"FILE_OPENED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"157"}}
+{"ts":1706205798809,"action":"FILE_CLOSED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"157"}}
+{"ts":1706205798809,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"306"}}
+{"ts":1706205836650,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"306"}}
+{"ts":1706205836650,"action":"FILE_OPENED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"157"}}
+{"ts":1706205856343,"action":"FILE_CLOSED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"157"}}
+{"ts":1706205856343,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"306"}}
