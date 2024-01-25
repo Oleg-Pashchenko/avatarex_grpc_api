@@ -61,7 +61,7 @@ async def process_message(message, setting):
         })
     except Exception as e:
         print(e)
-        fields = []
+        fields = {'all_fields': [], 'fields': []}
 
     api.add_stats('CRM Fields', time.time() - st, message.id)
     qualification_answer = await qualification.send_request({
