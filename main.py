@@ -31,8 +31,7 @@ def delete_questions(message):
     return result
 
 
-
-async def send_message_to_amocrm(setting, message, text, is_bot):
+async def send_message_to_amocrm(setting, message, text, is_bot, is_q=False):
     print('Отправляю сообщение', text, message.chat_id)
     try:
         st = time.time()
@@ -43,7 +42,7 @@ async def send_message_to_amocrm(setting, message, text, is_bot):
             text,
             message.chat_id,
         )
-        api.add_message(message_id, message.lead_id, text, is_bot)
+        api.add_message(message_id, message.lead_id, text, is_bot, is_q)
         api.add_stats('Crm Send', time.time() - st, message.id)
     except:
         pass
@@ -81,9 +80,10 @@ async def process_message(message, setting):
         setting.mode_id = -1
         print(qualification_answer)
         if qualification_answer['finished']:
-            await send_message_to_amocrm(setting, message, setting.qualification_finished if len(setting.qualification_finished) != 0 else 'Спасибо! Что вы хотели узнать?', True)
+            await send_message_to_amocrm(setting, message, setting.qualification_finished if len(
+                setting.qualification_finished) != 0 else 'Спасибо! Что вы хотели узнать?', True, True)
         else:
-            await send_message_to_amocrm(setting, message, qualification_answer['message'], True)
+            await send_message_to_amocrm(setting, message, qualification_answer['message'], True, True)
     answer_to_sent = ''
     if setting.mode_id == 1:
         st = time.time()
@@ -215,7 +215,8 @@ async def process_message(message, setting):
         )
         without_questions_answer = without_questions_answer.data.message
 
-        await send_message_to_amocrm(setting, message, without_questions_answer + '\n' + qualification_answer['message'], True)
+        await send_message_to_amocrm(setting, message,
+                                     without_questions_answer + '\n' + qualification_answer['message'], True, True)
     else:
         await send_message_to_amocrm(setting, message, answer_to_sent, True)
     api.add_stats('Finish time', time.time(), message.id)

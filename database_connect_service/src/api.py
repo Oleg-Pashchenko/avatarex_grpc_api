@@ -31,6 +31,7 @@ class Messages:
     lead_id: int
     text: str
     is_bot: bool
+    is_q: bool
 
 
 @dataclasses.dataclass
@@ -65,6 +66,8 @@ def get_messages_history(lead_id: int):
     message_objects = sorted(message_objects, key=lambda x: x.id)
     messages = []
     for message_obj in message_objects:
+        if message_obj.is_q:
+            continue
         if message_obj.is_bot:
             messages.append({"role": "assistant", "content": message_obj.text})
         else:
@@ -72,12 +75,13 @@ def get_messages_history(lead_id: int):
     return messages
 
 
-def add_message(message_id, lead_id, text, is_bot):
+def add_message(message_id, lead_id, text, is_bot, is_q):
     obj = MessagesEntity(
         message_id=message_id,
         text=text,
         lead_id=lead_id,
-        is_bot=is_bot
+        is_bot=is_bot,
+        is_q=is_q
     )
     session.add(obj)
     session.commit()
