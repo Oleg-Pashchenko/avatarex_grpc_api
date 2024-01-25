@@ -85,6 +85,9 @@ async def process_message(message, setting):
         else:
             await send_message_to_amocrm(setting, message, qualification_answer['message'], True, False)
     answer_to_sent = ''
+
+    api.add_message(message.id, message.lead_id, message.message, qualification_answer['has_updates'] is False)
+
     if setting.mode_id == 1:
         st = time.time()
         database_messages = api.get_messages_history(message.lead_id)
@@ -253,7 +256,6 @@ async def process_settings(setting):
             # Assuming `api.add_message` is an asynchronous function
             print(f'[{setting.amo_host}] Обрабатываю сообщение {message.message}')
 
-            api.add_message(message.id, message.lead_id, message.message, False)
             #  api.create_stats(message.id, )
             api.add_stats(st, 'Start Time', message.id)
             api.add_stats(time.time() - st, 'CRM Read', message.id)
