@@ -19,11 +19,10 @@ async def qualification_passed(question, field, message, openai_key):
         properties = {'param': {'type': 'string', 'enum': []}}
         for f in field['possible_values']:
             properties['param']['enum'].append(f['value'])
-
+        properties['param']['enum'].append('другое')
     else:
         required = []
         properties = {}
-    properties['is_correct'] = {'type': 'boolean', 'description': 'Является ли ответ корректным'}
     func = [{
         "name": "Function",
         "description": "Выведи вариант ответа с которым совпадает вопрос. Если нет совпадения - ничего не выводи",
@@ -38,6 +37,8 @@ async def qualification_passed(question, field, message, openai_key):
         messages = [
             {'role': 'system',
              'content': 'Выведи вариант ответа с которым совпадает вопрос. Если нет совпадения - ничего не выводи'},
+            {"role": "assistant",
+             "content": question},
             {"role": "user",
              "content": message}]
 
@@ -55,12 +56,10 @@ async def qualification_passed(question, field, message, openai_key):
     if response_message.function_call:
         function_args = json.loads(response_message.function_call.arguments)
         print(function_args)
-        if 'is_correct' in function_args:
-            if function_args['is_correct'] is True:
-                return True, message
+        if 'другое' in function_args['param']:
             return False, ''
         else:
-            return False, ''
+            return True, function_args['param']
     else:
         return False, ''
 
