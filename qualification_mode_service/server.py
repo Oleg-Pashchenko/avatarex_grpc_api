@@ -6,7 +6,7 @@ import implementation
 async def handle(request):
     try:
         data = await request.json()
-
+        context = data.get('context', '')
         question = data.get("question", '')
         token = data.get("token", '')
         fields_from_amo = data.get('fields_from_amo', '')
@@ -16,7 +16,9 @@ async def handle(request):
         email = data.get('email', '')
         password = data.get('password', '')
         lead_id = data.get('lead_id', '')
-        answer = await implementation.execute(user_message=question,
+        answer = await implementation.execute(
+            context=context,
+            user_message=question,
                                               token=token,
                                               fields_from_amo=fields_from_amo,
                                               fields_to_fill=fields_to_fill,

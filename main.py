@@ -63,6 +63,7 @@ async def process_message(message, setting):
 
     api.add_stats('CRM Fields', time.time() - st, message.id)
     qualification_answer = await qualification.send_request({
+        'context': setting.prompt_context,
         'question': message.message,
         'token': setting.api_token,
         'fields_from_amo': fields,

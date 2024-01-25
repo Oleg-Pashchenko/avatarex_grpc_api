@@ -3,7 +3,7 @@ import json
 import openai
 
 
-async def qualification_passed(question, field, message, openai_key):
+async def qualification_passed(context, question, field, message, openai_key):
     """
     Какой у вас тариф?
     {'id': 1278951, 'name': 'Тариф', 'type': 'select', 'active_value': None,
@@ -25,7 +25,7 @@ async def qualification_passed(question, field, message, openai_key):
         properties = {}
     func = [{
         "name": "Function",
-        "description": "Выведи вариант ответа с которым совпадает вопрос. Если нет совпадения - ничего не выводи",
+        "description": "Выведи вариант ответа к которому приближен ответ. Если нет совпадения - пиши другое",
         "parameters": {
             "type": "object",
             "properties": properties,
@@ -36,7 +36,7 @@ async def qualification_passed(question, field, message, openai_key):
     try:
         messages = [
             {'role': 'system',
-             'content': 'Выведи вариант ответа с которым совпадает вопрос. Если нет совпадения - ничего не выводи'},
+             'content': context},
             {"role": "assistant",
              "content": question},
             {"role": "user",
@@ -64,7 +64,7 @@ async def qualification_passed(question, field, message, openai_key):
         return False, ''
 
 
-async def execute(user_message: str, token: str, fields_from_amo, fields_to_fill, pipeline,
+async def execute(context, user_message: str, token: str, fields_from_amo, fields_to_fill, pipeline,
                   host, email, password, lead_id):
     # Проверка ответа пользователя поля
     is_filled = False
@@ -82,7 +82,7 @@ async def execute(user_message: str, token: str, fields_from_amo, fields_to_fill
                 for f in fields_from_amo['all_fields']:
                     if f['name'] == field_to_fill['field_name']:
                         print(field_to_fill['message'], f, user_message)
-                        status, result = await qualification_passed(field_to_fill['message'], f, user_message, token)
+                        status, result = await qualification_passed(context, field_to_fill['message'], f, user_message, token)
                         print(status, result)
                         if status:
                             if f['type'] != 'field':
