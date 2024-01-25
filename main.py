@@ -209,10 +209,14 @@ async def process_message(message, setting):
                 }
             )
     if not qualification_answer['qualification_status']:
+        q_m = [{'role': 'system', 'content': setting.prompt_context}]
+        prev_ass_mess = api.get_last_question(message.lead_id)
+        if prev_ass_mess:
+            q_m.append(prev_ass_mess)
+        q_m.append({'role': 'user', 'content': message.message})
         # without_questions_answer = delete_questions(answer_to_sent)
         answer_to_sent = await prompt_mode.run(
-            messages=[{'role': 'system', 'content': setting.prompt_context},
-                      {'role': 'user', 'content': message.message}],
+            messages=q_m,
             model=setting.model_title,
             api_token=setting.api_token,
             max_tokens=setting.max_tokens,

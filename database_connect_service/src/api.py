@@ -75,6 +75,17 @@ def get_messages_history(lead_id: int):
     return messages
 
 
+def get_last_question(lead_id: int):
+    message_objects = (
+        session.query(MessagesEntity).filter(MessagesEntity.lead_id == lead_id).all()
+    )
+    message_objects = sorted(message_objects, key=lambda x: x.id, reverse=True)
+    for m in message_objects:
+        if m.is_bot:
+            return {"role": "assistant", "content": m.text}
+        else:
+            return None
+
 def add_message(message_id, lead_id, text, is_bot, is_q=False):
     obj = MessagesEntity(
         message_id=message_id,
