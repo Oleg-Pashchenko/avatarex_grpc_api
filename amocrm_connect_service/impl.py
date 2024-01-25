@@ -239,16 +239,19 @@ class AmoCRM:
             response = await session.get(url, headers=self.headers)
             response = await response.json()
             print('resp', response)
-            for f in response["custom_fields_values"]:
-                fields.append(
-                    {
-                        "id": f["field_id"],
-                        "name": f["field_name"],
-                        "type": f["field_type"],
-                        "active_value": f["values"][0]["value"],
-                        "possible_values": None,
-                    }
-                )
+            try:
+                for f in response["custom_fields_values"]:
+                    fields.append(
+                        {
+                            "id": f["field_id"],
+                            "name": f["field_name"],
+                            "type": f["field_type"],
+                            "active_value": f["values"][0]["value"],
+                            "possible_values": None,
+                        }
+                    )
+            except:
+                pass
         print(fields)
         all_fields = await self.get_custom_fields_async()
         print(all_fields)
