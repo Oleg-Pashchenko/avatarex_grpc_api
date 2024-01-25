@@ -218,6 +218,7 @@ async def process_message(message, setting):
             max_tokens=setting.max_tokens,
             temperature=setting.temperature,
         )
+        answer_to_sent = answer_to_sent.data.message
         # without_questions_answer = without_questions_answer.data.message
 
         await send_message_to_amocrm(setting, message,
