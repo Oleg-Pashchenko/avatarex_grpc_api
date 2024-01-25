@@ -50,6 +50,7 @@ async def send_message_to_amocrm(setting, message, text, is_bot, is_q=False):
 
 async def process_message(message, setting):
     print('Обрабатывается сообщение!', setting.amo_host)
+    last_q = api.get_last_question_id(message.lead_id)
     st = time.time()
     try:
         fields = await rest_amo.send_request({
@@ -222,10 +223,9 @@ async def process_message(message, setting):
         )
         answer_to_sent = answer_to_sent.data.message
         # without_questions_answer = without_questions_answer.data.message
+        answer_to_sent = answer_to_sent + '\n' + qualification_answer['message']
 
-        await send_message_to_amocrm(setting, message,
-                                     answer_to_sent + '\n' + qualification_answer['message'], True, True)
-    else:
+    if last_q == api.get_last_question_id(message.lead_id):
         await send_message_to_amocrm(setting, message, answer_to_sent, True)
     api.add_stats('Finish time', time.time(), message.id)
 

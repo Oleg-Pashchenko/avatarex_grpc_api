@@ -75,6 +75,14 @@ def get_messages_history(lead_id: int):
     return messages
 
 
+def get_last_question_id(lead_id: int):
+    message_objects = (
+        session.query(MessagesEntity).filter(MessagesEntity.lead_id == lead_id).all()
+    )
+    message_objects = sorted(message_objects, key=lambda x: x.id, reverse=True)
+    return message_objects[-1].id
+
+
 def get_last_question(lead_id: int):
     message_objects = (
         session.query(MessagesEntity).filter(MessagesEntity.lead_id == lead_id).all()
