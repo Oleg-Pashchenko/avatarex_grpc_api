@@ -59,9 +59,8 @@ async def process_message(message, setting):
             'amo_password': setting.amo_password
         })
     except Exception as e:
-        print(e)
         fields = {'all_fields': [], 'fields': []}
-    print(fields)
+
     api.add_stats('CRM Fields', time.time() - st, message.id)
     qualification_answer = await qualification.send_request({
         'question': message.message,
@@ -78,7 +77,6 @@ async def process_message(message, setting):
         await rest_amo.send_request(qualification_answer['fill_command'], '/fill-field')
     if qualification_answer['has_updates'] and qualification_answer['qualification_status']:
         setting.mode_id = -1
-        print(qualification_answer)
         if qualification_answer['finished']:
             await send_message_to_amocrm(setting, message, setting.qualification_finished if len(
                 setting.qualification_finished) != 0 else 'Спасибо! Что вы хотели узнать?', True, True)

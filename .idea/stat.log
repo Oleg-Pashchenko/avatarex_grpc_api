@@ -16730,3 +16730,15 @@
 {"ts":1706193609109,"action":"IDE_ACTIVATED"}
 {"ts":1706193610062,"action":"IDE_DEACTIVATED"}
 {"ts":1706193739393,"action":"IDE_ACTIVATED"}
+{"ts":1706193775954,"action":"IDE_DEACTIVATED"}
+{"ts":1706196781369,"action":"IDE_ACTIVATED"}
+{"ts":1706196782914,"action":"IDE_DEACTIVATED"}
+{"ts":1706196783036,"action":"PROJECT_CLOSED","tags":{"PROJECT_NAME":"avatarex_grpc_api"}}
+{"ts":1706203672901,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"307"}}
+{"ts":1706203675140,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"307"}}
+{"ts":1706203675140,"action":"FILE_OPENED","file":"/prompt_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"94"}}
+{"ts":1706203674571,"action":"PROJECT_OPENED","tags":{"PROJECT_NAME":"avatarex_grpc_api"}}
+{"ts":1706203685953,"action":"FILE_CLOSED","file":"/prompt_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"94"}}
+{"ts":1706203685953,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"307"}}
+{"ts":1706203726824,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"305"}}
+{"ts":1706203726824,"action":"FILE_OPENED","file":"/qualification_mode_service/implementation.py","tags":{"FILE_LINE_OF_CODE":"129"}}
