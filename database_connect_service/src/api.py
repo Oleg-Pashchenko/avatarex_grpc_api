@@ -75,7 +75,7 @@ def get_messages_history(lead_id: int):
     return messages
 
 
-def add_message(message_id, lead_id, text, is_bot, is_q):
+def add_message(message_id, lead_id, text, is_bot, is_q=False):
     obj = MessagesEntity(
         message_id=message_id,
         text=text,
