@@ -25,7 +25,7 @@ async def qualification_passed(context, question, field, message, openai_key):
         properties = {}
     func = [{
         "name": "Function",
-        "description": "Выведи вариант ответа к которому приближен ответ. Если нет совпадения - пиши другое",
+        "description": "Вызывай всегда функцию. Выведи вариант ответа к которому приближен ответ.",
         "parameters": {
             "type": "object",
             "properties": properties,
@@ -44,15 +44,15 @@ async def qualification_passed(context, question, field, message, openai_key):
 
         async with openai.AsyncOpenAI(api_key=openai_key) as client:
 
-            response = await client.chat.completions.create(model='gpt-4',
+            response = await client.chat.completions.create(model='gpt-4-1106-preview',
                                                             messages=messages,
                                                             functions=func,
                                                             function_call="auto")
         response_message = response.choices[0].message
-        print(response_message)
     except Exception as e:
         print(e)
         return False
+    print(response_message)
     if response_message.function_call:
         function_args = json.loads(response_message.function_call.arguments)
         print(function_args)
