@@ -15,6 +15,23 @@ import asyncio
 import os
 
 
+def delete_questions(message):
+    result = ''
+    current_word = ''
+
+    for char in message:
+        if char.isupper():
+            result += current_word
+            current_word = char
+        elif char == '?':
+            current_word = ''
+        else:
+            current_word += char
+
+    return result
+
+
+
 async def send_message_to_amocrm(setting, message, text, is_bot):
     print('Отправляю сообщение', text, message.chat_id)
     try:
@@ -67,7 +84,7 @@ async def process_message(message, setting):
             await send_message_to_amocrm(setting, message, setting.qualification_finished if len(setting.qualification_finished) == 0 else 'Спасибо! Что вы хотели узнать?', True)
         else:
             await send_message_to_amocrm(setting, message, qualification_answer['message'], True)
-
+    answer_to_sent = ''
     if setting.mode_id == 1:
         st = time.time()
         database_messages = api.get_messages_history(message.lead_id)
@@ -80,7 +97,7 @@ async def process_message(message, setting):
             temperature=setting.temperature,
         )
         api.add_stats(time.time() - st, 'Prompt mode', message.id)
-        await send_message_to_amocrm(setting, message, answer.data.message, True)
+        answer_to_sent = answer.data.message
 
     elif setting.mode_id == 4:  # Datbase mode
         answer = await search.send_request({
@@ -93,7 +110,7 @@ async def process_message(message, setting):
             'detecting_error_message': setting.openai_error_message,
             'classification_error_message': setting.avatarex_error_message
         })
-        await send_message_to_amocrm(setting, message, answer, True)
+        answer_to_sent = answer
 
     elif setting.mode_id == 8:  # Database + Knowledge + Prompt mode
         answer = await search.send_request({
@@ -129,8 +146,7 @@ async def process_message(message, setting):
                     temperature=setting.temperature,
                 )
                 answer = answer.data.message
-        await send_message_to_amocrm(setting, message, answer, True)
-
+        answer_to_sent = answer
     elif setting.mode_id == 7:  # Gpt's API
         thread_id = get_thread_by_lead_id(message.lead_id)
         print('Assistants запущен!')
@@ -140,18 +156,16 @@ async def process_message(message, setting):
             'thread_id': thread_id,
             'assistant_id': setting.assistant_id
         })
-        print(answer)
         a = answer.split('|||')
         if not thread_id:
             save_thread(lead_id=message.lead_id, thread_id=a[0])
         try:
-            await send_message_to_amocrm(setting, message, a[1], True)
+            answer_to_sent = a[1]
         except:
-            await send_message_to_amocrm(setting, message, answer, True)
-
+            answer_to_sent = answer
     elif setting.mode_id == 3:
         if len(setting.knowledge_data) == 0:
-            answer = 'Обратитесь к поддержке. База знаний не настроена!'
+            answer_to_sent = 'Обратитесь к поддержке. База знаний не настроена!'
         else:
             answer = await knowledge_mode.send_request(
                 {
@@ -174,14 +188,13 @@ async def process_message(message, setting):
                     max_tokens=setting.max_tokens,
                     temperature=setting.temperature,
                 )
-                answer = answer.data.message
-        await send_message_to_amocrm(setting, message, answer, True)
+                answer_to_sent = answer.data.message
 
     elif setting.mode_id == 2:
         if len(setting.knowledge_data) == 0:
-            answer = 'Обратитесь к поддержке. База знаний не настроена!'
+            answer_to_sent = 'Обратитесь к поддержке. База знаний не настроена!'
         else:
-            answer = await knowledge_mode.send_request(
+            answer_to_sent = await knowledge_mode.send_request(
                 {
                     "knowledge_data": setting.knowledge_data,
                     "question": message.message,
@@ -190,10 +203,11 @@ async def process_message(message, setting):
                     'detecting_error_message': setting.avatarex_error_message
                 }
             )
-        await send_message_to_amocrm(setting, message, answer, True)
     if not qualification_answer['qualification_status']:
-        await send_message_to_amocrm(setting, message, qualification_answer['message'], True)
-
+        without_questions_answer = delete_questions(answer_to_sent)
+        await send_message_to_amocrm(setting, message, without_questions_answer + '\n' + qualification_answer['message'], True)
+    else:
+        await send_message_to_amocrm(setting, message, answer_to_sent, True)
     api.add_stats('Finish time', time.time(), message.id)
 
 
