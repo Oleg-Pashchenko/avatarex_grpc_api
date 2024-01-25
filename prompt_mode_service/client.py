@@ -70,11 +70,12 @@ def get_messages_context(messages: list[dict], context: str, tokens: int, max_to
     messages.reverse()
     fields_to_view = []
     print(fields)
-    for field in fields['fields']:
-        fields_to_view.append({'role': 'assistant',
-                               'content': f'Данные которые мы знаем о вас: {field["name"]} = {field["active_value"]}'})
+    if 'fields' in fields.keys():
+        for field in fields['fields']:
+            fields_to_view.append({'role': 'assistant',
+                                   'content': f'Данные которые мы знаем о вас: {field["name"]} = {field["active_value"]}'})
 
-    fields_to_view.append({'role': 'system', 'content': context})
+        fields_to_view.append({'role': 'system', 'content': context})
 
     system_settings = tokens_counter(fields_to_view)
     response = []
