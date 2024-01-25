@@ -81,11 +81,13 @@ async def process_message(message, setting):
         print(qualification_answer)
         if qualification_answer['finished']:
             await send_message_to_amocrm(setting, message, setting.qualification_finished if len(
-                setting.qualification_finished) != 0 else 'Спасибо! Что вы хотели узнать?', True, False)
+                setting.qualification_finished) != 0 else 'Спасибо! Что вы хотели узнать?', True, True)
         else:
-            await send_message_to_amocrm(setting, message, qualification_answer['message'], True, False)
+            await send_message_to_amocrm(setting, message, qualification_answer['message'], True, True)
     answer_to_sent = ''
 
+    if not qualification_answer['qualification_status']:
+        setting.mode_id = -1
     api.add_message(message.id, message.lead_id, message.message, qualification_answer['has_updates'] is False)
 
     if setting.mode_id == 1:
@@ -208,15 +210,15 @@ async def process_message(message, setting):
             )
     if not qualification_answer['qualification_status']:
         # without_questions_answer = delete_questions(answer_to_sent)
-        #without_questions_answer = await prompt_mode.run(
-        #    messages=[{'role': 'system', 'content': 'Не задавай вопросов!'},
-        #              {'role': 'user', 'content': answer_to_sent}],
-        #    model=setting.model_title,
-        ##    api_token=setting.api_token,
-         #   max_tokens=setting.max_tokens,
-         #   temperature=setting.temperature,
-        #)
-        #without_questions_answer = without_questions_answer.data.message
+        answer_to_sent = await prompt_mode.run(
+            messages=[{'role': 'system', 'content': setting.prompt_context},
+                      {'role': 'user', 'content': message.message}],
+            model=setting.model_title,
+            api_token=setting.api_token,
+            max_tokens=setting.max_tokens,
+            temperature=setting.temperature,
+        )
+        # without_questions_answer = without_questions_answer.data.message
 
         await send_message_to_amocrm(setting, message,
                                      answer_to_sent + '\n' + qualification_answer['message'], True, True)
