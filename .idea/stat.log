@@ -16484,3 +16484,12 @@
 {"ts":1706174388546,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"297"}}
 {"ts":1706174400056,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"297"}}
 {"ts":1706174400056,"action":"FILE_OPENED","file":"/prompt_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"90"}}
+{"ts":1706174405056,"action":"IDE_DEACTIVATED"}
+{"ts":1706174406230,"action":"IDE_ACTIVATED"}
+{"ts":1706174425381,"action":"IDE_DEACTIVATED"}
+{"ts":1706174428169,"action":"IDE_ACTIVATED"}
+{"ts":1706174432087,"action":"FILE_CLOSED","file":"/prompt_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"91"}}
+{"ts":1706174432087,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"297"}}
+{"ts":1706174443538,"action":"IDE_DEACTIVATED"}
+{"ts":1706174444320,"action":"IDE_ACTIVATED"}
+{"ts":1706174454590,"action":"IDE_DEACTIVATED"}
