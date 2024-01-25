@@ -1,4 +1,5 @@
 import re
+from asyncio import sleep
 
 from openai import AsyncOpenAI
 
@@ -20,11 +21,12 @@ async def execute(question: str, token: str, thread_id=None, assistant_id='', at
             assistant_id=assistant_id,
         )
         while True:
+            await sleep(1)
             run = await client.beta.threads.runs.retrieve(
                 thread_id=thread_id,
                 run_id=run.id
             )
-            if run.status != 'in_progress':
+            if 'complete' in run.status:
                 break
 
         messages = await client.beta.threads.messages.list(
