@@ -16742,3 +16742,4 @@
 {"ts":1706203685953,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"307"}}
 {"ts":1706203726824,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"305"}}
 {"ts":1706203726824,"action":"FILE_OPENED","file":"/qualification_mode_service/implementation.py","tags":{"FILE_LINE_OF_CODE":"129"}}
+{"ts":1706203815817,"action":"IDE_DEACTIVATED"}

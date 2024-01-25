@@ -23,7 +23,7 @@ async def qualification_passed(question, field, message, openai_key):
     else:
         required = []
         properties = {}
-    properties['is_correct'] = {'type': 'bool', 'description': 'Является ли ответ корректным'}
+    properties['is_correct'] = {'type': 'boolean', 'description': 'Является ли ответ корректным'}
     func = [{
         "name": "Function",
         "description": "Выведи вариант ответа с которым совпадает вопрос. Если нет совпадения - ничего не выводи",
