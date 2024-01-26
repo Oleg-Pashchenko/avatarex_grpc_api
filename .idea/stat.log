@@ -16870,3 +16870,13 @@
 {"ts":1706271393363,"action":"FILE_OPENED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"165"}}
 {"ts":1706271394374,"action":"FILE_CLOSED","file":"/database_connect_service/src/api.py","tags":{"FILE_LINE_OF_CODE":"165"}}
 {"ts":1706271394374,"action":"FILE_OPENED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"306"}}
+{"ts":1706271445239,"action":"IDE_DEACTIVATED"}
+{"ts":1706271510360,"action":"IDE_ACTIVATED"}
+{"ts":1706271511505,"action":"IDE_DEACTIVATED"}
+{"ts":1706271512386,"action":"IDE_ACTIVATED"}
+{"ts":1706271514785,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"306"}}
+{"ts":1706271514785,"action":"FILE_OPENED","file":"/qualification_mode_service/server.py","tags":{"FILE_LINE_OF_CODE":"44"}}
+{"ts":1706271519386,"action":"FILE_CLOSED","file":"/qualification_mode_service/server.py","tags":{"FILE_LINE_OF_CODE":"44"}}
+{"ts":1706271519386,"action":"FILE_OPENED","file":"/qualification_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"19"}}
+{"ts":1706271522623,"action":"FILE_CLOSED","file":"/qualification_mode_service/client.py","tags":{"FILE_LINE_OF_CODE":"19"}}
+{"ts":1706271522623,"action":"FILE_OPENED","file":"/qualification_mode_service/implementation.py","tags":{"FILE_LINE_OF_CODE":"140"}}

@@ -92,7 +92,7 @@ async def execute(context, user_message: str, token: str, fields_from_amo, field
                         print(field_to_fill['message'], f, user_message)
                         status, result = await qualification_passed_triggers(context, field_to_fill['message'], f,
                                                                              user_message, token)
-                        for ff in f:
+                        for ff in f['possible_values']:
                             f_to_script.append(ff['value'])
                         if status:
                             if f['type'] != 'field':
