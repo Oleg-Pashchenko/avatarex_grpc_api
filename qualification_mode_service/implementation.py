@@ -64,6 +64,13 @@ async def qualification_passed(context, question, field, message, openai_key):
         return False, ''
 
 
+async def qualification_passed_triggers(context, question, field, message, openai_key):
+    for f in field['possible_values']:
+        if f.lower() in message.lower():
+            return True, f
+    return False, ''
+
+
 async def execute(context, user_message: str, token: str, fields_from_amo, fields_to_fill, pipeline,
                   host, email, password, lead_id):
     # Проверка ответа пользователя поля
@@ -82,7 +89,8 @@ async def execute(context, user_message: str, token: str, fields_from_amo, field
                 for f in fields_from_amo['all_fields']:
                     if f['name'] == field_to_fill['field_name']:
                         print(field_to_fill['message'], f, user_message)
-                        status, result = await qualification_passed(context, field_to_fill['message'], f, user_message, token)
+                        status, result = await qualification_passed_triggers(context, field_to_fill['message'], f,
+                                                                             user_message, token)
                         print(status, result)
                         if status:
                             if f['type'] != 'field':
