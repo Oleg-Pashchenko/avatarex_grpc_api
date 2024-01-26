@@ -67,7 +67,7 @@ async def qualification_passed(context, question, field, message, openai_key):
 async def qualification_passed_triggers(context, question, field, message, openai_key):
     for f in field['possible_values']:
         if f['value'].lower() in message.lower():
-            return True, f
+            return True, f['value']
     return False, ''
 
 
