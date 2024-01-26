@@ -208,7 +208,8 @@ async def process_message(message, setting):
                 }
             )
     if not qualification_answer['qualification_status']:
-        q_m = [{'role': 'system', 'content': 'Переформулируй. Извините, я не понял ваш ответ. Вот возможные варианты ответа:'}]
+        q_m = [
+            {'role': 'system', 'content': f'Переформулируй. Извините, я не понял ваш ответ. Вот возможные варианты ответа (их не переформулируй): {qualification_answer["params"]}'}]
 
         # without_questions_answer = delete_questions(answer_to_sent)
         answer_to_sent = await prompt_mode.run(
@@ -220,7 +221,7 @@ async def process_message(message, setting):
         )
         answer_to_sent = answer_to_sent.data.message
         # without_questions_answer = without_questions_answer.data.message
-        answer_to_sent = answer_to_sent + f'\n{qualification_answer["params"]}' + '\n' + qualification_answer['message']
+        answer_to_sent = answer_to_sent + '\n' + qualification_answer['message']
 
     if last_q == api.get_last_question_id(message.lead_id):
         await send_message_to_amocrm(setting, message, answer_to_sent, True)
