@@ -208,7 +208,7 @@ async def process_message(message, setting):
                 }
             )
     if not qualification_answer['qualification_status']:
-        q_m = [{'role': 'system', 'content': 'ТОЛЬКО ОТВЕЧАЙ НА ВОПРОС. БЕЗ ПРИВЕТСТВИЙ!' + setting.prompt_context}]
+        q_m = [{'role': 'system', 'content': f'Попроси уточнить ответ. И предложи ему эти варианты ответа ({qualification_answer["params"]}).'}]
         prev_ass_mess = api.get_last_question(message.lead_id)
         if prev_ass_mess:
             q_m.append(prev_ass_mess)

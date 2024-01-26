@@ -77,6 +77,7 @@ async def execute(context, user_message: str, token: str, fields_from_amo, field
     is_filled = False
     status = True
     fill_command = None
+    f_to_script = []
     filled_field = ''
     for field_to_fill in fields_to_fill:
         if field_to_fill['enabled']:  # поле нужно заполнять
@@ -91,7 +92,8 @@ async def execute(context, user_message: str, token: str, fields_from_amo, field
                         print(field_to_fill['message'], f, user_message)
                         status, result = await qualification_passed_triggers(context, field_to_fill['message'], f,
                                                                              user_message, token)
-                        print(status, result)
+                        for ff in f:
+                            f_to_script.append(ff['value'])
                         if status:
                             if f['type'] != 'field':
                                 for v in f['possible_values']:
@@ -126,11 +128,12 @@ async def execute(context, user_message: str, token: str, fields_from_amo, field
                     'finished': False,
                     'has_updates': True,
                     'message': field_to_fill['message'],
-                    'fill_command': fill_command
+                    'fill_command': fill_command,
+                    'params': f_to_script
                 }
     if is_filled:
         return {'qualification_status': True, 'finished': True, 'has_updates': True, 'message': '',
-                'fill_command': fill_command}
+                'fill_command': fill_command, 'params': f_to_script}
     return {'qualification_status': True, 'finished': True, 'has_updates': False, 'message': '',
-            'fill_command': fill_command
+            'fill_command': fill_command, 'params': f_to_script
             }
