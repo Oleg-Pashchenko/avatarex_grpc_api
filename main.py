@@ -213,7 +213,7 @@ async def process_message(message, setting):
         if prev_ass_mess:
             q_m.append(prev_ass_mess)
         q_m.append({'role': 'user', 'content': message.message})
-        q_m.append({'role': 'assistant', 'user': f' Расскажи эти варианты ответа ({qualification_answer["params"]}).'})
+        q_m.append({'role': 'user', 'content': f' Расскажите про возможные варианты ответа ({qualification_answer["params"]}).'})
         # without_questions_answer = delete_questions(answer_to_sent)
         answer_to_sent = await prompt_mode.run(
             messages=q_m,
