@@ -16838,3 +16838,5 @@
 {"ts":1706270321326,"action":"IDE_ACTIVATED"}
 {"ts":1706270334981,"action":"FILE_CLOSED","file":"/main.py","tags":{"FILE_LINE_OF_CODE":"306"}}
 {"ts":1706270334981,"action":"FILE_OPENED","file":"/qualification_mode_service/implementation.py","tags":{"FILE_LINE_OF_CODE":"129"}}
+{"ts":1706270464744,"action":"IDE_DEACTIVATED"}
+{"ts":1706270719021,"action":"IDE_ACTIVATED"}
