@@ -122,12 +122,13 @@ async def execute(context, user_message: str, token: str, fields_from_amo, field
                     fl = False
                     break
             if fl and field_to_fill['field_name'] != filled_field:
+                print(f_to_script)
                 for f in fields_from_amo['all_fields']:
                     if f['name'] == field_to_fill['field_name']:
                         f_to_script = []
                         for ff in f['possible_values']:
                             f_to_script.append(ff['value'])
-
+                print(f_to_script)
                 return {
                     'qualification_status': status,
                     'finished': False,
