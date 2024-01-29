@@ -78,6 +78,7 @@ async def process_message(message, setting):
         'password': setting.amo_password,
         'lead_id': message.lead_id
     })
+    print(qualification_answer)
     if qualification_answer['fill_command']:
         await rest_amo.send_request(qualification_answer['fill_command'], '/fill-field')
     if qualification_answer['has_updates'] and qualification_answer['qualification_status']:
