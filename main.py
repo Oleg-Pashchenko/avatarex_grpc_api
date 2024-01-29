@@ -83,7 +83,7 @@ async def process_message(message, setting):
             await send_message_to_amocrm(setting, message, setting.qualification_finished if len(
                 setting.qualification_finished) != 0 else 'Спасибо! Что вы хотели узнать?', True, True)
         else:
-            await send_message_to_amocrm(setting, message, qualification_answer['message'], True, True)
+            await send_message_to_amocrm(setting, message, qualification_answer['message'] + f'\n{qualification_answer["params"]}', True, True)
     answer_to_sent = ''
 
     if not qualification_answer['qualification_status']:
@@ -150,6 +150,7 @@ async def process_message(message, setting):
                     temperature=setting.temperature,
                 )
                 answer = answer.data.message
+
         answer_to_sent = answer
     elif setting.mode_id == 7:  # Gpt's API
         thread_id = get_thread_by_lead_id(message.lead_id)
