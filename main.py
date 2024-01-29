@@ -50,6 +50,9 @@ async def send_message_to_amocrm(setting, message, text, is_bot, is_q=False):
 
 async def process_message(message, setting):
     print('Обрабатывается сообщение!', setting.amo_host)
+    if 'start' in message.message:
+        return
+
     last_q = api.get_last_question_id(message.lead_id)
     st = time.time()
     try:
