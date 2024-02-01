@@ -68,13 +68,17 @@ async def qualification_passed_triggers(context, question, field, message, opena
     return False, ''
 
 
+def get_params(amo, param):
+    print(amo, param)
+    return []
+
+
 async def execute(context, user_message: str, token: str, fields_from_amo, fields_to_fill, pipeline,
                   host, email, password, lead_id):
     # Проверка ответа пользователя поля
     is_filled = False
     status = True
     fill_command = None
-    f_to_script = []
     filled_field = ''
     for field_to_fill in fields_to_fill:
         if field_to_fill['enabled']:  # поле нужно заполнять
@@ -88,8 +92,7 @@ async def execute(context, user_message: str, token: str, fields_from_amo, field
                     if f['name'] == field_to_fill['field_name']:
                         status, result = await qualification_passed_triggers(context, field_to_fill['message'], f,
                                                                              user_message, token)
-                        for ff in f['possible_values']:
-                            f_to_script.append(ff['value'])
+
                         if status:
                             if f['type'] != 'field':
                                 for v in f['possible_values']:
@@ -118,22 +121,20 @@ async def execute(context, user_message: str, token: str, fields_from_amo, field
                     fl = False
                     break
             if fl and field_to_fill['field_name'] != filled_field:
-                for f in fields_from_amo['all_fields']:
-                    if f['name'] == field_to_fill['field_name']:
-                        f_to_script = []
-                        for ff in f['possible_values']:
-                            f_to_script.append(ff['value'])
+
+
+
                 return {
                     'qualification_status': status,
                     'finished': False,
                     'has_updates': True,
                     'message': field_to_fill['message'],
                     'fill_command': fill_command,
-                    'params': f_to_script
+                    'params': get_params(fields_from_amo, field_to_fill)
                 }
     if is_filled:
         return {'qualification_status': True, 'finished': True, 'has_updates': True, 'message': '',
-                'fill_command': fill_command, 'params': f_to_script}
+                'fill_command': fill_command, 'params': []}
     return {'qualification_status': True, 'finished': True, 'has_updates': False, 'message': '',
-            'fill_command': fill_command, 'params': f_to_script
+            'fill_command': fill_command, 'params': []
             }
