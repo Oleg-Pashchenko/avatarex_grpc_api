@@ -39,31 +39,12 @@ async def classificate(questions: list, question: str, api_key: str):
 
 async def run(knowledge_data: dict, question: str, api_key: str, classification_error_message: str,
               detecting_error_message: str):
-    print('Запустил knowledge')
     try:
         classifications = await classificate(list(knowledge_data.keys()), question, api_key)
     except Exception as e:
-        print('Classification error', e)
         return detecting_error_message
     try:
         first_true_key = next(key for key, value in classifications.items() if value)
         return knowledge_data[first_true_key]
     except Exception as e:
-        print('Detection error', e)
         return classification_error_message
-
-
-async def test():
-    response = await run(
-        knowledge_data={
-            'Кто ты?': 'Олег',
-            'Как дела?': 'Хорошо'
-        },
-        question='Как у вас дела?',
-        api_key=os.getenv('OPENAI_TOKEN'),
-        classification_error_message='Ошибка распознавания ;(',
-        detecting_error_message='Ошибка Avatarex ;('
-    )
-    print(response)
-
-# asyncio.run(test())

@@ -82,4 +82,4 @@ def create_session(host: str, headers: dict, amo_hash: str, chat_token: str):
         session.add(new_session)
         session.commit()
     except Exception as e:
-        print(e)
+        pass

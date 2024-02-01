@@ -32,7 +32,6 @@ def delete_questions(message):
 
 
 async def send_message_to_amocrm(setting, message, text, is_bot, is_q=False):
-    print('Отправляю сообщение', text, message.chat_id)
     try:
         st = time.time()
         message_id = await amocrm.send_message(
@@ -49,7 +48,6 @@ async def send_message_to_amocrm(setting, message, text, is_bot, is_q=False):
 
 
 async def process_message(message, setting):
-    print('Обрабатывается сообщение!', setting.amo_host)
     if 'start' in message.message:
         return
 
@@ -158,7 +156,6 @@ async def process_message(message, setting):
         answer_to_sent = answer
     elif setting.mode_id == 7:  # Gpt's API
         thread_id = get_thread_by_lead_id(message.lead_id)
-        print('Assistants запущен!')
         answer = await gpts.send_request({
             'question': message.message,
             'token': setting.api_token,
@@ -212,6 +209,7 @@ async def process_message(message, setting):
                     'detecting_error_message': setting.avatarex_error_message
                 }
             )
+
     if not qualification_answer['qualification_status']:
         q_m = [
             {'role': 'system', 'content': f'Переформулируй. Извините, я не понял ваш ответ. Вот возможные варианты ответа (их не переформулируй): {qualification_answer["params"]}'}]
@@ -247,12 +245,10 @@ async def process_settings(setting):
     for message in messages.answer:
         try:
             if api.message_exists(message.lead_id, message.id):
-                # print(f"DELETE FROM messages WHERE message_id='{message.id}'")
-                # print('Сообщение существует!', message.id, message.message, setting.amo_host)
+
                 continue  # Duplicate check
 
             if setting.manager_intervented_active and api.manager_intervened(message.lead_id, message.messages_history):
-                print(setting.amo_host, 'Вмешательство менеджеров!', message.message)
                 continue  # Manager intervention check
 
             if ".m4a" in message.message:
@@ -262,12 +258,10 @@ async def process_settings(setting):
                     openai_api_key=setting.api_token, url=message.message
                 )
             # Assuming `api.add_message` is an asynchronous function
-            print(f'[{setting.amo_host}] Обрабатываю сообщение {message.message}')
 
             #  api.create_stats(message.id, )
             api.add_stats(st, 'Start Time', message.id)
             api.add_stats(time.time() - st, 'CRM Read', message.id)
-            print('yes')
             api.add_message(message.id, message.lead_id, message.message, False)
             # Создаем задачу для асинхронной обработки сообщения
             task = process_message(message, setting)

@@ -18,7 +18,6 @@ class AmocrmConnectService(amocrm_site_pb2_grpc.AmocrmConnectServiceServicer):
                 request.login,
                 request.password,
             )
-            print(self.host, self.login, self.login)
             amo = impl.AmoCRM(self.host, self.login, self.password)
             connection_status = amo.connect()
 
@@ -32,7 +31,6 @@ class AmocrmConnectService(amocrm_site_pb2_grpc.AmocrmConnectServiceServicer):
 
         except Exception as e:
             error, success = str(e), False
-        print(answer, success)
         response = amocrm_site_pb2.AmocrmConnectResponse(
             answer=answer,
             success=success,
@@ -43,10 +41,8 @@ class AmocrmConnectService(amocrm_site_pb2_grpc.AmocrmConnectServiceServicer):
 
     def GetInfo(self, request, context):
         host, login, password = request.host.strip(), request.email.strip(), request.password.strip()
-        print(host, login, password)
         amo = impl.AmoCRM(host, login, password)
         status = amo.connect()
-        print("status", status)
         if not status:
             return amocrm_site_pb2.GetInfoResponse(
                 pipelines=[], fields=[]
@@ -63,7 +59,6 @@ def serve():
         AmocrmConnectService(), server
     )
     server.add_insecure_port("0.0.0.0:50060")
-    print("AMOCRM_CONNECT_SERVICE executed on port 50060!")
     server.start()
     server.wait_for_termination()
 

@@ -50,12 +50,9 @@ async def qualification_passed(context, question, field, message, openai_key):
                                                             function_call="auto")
         response_message = response.choices[0].message
     except Exception as e:
-        print(e)
         return False
-    print(response_message)
     if response_message.function_call:
         function_args = json.loads(response_message.function_call.arguments)
-        print(function_args)
         if 'другое' in function_args['param']:
             return False, ''
         else:
@@ -89,7 +86,6 @@ async def execute(context, user_message: str, token: str, fields_from_amo, field
             if fl:
                 for f in fields_from_amo['all_fields']:
                     if f['name'] == field_to_fill['field_name']:
-                        print(field_to_fill['message'], f, user_message)
                         status, result = await qualification_passed_triggers(context, field_to_fill['message'], f,
                                                                              user_message, token)
                         for ff in f['possible_values']:

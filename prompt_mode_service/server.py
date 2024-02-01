@@ -25,8 +25,7 @@ async def complete_openai(prompt, model, max_tokens, temperature, api_token):
                     )
                     return completion.choices[0].message.content
             except Exception as e:
-                print(e)
-
+                pass
 
 class OpenAIPromptServicer(prompt_mode_pb2_grpc.OpenAIPromptServiceServicer):
     async def CompletePrompt(self, request, context):
@@ -51,7 +50,6 @@ class OpenAIPromptServicer(prompt_mode_pb2_grpc.OpenAIPromptServiceServicer):
                 request.temperature,
                 request.api_token,
             )
-            print('Result', result)
             # Формирование успешного ответа
             response_data = prompt_mode_pb2.ResponseData(message=result, error=None)
             return prompt_mode_pb2.OpenAIPromptResponse(
@@ -60,7 +58,6 @@ class OpenAIPromptServicer(prompt_mode_pb2_grpc.OpenAIPromptServiceServicer):
                 execution_time=round(time.time() - start),  # Замените на реальное время выполнения
             )
         except Exception as e:
-            print('Prompt mode exc', e)
             # Формирование ответа при ошибке
             response_data = prompt_mode_pb2.ResponseData(message=None, error=str(e))
             return prompt_mode_pb2.OpenAIPromptResponse(
@@ -74,7 +71,6 @@ async def serve():
         OpenAIPromptServicer(), server
     )
     server.add_insecure_port("0.0.0.0:50052")
-    print("PROMPT_MODE_SERVICE executed on port 50052!")
     await server.start()
     await server.wait_for_termination()
 

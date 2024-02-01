@@ -261,5 +261,4 @@ def get_enabled_api_settings() -> list[ApiSettings]:
         except Exception as e:
             pass
             # print('error', s.name, e)
-    print("Settings:", len(result))
     return result

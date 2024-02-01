@@ -14,8 +14,6 @@ server_host = os.getenv("SERVER_HOST_EN") + ":50052"
 
 
 async def run(messages, model, max_tokens, temperature, api_token):
-    print('Запустил prompt мод')
-    print(messages)
     channel = grpc.aio.insecure_channel(server_host)
     stub = OpenAIPromptServiceStub(channel)
 
@@ -48,7 +46,6 @@ async def run(messages, model, max_tokens, temperature, api_token):
         api_token=api_token,
     )
     response = await stub.CompletePrompt(request)
-    print("Prompt mode:", round(response.execution_time, 2))
     return response
 
 
@@ -70,7 +67,6 @@ def get_messages_context(messages: list[dict], context: str, tokens: int, max_to
     tokens -= max_tokens  # Вычитаем выделенные токены на ответ
     messages.reverse()
     fields_to_view = []
-    print(fields)
 
     if 'fields' in fields.keys():
         for field in fields['fields']:
