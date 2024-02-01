@@ -17,7 +17,7 @@ async def complete_openai(prompt, model, max_tokens, temperature, api_token):
             )
             return completion.choices[0].message.content
     except:
-        for model in ['gpt-3.5-turbo', 'gpt-4', 'gpt-4-32k']:
+        for model in ['gpt-3.5-turbo', 'gpt-4', 'gpt-4-0125-preview']:
             try:
                 async with openai.AsyncOpenAI(api_key=api_token) as client:
                     completion = await client.chat.completions.create(

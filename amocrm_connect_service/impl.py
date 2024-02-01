@@ -231,12 +231,10 @@ class AmoCRM:
 
     async def get_fields_by_deal_id(self, deal_id):
         url = f"{self.host}api/v4/leads/{deal_id}"
-        print('get fields!!')
         fields = []
         async with aiohttp.ClientSession() as session:
             response = await session.get(url, headers=self.headers)
             response = await response.json()
-            print('resp', response)
             try:
                 for f in response["custom_fields_values"]:
                     fields.append(
@@ -250,9 +248,7 @@ class AmoCRM:
                     )
             except:
                 pass
-        print(fields)
         all_fields = await self.get_custom_fields_async()
-        print(all_fields)
         return {'fields': fields, 'all_fields': all_fields}
 
     async def get_custom_fields_async(self):
