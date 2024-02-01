@@ -85,7 +85,9 @@ async def process_message(message, setting):
             await send_message_to_amocrm(setting, message, setting.qualification_finished if len(
                 setting.qualification_finished) != 0 else 'Спасибо! Что вы хотели узнать?', True, True)
         else:
-            await send_message_to_amocrm(setting, message, qualification_answer['message'] + f'\n{qualification_answer["params"]}', True, True)
+            await send_message_to_amocrm(setting, message,
+                                         qualification_answer['message'] + f'\n{qualification_answer["params"]}', True,
+                                         True)
     answer_to_sent = ''
 
     if not qualification_answer['qualification_status']:
@@ -212,7 +214,8 @@ async def process_message(message, setting):
 
     if not qualification_answer['qualification_status']:
         q_m = [
-            {'role': 'system', 'content': f'Переформулируй. Извините, я не понял ваш ответ. Вот возможные варианты ответа (их не переформулируй): {qualification_answer["params"]}'}]
+            {'role': 'system',
+             'content': f'Переформулируй. Извините, я не понял ваш ответ. Вот возможные варианты ответа:'}]
 
         # without_questions_answer = delete_questions(answer_to_sent)
         answer_to_sent = await prompt_mode.run(
@@ -222,7 +225,7 @@ async def process_message(message, setting):
             max_tokens=setting.max_tokens,
             temperature=setting.temperature,
         )
-        answer_to_sent = answer_to_sent.data.message
+        answer_to_sent = answer_to_sent.data.message + f'\n {qualification_answer["params"]}'
         # without_questions_answer = without_questions_answer.data.message
         answer_to_sent = answer_to_sent + '\n' + qualification_answer['message']
 
@@ -245,7 +248,6 @@ async def process_settings(setting):
     for message in messages.answer:
         try:
             if api.message_exists(message.lead_id, message.id):
-
                 continue  # Duplicate check
 
             if setting.manager_intervented_active and api.manager_intervened(message.lead_id, message.messages_history):

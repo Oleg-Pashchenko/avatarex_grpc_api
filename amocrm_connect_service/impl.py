@@ -356,6 +356,7 @@ class AmoCRM:
             return "", "contact"
 
     async def set_field_by_id(self, field_id: int, value, pipeline_id, deal_id):
+        print('filling!')
         url = f"{self.host}ajax/leads/detail/"
         data = {
             f"CFV[{field_id}]": value,
