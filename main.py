@@ -11,6 +11,7 @@ from knowledge_mode_service import client as knowledge_mode
 from gpts_mode_service import client as gpts
 from search_mode_service import client as search
 from qualification_mode_service import client as qualification
+from connectors import database
 import asyncio
 import os
 
@@ -110,16 +111,18 @@ async def process_message(message, setting):
         answer_to_sent = answer.data.message
 
     elif setting.mode_id == 4:  # Datbase mode
-        answer = await search.send_request({
-            'database': setting.database_data,
-            'search_rules': setting.search_rules,
-            'message_format': setting.message_format,
-            'repeat': setting.repeat,
+        print('yes')
+        data = {
+            'database': database,
             'question': message.message,
-            'api_key': setting.api_token,
-            'detecting_error_message': setting.openai_error_message,
-            'classification_error_message': setting.avatarex_error_message
-        })
+            'answer_format': setting.message_format,
+            'positions_count': setting.repeat,
+            'openai_api_key': setting.api_token,
+            'classification_error_message': setting.openai_error_message,
+            'detecting_error_message': setting.avatarex_error_message,
+        }
+
+        answer = await database.send_request(data)
         answer_to_sent = answer
 
     elif setting.mode_id == 8:  # Database + Knowledge + Prompt mode
@@ -230,7 +233,7 @@ async def process_message(message, setting):
         params = "\n- ".join(qualification_answer["params"])
         answer_to_sent = answer_to_sent.data.message + f'\n- {params}'
         # without_questions_answer = without_questions_answer.data.message
-        answer_to_sent = answer_to_sent + '\n' + qualification_answer['message'] + '\n'
+        answer_to_sent = answer_to_sent + '\n' + qualification_answer['message']
 
     if last_q == api.get_last_question_id(message.lead_id):
         await send_message_to_amocrm(setting, message, answer_to_sent, True)
