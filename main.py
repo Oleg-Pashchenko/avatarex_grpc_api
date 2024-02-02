@@ -85,8 +85,10 @@ async def process_message(message, setting):
             await send_message_to_amocrm(setting, message, setting.qualification_finished if len(
                 setting.qualification_finished) != 0 else 'Спасибо! Что вы хотели узнать?', True, True)
         else:
+            params = "\n- ".join(qualification_answer["params"])
+
             await send_message_to_amocrm(setting, message,
-                                         qualification_answer['message'] + f'\n{qualification_answer["params"]}', True,
+                                         qualification_answer['message'] + f'\n- {params}\n', True,
                                          True)
     answer_to_sent = ''
 
@@ -228,7 +230,7 @@ async def process_message(message, setting):
         params = "\n- ".join(qualification_answer["params"])
         answer_to_sent = answer_to_sent.data.message + f'\n- {params}'
         # without_questions_answer = without_questions_answer.data.message
-        answer_to_sent = answer_to_sent + '\n' + qualification_answer['message']
+        answer_to_sent = answer_to_sent + '\n' + qualification_answer['message'] + '\n'
 
     if last_q == api.get_last_question_id(message.lead_id):
         await send_message_to_amocrm(setting, message, answer_to_sent, True)
