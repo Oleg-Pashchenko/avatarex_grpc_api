@@ -226,7 +226,7 @@ async def process_message(message, setting):
             temperature=setting.temperature,
         )
         params = "\n- ".join(qualification_answer["params"])
-        answer_to_sent = answer_to_sent.data.message + f'\n {params}'
+        answer_to_sent = answer_to_sent.data.message + f'\n- {params}'
         # without_questions_answer = without_questions_answer.data.message
         answer_to_sent = answer_to_sent + '\n' + qualification_answer['message']
 
