@@ -108,6 +108,8 @@ class Settings:
     knowledge_link: str
     knowledge_name: str
     assistant_id: str
+    database_repeat: int
+    message_format: str
 
 
 @dataclasses.dataclass
@@ -254,8 +256,8 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                     assistant_id=s.assistant_id,
                     database_data=s.database_data,
                     search_rules={},
-                    repeat=1,
-                    message_format=''
+                    repeat=s.database_repeat,
+                    message_format=s.database_message_format
                 )
             )
         except Exception as e:
