@@ -9,6 +9,8 @@ async def send_request(request):
             try:
                 response_json = await response.json()
                 resp = response_json['answer']
+                if resp == '':
+                    return '-'
                 return resp
 
             except:

@@ -113,7 +113,7 @@ async def process_message(message, setting):
     elif setting.mode_id == 4:  # Datbase mode
         print('yes')
         data = {
-            'database': database,
+            'database': setting.database_data,
             'question': message.message,
             'answer_format': setting.message_format,
             'positions_count': setting.repeat,
