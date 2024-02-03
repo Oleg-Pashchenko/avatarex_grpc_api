@@ -124,6 +124,7 @@ async def process_message(message, setting):
 
         answer = await database.send_request(data)
         answer_to_sent = answer
+        print(answer_to_sent)
         if answer_to_sent == '-':
             st = time.time()
             database_messages = api.get_messages_history(message.lead_id)
