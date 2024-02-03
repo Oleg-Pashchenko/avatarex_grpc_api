@@ -266,7 +266,7 @@ async def process_settings(setting):
                     openai_api_key=setting.api_token, url=message.message
                 )
             # Assuming `api.add_message` is an asynchronous function
-
+            print(message.message)
             #  api.create_stats(message.id, )
             api.add_stats(st, 'Start Time', message.id)
             api.add_stats(time.time() - st, 'CRM Read', message.id)
