@@ -124,6 +124,21 @@ async def process_message(message, setting):
 
         answer = await database.send_request(data)
         answer_to_sent = answer
+        if answer_to_sent == '-':
+            st = time.time()
+            database_messages = api.get_messages_history(message.lead_id)
+            answer = await prompt_mode.run(
+                messages=prompt_mode.get_messages_context(database_messages, setting.prompt_context,
+                                                          setting.model_limit,
+                                                          setting.max_tokens,
+                                                          fields if setting.use_amocrm_fields else {}),
+                model=setting.model_title,
+                api_token=setting.api_token,
+                max_tokens=setting.max_tokens,
+                temperature=setting.temperature,
+            )
+            api.add_stats(time.time() - st, 'Prompt mode', message.id)
+            answer_to_sent = answer.data.message
 
     elif setting.mode_id == 8:  # Database + Knowledge + Prompt mode
         answer = await search.send_request({
