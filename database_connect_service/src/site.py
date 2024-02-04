@@ -205,6 +205,10 @@ def get_enabled_api_settings() -> list[ApiSettings]:
     for obj in q.all():
         try:
             s = Settings(**obj.as_dict())
+            try:
+                s.database_data = json.loads(s.database_data)
+            except:
+                pass
             q2 = session.query(Pipeline).filter(
                 Pipeline.id == s.pipeline_id_id and Pipeline.user_id_id == s.user_id_id
             )
