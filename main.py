@@ -49,6 +49,10 @@ async def send_message_to_amocrm(setting, message, text, is_bot, is_q=False):
 
 
 async def process_message(message, setting):
+    if setting.openai_error_message == '':
+        setting.openai_error_message = '-'
+    if setting.avatarex_error_message == '':
+        setting.avatarex_error_message = '-'
     if 'start' in message.message:
         return
 
@@ -197,11 +201,12 @@ async def process_message(message, setting):
         if len(setting.knowledge_data) == 0:
             answer_to_sent = 'Обратитесь к поддержке. База знаний не настроена!'
         else:
+
             answer = await knowledge.send_request(
                 {
                     "knowledge_data": setting.knowledge_data,
                     "question": message.message,
-                    'api_key': setting.api_token,
+                    'api_token': setting.api_token,
                     'model': setting.model_title,
                     'use_another_models': True,
                     'classification_error_message': setting.openai_error_message,
