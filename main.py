@@ -162,6 +162,7 @@ async def process_message(message, setting):
                     'detecting_error_message': setting.avatarex_error_message
                 }
             )
+            print(answer)
             if answer == setting.openai_error_message or answer == setting.avatarex_error_message:
                 database_messages = api.get_messages_history(message.lead_id)
                 answer = await prompt_mode.run(
@@ -232,6 +233,7 @@ async def process_message(message, setting):
                     'detecting_error_message': setting.avatarex_error_message
                 }
             )
+            print(answer_to_sent)
 
     if not qualification_answer['qualification_status']:
         q_m = [
