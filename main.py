@@ -207,6 +207,7 @@ async def process_message(message, setting):
                 }
             )
             print('Ответ базы знаний: ', answer)
+            answer_to_sent = answer
             if answer == setting.openai_error_message or answer == setting.avatarex_error_message:
                 database_messages = api.get_messages_history(message.lead_id)
                 answer = await prompt_mode.run(
