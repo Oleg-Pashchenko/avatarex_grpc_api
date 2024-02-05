@@ -95,7 +95,7 @@ async def process_message(message, setting):
 
     if not qualification_answer['qualification_status']:
         setting.mode_id = -1
-
+    print(setting.mode_id, message.message)
     if setting.mode_id == 1:
         st = time.time()
         database_messages = api.get_messages_history(message.lead_id)
