@@ -157,16 +157,7 @@ async def process_message(message, setting):
             'classification_error_message': setting.avatarex_error_message
         })
         if answer == setting.openai_error_message or answer == setting.avatarex_error_message:
-            answer = await knowledge_mode.send_request(
-                {
-                    "knowledge_data": setting.knowledge_data,
-                    "question": message.message,
-                    'api_key': setting.api_token,
-                    'classification_error_message': setting.openai_error_message,
-                    'detecting_error_message': setting.avatarex_error_message
-                }
-            )
-            print(answer)
+            answer = await knowledge.get_answer(message, setting)
             if answer == setting.openai_error_message or answer == setting.avatarex_error_message:
                 database_messages = api.get_messages_history(message.lead_id)
                 answer = await prompt_mode.run(
@@ -201,18 +192,8 @@ async def process_message(message, setting):
         if len(setting.knowledge_data) == 0:
             answer_to_sent = 'Обратитесь к поддержке. База знаний не настроена!'
         else:
+            answer = await knowledge.get_answer(message, setting)
 
-            answer = await knowledge.send_request(
-                {
-                    "knowledge_data": setting.knowledge_data,
-                    "question": message.message,
-                    'api_token': setting.api_token,
-                    'model': setting.model_title,
-                    'use_another_models': True,
-                    'classification_error_message': setting.openai_error_message,
-                    'detecting_error_message': setting.avatarex_error_message
-                }
-            )
             print('Ответ базы знаний: ', answer)
             answer_to_sent = answer
             if answer == '-' or answer == setting.openai_error_message or answer == setting.avatarex_error_message:
@@ -233,16 +214,7 @@ async def process_message(message, setting):
         if len(setting.knowledge_data) == 0:
             answer_to_sent = 'Обратитесь к поддержке. База знаний не настроена!'
         else:
-            answer_to_sent = await knowledge_mode.send_request(
-                {
-                    "knowledge_data": setting.knowledge_data,
-                    "question": message.message,
-                    'api_key': setting.api_token,
-                    'classification_error_message': setting.openai_error_message,
-                    'detecting_error_message': setting.avatarex_error_message
-                }
-            )
-            print(answer_to_sent)
+            answer_to_sent = await knowledge.get_answer(message, setting)
 
     if not qualification_answer['qualification_status']:
         q_m = [
