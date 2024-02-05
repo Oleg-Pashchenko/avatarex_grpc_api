@@ -29,7 +29,7 @@ async def classificate(questions: list, question: str, api_key: str):
     func = await get_classification_function(questions)
     async with openai.AsyncOpenAI(api_key=api_key) as client:
         completion = await client.chat.completions.create(
-            model='gpt-4',
+            model='gpt-4-0125-preview',
             messages=[{'role': 'system', 'content': function_description},
                       {"role": "user", "content": question}],
             functions=func,
