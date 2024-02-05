@@ -8,6 +8,8 @@ async def send_request(request):
         async with session.post('http://178.253.22.162:10002/', json=request) as response:
             try:
                 response_json = await response.json()
+                if response_json['status'] is False:
+                    return '-'
                 resp = response_json['answer']
                 print(response_json)
                 if resp == '':
