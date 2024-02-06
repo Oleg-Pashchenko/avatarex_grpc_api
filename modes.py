@@ -2,6 +2,7 @@ from connectors import prompt, knowledge, database, assistants
 
 
 async def prompt_mode(message, setting, fields):
+
     return await prompt.get_answer(message, setting, fields)
 
 
