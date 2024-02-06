@@ -1,19 +1,18 @@
-import json
-
-import aiohttp
+from connectors import connector
 
 
-async def send_request(request):
-    async with aiohttp.ClientSession() as session:
-        async with session.post('http://178.253.22.162:11111/', json=request) as response:
-            try:
-                response_json = await response.json()
-                resp = response_json['answer']
-                print(response_json)
-                if resp == '':
-                    return '-'
-                return resp
+async def get_answer(setting, message):
+    data = {
+        'database': setting.database_data,
+        'question': message.message,
+        'answer_format': setting.message_format,
+        'positions_count': setting.repeat,
+        'openai_api_key': setting.api_token,
+        'classification_error_message': setting.openai_error_message,
+        'detecting_error_message': setting.avatarex_error_message,
+    }
 
-            except Exception as e:
-                print(e)
-                return '-'
+    return await connector.send_request(
+        request=data,
+        url='http://178.253.22.162:11111/'
+    )

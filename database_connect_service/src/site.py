@@ -79,7 +79,7 @@ class ApiSettings:
     search_rules: dict
     message_format: str
     repeat: int
-
+    trigger_phrases: list
 
 
 @dataclasses.dataclass
@@ -109,6 +109,7 @@ class Settings:
     knowledge_link: str
     knowledge_name: str
     assistant_id: str
+    trigger_phrases: str
     database_repeat: int
     message_format: str
 
@@ -232,6 +233,11 @@ def get_enabled_api_settings() -> list[ApiSettings]:
             model = OpenAIModels(**q6.first().as_dict())
             amo = AmoCRM(**q7.first().as_dict())
             user = AuthUser(**q8.first().as_dict())
+
+            try:
+                triggers = s.trigger_phrases.split(';')
+            except:
+                triggers = []
             result.append(
                 ApiSettings(
                     mode_id=s.mode_id,
@@ -262,7 +268,8 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                     database_data=s.database_data,
                     search_rules={},
                     repeat=s.database_repeat,
-                    message_format=s.database_message_format
+                    message_format=s.database_message_format,
+                    trigger_phrases=triggers
                 )
             )
         except Exception as e:
