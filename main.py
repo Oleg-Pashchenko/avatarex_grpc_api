@@ -8,12 +8,11 @@ from database_connect_service.src.site import ApiSettings, get_enabled_api_setti
 from modes import modes
 from prompt_mode_service import client as prompt_mode
 from qualification_mode_service import client as qualification
-from connectors import database, knowledge, prompt, assistants
 import asyncio
 import os
 
 
-async def get_fields(message, settings):
+async def get_fields(message, setting):
     try:
         fields = await rest_amo.send_request({
             'lead_id': message.lead_id,
@@ -53,7 +52,7 @@ async def process_message(message, setting):
     last_q = api.get_last_question_id(message.lead_id)
     fields = get_fields(message, setting)
 
-    if qualification.need_qualification(setting, api.get_messages_history(message.lead_id)):
+    if await qualification.need_qualification(setting, api.get_messages_history(message.lead_id)):
         qualification_answer = await qualification.create_qualification(setting, message, fields)
 
         if qualification_answer['fill_command']:
