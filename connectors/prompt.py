@@ -1,6 +1,7 @@
 from database_connect_service.src import api
 from connectors import connector
 import tiktoken as tiktoken
+from prompt_mode_service import client as prompt_mode
 
 
 def tokens_counter(messages: list[dict]):
@@ -44,6 +45,15 @@ async def get_answer(message, setting, fields):
     database_messages = api.get_messages_history(message.lead_id)
     messages_context = get_messages_context(database_messages, setting.prompt_context, setting.model_limit,
                                             setting.max_tokens, fields if setting.use_amocrm_fields else {})
+    answer = await prompt_mode.run(
+        messages=messages_context,
+        model=setting.model_title,
+        api_token=setting.api_token,
+        max_tokens=setting.max_tokens,
+        temperature=setting.temperature,
+    )
+    return answer.data.message
+    """
     print(len(messages_context))
     data = {
         "prompt": messages_context,
@@ -58,3 +68,4 @@ async def get_answer(message, setting, fields):
         request=data,
         url='http://178.253.22.162:10000/'
     )
+"""
