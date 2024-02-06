@@ -50,7 +50,7 @@ async def process_message(message, setting):
         return
 
     last_q = api.get_last_question_id(message.lead_id)
-    fields = get_fields(message, setting)
+    fields = await get_fields(message, setting)
 
     if await qualification.need_qualification(setting, api.get_messages_history(message.lead_id)):
         qualification_answer = await qualification.create_qualification(setting, message, fields)
