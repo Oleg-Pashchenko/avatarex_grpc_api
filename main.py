@@ -73,7 +73,7 @@ async def process_message(message, setting):
 
     if qualification_answer['qualification_status'] and setting.mode_id != -1:
         mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
-        answer_to_sent = mode_function(message, setting, fields)
+        answer_to_sent = await mode_function(message, setting, fields)
     else:
         q_m = [
             {'role': 'system',
