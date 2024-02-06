@@ -51,30 +51,24 @@ async def process_message(message, setting):
 
     last_q = api.get_last_question_id(message.lead_id)
     fields = await get_fields(message, setting)
+    need_qualification = await qualification.need_qualification(setting, api.get_messages_history(message.lead_id))
 
-    if await qualification.need_qualification(setting, api.get_messages_history(message.lead_id)):
+    if need_qualification:  # Если есть квалификация
         qualification_answer = await qualification.create_qualification(setting, message, fields)
 
         if qualification_answer['fill_command']:
             await rest_amo.send_request(qualification_answer['fill_command'], '/fill-field')
         if qualification_answer['has_updates'] and qualification_answer['qualification_status']:
-            setting.mode_id = -1
             if qualification_answer['finished']:
-                await send_message_to_amocrm(setting, message, setting.qualification_finished if len(
+                return await send_message_to_amocrm(setting, message, setting.qualification_finished if len(
                     setting.qualification_finished) != 0 else 'Спасибо! Что вы хотели узнать?', True, True)
             else:
                 params = "\n- ".join(qualification_answer["params"])
 
-                await send_message_to_amocrm(setting, message,
-                                             qualification_answer['message'] + f'\n- {params}\n', True,
-                                             True)
-    else:
-        qualification_answer = {'qualification_status': True}
+                return await send_message_to_amocrm(setting, message,
+                                                    qualification_answer['message'] + f'\n- {params}\n', True,
+                                                    True)
 
-    if qualification_answer['qualification_status'] and setting.mode_id != -1:
-        mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
-        answer_to_sent = await mode_function(message, setting, fields)
-    else:
         q_m = [
             {'role': 'system',
              'content': f'Переформулируй. Извините, я не понял ваш ответ. Вот возможные варианты ответа:'}]
@@ -88,9 +82,13 @@ async def process_message(message, setting):
         )
         params = "\n".join(qualification_answer["params"])
         answer_to_sent = answer_to_sent.data.message + f'\n{params}' + '\n' + qualification_answer['message']
+        return await send_message_to_amocrm(setting, message, answer_to_sent, True)
 
-    if last_q == api.get_last_question_id(message.lead_id):  # Если нет новых сообщений
-        await send_message_to_amocrm(setting, message, answer_to_sent, True)
+    else:  # Если нет квалификации
+        mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
+        answer_to_sent = await mode_function(message, setting, fields)
+        if last_q == api.get_last_question_id(message.lead_id):  # Если нет новых сообщений
+            return await send_message_to_amocrm(setting, message, answer_to_sent, True)
 
 
 async def process_settings(setting):
