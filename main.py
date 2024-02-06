@@ -68,27 +68,27 @@ async def process_message(message, setting):
                 return await send_message_to_amocrm(setting, message,
                                                     qualification_answer['message'] + f'\n- {params}\n', True,
                                                     True)
+        if qualification_answer['has_updates']:
+            q_m = [
+                {'role': 'system',
+                 'content': f'Переформулируй. Извините, я не понял ваш ответ. Вот возможные варианты ответа:'}]
 
-        q_m = [
-            {'role': 'system',
-             'content': f'Переформулируй. Извините, я не понял ваш ответ. Вот возможные варианты ответа:'}]
-
-        answer_to_sent = await prompt_mode.run(
-            messages=q_m,
-            model=setting.model_title,
-            api_token=setting.api_token,
-            max_tokens=setting.max_tokens,
-            temperature=setting.temperature,
-        )
-        params = "\n".join(qualification_answer["params"])
-        answer_to_sent = answer_to_sent.data.message + f'\n{params}' + '\n' + qualification_answer['message']
-        return await send_message_to_amocrm(setting, message, answer_to_sent, True)
-
-    else:  # Если нет квалификации
-        mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
-        answer_to_sent = await mode_function(message, setting, fields)
-        if last_q == api.get_last_question_id(message.lead_id):  # Если нет новых сообщений
+            answer_to_sent = await prompt_mode.run(
+                messages=q_m,
+                model=setting.model_title,
+                api_token=setting.api_token,
+                max_tokens=setting.max_tokens,
+                temperature=setting.temperature,
+            )
+            params = "\n".join(qualification_answer["params"])
+            answer_to_sent = answer_to_sent.data.message + f'\n{params}' + '\n' + qualification_answer['message']
             return await send_message_to_amocrm(setting, message, answer_to_sent, True)
+
+    # Если нет квалификации
+    mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
+    answer_to_sent = await mode_function(message, setting, fields)
+    if last_q == api.get_last_question_id(message.lead_id):  # Если нет новых сообщений
+        return await send_message_to_amocrm(setting, message, answer_to_sent, True)
 
 
 async def process_settings(setting):
