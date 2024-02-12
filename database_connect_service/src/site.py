@@ -253,6 +253,7 @@ def get_enabled_api_settings() -> list[ApiSettings]:
             try:
                 p = Pipeline(**q2.first().as_dict())
             except:
+                print(s.pipeline_id_id, s.user_id_id)
                 print('pipeline error')
             try:
                 qual = Qualification(**q3.first().as_dict())
