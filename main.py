@@ -116,7 +116,8 @@ async def process_settings(setting):
         )
         print(messages)
         for message in messages:
-            tasks.append(process_bitrix(message, setting))
+            task = process_bitrix(message, setting)
+            tasks.append(task)
             print('BITRIX TASK!')
 
     messages = await amocrm.read_unanswered_messages(
