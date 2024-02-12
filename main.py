@@ -105,7 +105,7 @@ async def process_settings(setting):
     st = time.time()
     tasks = []
 
-    if 'bitrix' in setting.amo_host:
+    if '-' == setting.amo_email:
         print('yes')
         setting.statuses_ids = ['NEW', 'PREPARATION']
         messages = await get_unanswered_messages(
