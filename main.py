@@ -104,11 +104,10 @@ async def process_bitrix(message, setting):
 async def process_settings(setting):
     st = time.time()
     tasks = []
-    print(setting.amo_host)
     if '-' == setting.amo_email:
         print('yes')
         setting.statuses_ids = ['NEW', 'PREPARATION']
-        messages = await get_unanswered_messages(
+        messages = get_unanswered_messages(
             setting.amo_host,
             setting.pipeline_id,
             setting.statuses_ids
@@ -154,7 +153,6 @@ async def process_settings(setting):
 async def cycle():
     while True:
         settings: list[ApiSettings] = get_enabled_api_settings()
-        print(len(settings))
         for setting in settings:
             if os.getenv('MODE') == 'testing':
                 if 'chatgpt.amocrm' in setting.amo_host:
