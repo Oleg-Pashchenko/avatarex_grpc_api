@@ -211,8 +211,8 @@ def get_enabled_api_settings() -> list[ApiSettings]:
             try:
                 s.database_data = json.loads(s.database_data)
             except Exception as e:
-                print('1', e)
-                pass
+                s.database_data = []
+
             try:
                 q2 = session.query(Pipeline).filter(
                     and_(Pipeline.id == s.pipeline_id_id, Pipeline.user_id_id == s.user_id_id)
