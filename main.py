@@ -106,7 +106,7 @@ async def process_bitrix(message, setting):
 async def process_settings(setting):
     st = time.time()
     tasks = []
-    if '-' == setting.amo_email:
+    if '-' == setting.amo_email and False:
         print('yes')
         setting.statuses_ids = ['NEW', 'PREPARATION']
         messages = get_unanswered_messages(
@@ -118,6 +118,7 @@ async def process_settings(setting):
         for message in messages:
             task = process_bitrix(message, setting)
             tasks.append(task)
+
             print('BITRIX TASK!')
 
     messages = await amocrm.read_unanswered_messages(
