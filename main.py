@@ -116,8 +116,7 @@ async def process_settings(setting):
         print(messages)
         for message in messages:
             tasks.append(process_bitrix(message, setting))
-        await asyncio.gather(*tasks)
-    return
+
     messages = await amocrm.read_unanswered_messages(
         setting.amo_host,
         setting.amo_email,
@@ -156,10 +155,6 @@ async def cycle():
     while True:
         settings: list[ApiSettings] = get_enabled_api_settings()
         for setting in settings:
-            if 'bitrix' in setting.amo_host:
-                asyncio.ensure_future(process_settings(setting))
-            else:
-                continue
             if os.getenv('MODE') == 'testing':
                 if 'chatgpt.amocrm' in setting.amo_host:
                     asyncio.ensure_future(process_settings(setting))

@@ -57,12 +57,22 @@ def get_unanswered_messages(rest_hook, pipeline_id, status_ids):
         Bitrix_Message.status_id.in_(status_ids),
         Bitrix_Message.is_finished == False  # Assuming you want only unfinished messages
     ).all()
-    # Creating a list of Message dataclass instances
-    answer = [Message(
+    answer = []
+    ids = []
+
+    for m in message_objects:
+        m.is_finished = True
+        session.add(m)
+        session.commit()
+        if m.id in ids:
+            continue
+        ids.append(m.id)
+        answer.append(Message(
                 id=m.id,
                 lead_id=int(str(m.dialog_id).replace('chat', '')),
                 message_id=m.id,
                 message=m.text,
                 bm=m  # Passing the Bitrix_Message instance
-              ) for m in message_objects]
+              ))
+
     return answer
