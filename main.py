@@ -49,6 +49,7 @@ async def process_message(message, setting):
     if 'start' in message.message:
         return
 
+    print(message.message, 'для', setting.amo_host)
     last_q = api.get_last_question_id(message.lead_id)
     fields = await get_fields(message, setting)
     need_qualification = await qualification.need_qualification(setting, api.get_messages_history(message.lead_id))
@@ -87,6 +88,7 @@ async def process_message(message, setting):
     # Если нет квалификации
     mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
     answer_to_sent = await mode_function(message, setting, fields)
+    print('Ответ:', answer_to_sent)
     if last_q == api.get_last_question_id(message.lead_id):  # Если нет новых сообщений
         return await send_message_to_amocrm(setting, message, answer_to_sent, True)
 
