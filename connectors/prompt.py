@@ -44,6 +44,7 @@ async def get_answer(message, setting, fields):
     database_messages = api.get_messages_history(message.lead_id)
     messages_context = get_messages_context(database_messages, setting.prompt_context, setting.model_limit,
                                             setting.max_tokens, fields if setting.use_amocrm_fields else {})
+    print('M content', messages_context)
     answer = await prompt_mode.run(
         messages=messages_context,
         model=setting.model_title,

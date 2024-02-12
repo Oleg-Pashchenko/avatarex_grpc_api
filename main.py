@@ -95,6 +95,7 @@ async def process_message(message, setting):
 
 
 async def process_bitrix(message, setting):
+    api.add_message(message.id, message.lead_id, message.message, False)
     mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
     answer_to_sent = await mode_function(message, setting, {})
     print('Ответ:', answer_to_sent)
@@ -156,6 +157,8 @@ async def cycle():
         settings: list[ApiSettings] = get_enabled_api_settings()
         for setting in settings:
             if 'bitrix' in setting.amo_host:
+                asyncio.ensure_future(process_settings(setting))
+            else:
                 continue
             if os.getenv('MODE') == 'testing':
                 if 'chatgpt.amocrm' in setting.amo_host:
