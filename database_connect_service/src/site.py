@@ -249,8 +249,12 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                 q8 = session.query(AuthUser).filter(AuthUser.id == s.user_id_id)
             except Exception as e:
                 print(8 ,e)
+
             p = Pipeline(**q2.first().as_dict())
-            qual = Qualification(**q3.first().as_dict())
+            try:
+                qual = Qualification(**q3.first().as_dict())
+            except:
+                print('qual error')
             rs = RequestSettings(**q4.first().as_dict())
             ps = PromptSettings(**q5.first().as_dict())
             model = OpenAIModels(**q6.first().as_dict())
