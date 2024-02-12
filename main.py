@@ -49,7 +49,6 @@ async def process_message(message, setting):
     if 'start' in message.message:
         return
 
-    print(message.message, 'для', setting.amo_host)
     last_q = api.get_last_question_id(message.lead_id)
     fields = await get_fields(message, setting)
     need_qualification = await qualification.need_qualification(setting, api.get_messages_history(message.lead_id))
@@ -102,13 +101,17 @@ async def process_settings(setting):
         setting.pipeline_id,
         setting.statuses_ids,
     )
+
     tasks = []
     for message in messages.answer:
+        print(message.message, 'для', setting.amo_host)
         try:
             if api.message_exists(message.lead_id, message.id):
+                print('Дубликат для', setting.amo_host)
                 continue  # Duplicate check
 
             if setting.manager_intervented_active and api.manager_intervened(message.lead_id, message.messages_history):
+                print('Вмешался менеджер для', setting.amo_host)
                 continue  # Manager intervention check
 
             if ".m4a" in message.message:
@@ -140,4 +143,5 @@ async def cycle():
 
 
 # Run the event loop
+
 asyncio.run(cycle())
