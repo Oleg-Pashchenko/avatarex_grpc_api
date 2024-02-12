@@ -95,10 +95,11 @@ async def process_message(message, setting):
 
 
 async def process_bitrix(message, setting):
+    print('BITRIX STARTED!')
     api.add_message(message.id, message.lead_id, message.message, False)
     mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
     answer_to_sent = await mode_function(message, setting, {})
-    print('Ответ:', answer_to_sent)
+    print('BITRIX Ответ:', answer_to_sent)
     return await bitrix.send_message(setting, message, answer_to_sent)
 
 
@@ -116,6 +117,7 @@ async def process_settings(setting):
         print(messages)
         for message in messages:
             tasks.append(process_bitrix(message, setting))
+            print('BITRIX TASK!')
 
     messages = await amocrm.read_unanswered_messages(
         setting.amo_host,
