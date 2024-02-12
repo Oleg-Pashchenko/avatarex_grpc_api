@@ -115,7 +115,8 @@ async def process_settings(setting):
         print(messages)
         for message in messages:
             tasks.append(process_bitrix(message, setting))
-
+        await asyncio.gather(*tasks)
+    return
     messages = await amocrm.read_unanswered_messages(
         setting.amo_host,
         setting.amo_email,

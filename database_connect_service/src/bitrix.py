@@ -51,22 +51,18 @@ Base.metadata.create_all(engine)
 
 
 def get_unanswered_messages(rest_hook, pipeline_id, status_ids):
-    print('here')
-    # Querying Bitrix_Message objects
     message_objects = session.query(Bitrix_Message).filter(
         Bitrix_Message.rest_hook == rest_hook,
         Bitrix_Message.pipeline_id == pipeline_id,
         Bitrix_Message.status_id.in_(status_ids),
         Bitrix_Message.is_finished == False  # Assuming you want only unfinished messages
     ).all()
-
     # Creating a list of Message dataclass instances
     answer = [Message(
                 id=m.id,
-                lead_id=m.dialog_id,
+                lead_id=int(str(m.dialog_id).replace('chat', '')),
                 message_id=m.id,
                 message=m.text,
                 bm=m  # Passing the Bitrix_Message instance
               ) for m in message_objects]
-    print(answer)
     return answer
