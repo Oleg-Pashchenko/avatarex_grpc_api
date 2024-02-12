@@ -155,6 +155,8 @@ async def cycle():
     while True:
         settings: list[ApiSettings] = get_enabled_api_settings()
         for setting in settings:
+            if 'bitrix' in setting.amo_host:
+                continue
             if os.getenv('MODE') == 'testing':
                 if 'chatgpt.amocrm' in setting.amo_host:
                     asyncio.ensure_future(process_settings(setting))
