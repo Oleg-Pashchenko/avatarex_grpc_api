@@ -2,6 +2,7 @@ import dataclasses
 import datetime
 import json
 import time
+from sqlalchemy import and_
 
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -209,23 +210,45 @@ def get_enabled_api_settings() -> list[ApiSettings]:
             s = Settings(**obj.as_dict())
             try:
                 s.database_data = json.loads(s.database_data)
-            except:
+            except Exception as e:
+                print('1', e)
                 pass
-            q2 = session.query(Pipeline).filter(
-                Pipeline.id == s.pipeline_id_id and Pipeline.user_id_id == s.user_id_id
-            )
-            q3 = session.query(Qualification).filter(
-                Qualification.id == s.qualification_id_id
-            )
-            q4 = session.query(RequestSettings).filter(
-                RequestSettings.id == s.request_settings_id_id
-            )
-            q5 = session.query(PromptSettings).filter(
-                PromptSettings.id == s.prompt_settings_id
-            )
-            q6 = session.query(OpenAIModels).filter(OpenAIModels.id == s.model_id)
-            q7 = session.query(AmoCRM).filter(AmoCRM.user_id_id == s.user_id_id)
-            q8 = session.query(AuthUser).filter(AuthUser.id == s.user_id_id)
+            try:
+                q2 = session.query(Pipeline).filter(
+                    and_(Pipeline.id == s.pipeline_id_id, Pipeline.user_id_id == s.user_id_id)
+                )
+            except Exception as e:
+                print(2, e)
+            try:
+                q3 = session.query(Qualification).filter(
+                    Qualification.id == s.qualification_id_id
+                )
+            except Exception as e:
+                print(3, e)
+            try:
+                q4 = session.query(RequestSettings).filter(
+                    RequestSettings.id == s.request_settings_id_id
+                )
+            except Exception as e:
+                print(4, e)
+            try:
+                q5 = session.query(PromptSettings).filter(
+                    PromptSettings.id == s.prompt_settings_id
+                )
+            except Exception as e:
+                print(5, e)
+            try:
+                q6 = session.query(OpenAIModels).filter(OpenAIModels.id == s.model_id)
+            except Exception as e:
+                print(6, e)
+            try:
+                q7 = session.query(AmoCRM).filter(AmoCRM.user_id_id == s.user_id_id)
+            except Exception as e:
+                print(7, e)
+            try:
+                q8 = session.query(AuthUser).filter(AuthUser.id == s.user_id_id)
+            except Exception as e:
+                print(8 ,e)
             p = Pipeline(**q2.first().as_dict())
             qual = Qualification(**q3.first().as_dict())
             rs = RequestSettings(**q4.first().as_dict())
