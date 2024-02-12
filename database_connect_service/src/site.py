@@ -249,18 +249,34 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                 q8 = session.query(AuthUser).filter(AuthUser.id == s.user_id_id)
             except Exception as e:
                 print(8 ,e)
-
-            p = Pipeline(**q2.first().as_dict())
+            try:
+                p = Pipeline(**q2.first().as_dict())
+            except:
+                print('pipeline error')
             try:
                 qual = Qualification(**q3.first().as_dict())
             except:
                 print('qual error')
-            rs = RequestSettings(**q4.first().as_dict())
-            ps = PromptSettings(**q5.first().as_dict())
-            model = OpenAIModels(**q6.first().as_dict())
-            amo = AmoCRM(**q7.first().as_dict())
-            user = AuthUser(**q8.first().as_dict())
-
+            try:
+                rs = RequestSettings(**q4.first().as_dict())
+            except:
+                print('rs error')
+            try:
+                ps = PromptSettings(**q5.first().as_dict())
+            except:
+                print('ps error')
+            try:
+                model = OpenAIModels(**q6.first().as_dict())
+            except:
+                print('model error')
+            try:
+                amo = AmoCRM(**q7.first().as_dict())
+            except:
+                print('amo error')
+            try:
+                user = AuthUser(**q8.first().as_dict())
+            except:
+                print('user error')
             try:
                 triggers = s.trigger_phrases.split(';')
             except:
