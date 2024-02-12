@@ -1,9 +1,11 @@
 import time
 
+from connectors import bitrix
 from database_connect_service.src import api
 import whisper_service.client
 from amocrm_connect_service import client as amocrm
 from amocrm_connect_service import rest_client as rest_amo
+from database_connect_service.src.bitrix import get_unanswered_messages
 from database_connect_service.src.site import ApiSettings, get_enabled_api_settings
 from modes import modes
 from prompt_mode_service import client as prompt_mode
@@ -92,8 +94,28 @@ async def process_message(message, setting):
         return await send_message_to_amocrm(setting, message, answer_to_sent, True)
 
 
+async def process_bitrix(message, setting):
+    mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
+    answer_to_sent = await mode_function(message, setting, {})
+    print('Ответ:', answer_to_sent)
+    return await bitrix.send_message(setting, message, answer_to_sent)
+
+
 async def process_settings(setting):
     st = time.time()
+    tasks = []
+
+    if setting.amo_email == '-':
+        setting.statuses_ids = ['NEW', 'PREPARATION']
+        messages = await get_unanswered_messages(
+            setting.amo_host,
+            setting.pipeline_id,
+            setting.statuses_ids
+        )
+        print(messages)
+        for message in messages:
+            tasks.append(process_bitrix(message, setting))
+
     messages = await amocrm.read_unanswered_messages(
         setting.amo_host,
         setting.amo_email,
@@ -102,7 +124,6 @@ async def process_settings(setting):
         setting.statuses_ids,
     )
 
-    tasks = []
     for message in messages.answer:
         print(message.message, 'для', setting.amo_host)
         try:
@@ -141,7 +162,5 @@ async def cycle():
                     asyncio.ensure_future(process_settings(setting))
         await asyncio.sleep(5)
 
-
-# Run the event loop
 
 asyncio.run(cycle())

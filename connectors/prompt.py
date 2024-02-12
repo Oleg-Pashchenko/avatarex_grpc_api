@@ -1,5 +1,4 @@
 from database_connect_service.src import api
-from connectors import connector
 import tiktoken as tiktoken
 from prompt_mode_service import client as prompt_mode
 
