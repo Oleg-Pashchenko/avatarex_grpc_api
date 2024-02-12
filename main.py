@@ -153,6 +153,7 @@ async def process_settings(setting):
 async def cycle():
     while True:
         settings: list[ApiSettings] = get_enabled_api_settings()
+        print(len(settings))
         for setting in settings:
             if os.getenv('MODE') == 'testing':
                 if 'chatgpt.amocrm' in setting.amo_host:
