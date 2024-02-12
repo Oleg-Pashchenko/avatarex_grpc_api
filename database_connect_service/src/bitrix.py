@@ -51,6 +51,7 @@ Base.metadata.create_all(engine)
 
 
 def get_unanswered_messages(rest_hook, pipeline_id, status_ids):
+    print('here')
     # Querying Bitrix_Message objects
     message_objects = session.query(Bitrix_Message).filter(
         Bitrix_Message.rest_hook == rest_hook,
@@ -67,4 +68,5 @@ def get_unanswered_messages(rest_hook, pipeline_id, status_ids):
                 message=m.text,
                 bm=m  # Passing the Bitrix_Message instance
               ) for m in message_objects]
+    print(answer)
     return answer
