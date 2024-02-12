@@ -218,6 +218,7 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                     and_(Pipeline.id == s.pipeline_id_id, Pipeline.user_id_id == s.user_id_id)
                 )
             except Exception as e:
+                print(s.pipeline_id_id, s.user_id_id)
                 print(2, e)
             try:
                 q3 = session.query(Qualification).filter(
