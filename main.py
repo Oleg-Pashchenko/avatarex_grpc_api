@@ -94,6 +94,9 @@ async def process_message(message, setting):
             answer_to_sent = answer_to_sent.data.message + f'\n{params}' + '\n' + qualification_answer['message']
             return await send_message_to_amocrm(setting, message, answer_to_sent, True, False, last_q)
 
+    if 'Идет поиск' in api.get_last_activity_text(message.lead_id):
+        return
+
     if setting.mode_id == 4:
          await amocrm.send_message(
             setting.amo_host,

@@ -3,6 +3,7 @@ import datetime
 import json
 
 import sqlalchemy
+from sqlalchemy import desc
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker
 import warnings
@@ -92,6 +93,12 @@ def get_last_question(lead_id: int):
             return {"role": "assistant", "content": m.text}
         else:
             return None
+
+
+def get_last_activity_text(lead_id: int):
+    m_o = session.query(MessagesEntity).filter(MessagesEntity.lead_id == lead_id).order_by(
+        desc(MessagesEntity.id)).first()
+    return m_o.text
 
 
 def add_message(message_id, lead_id, text, is_bot, is_q=False):
