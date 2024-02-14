@@ -42,11 +42,15 @@ async def create_qualification(setting, message, fields):
     return await send_request(data)
 
 
-async def need_qualification(setting: ApiSettings, message_history):
+async def need_qualification(setting: ApiSettings, message_history, message):
     triggers = setting.trigger_phrases
+    for trigger in triggers:
+        if trigger.lower().strip() in message.lower().strip():
+            return True, True
+
     for m in message_history:
         for trigger in triggers:
             if m['role'] == 'user' and trigger.lower().strip() in m['content'].lower().strip():
-                return True
+                return True, False
 
-    return False
+    return False, False

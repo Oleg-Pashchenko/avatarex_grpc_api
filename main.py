@@ -27,20 +27,22 @@ async def get_fields(message, setting):
     return fields
 
 
-async def send_message_to_amocrm(setting, message, text, is_bot, is_q=False):
-    try:
-        st = time.time()
-        message_id = await amocrm.send_message(
-            setting.amo_host,
-            setting.amo_email,
-            setting.amo_password,
-            text,
-            message.chat_id,
-        )
-        api.add_message(message_id, message.lead_id, text, is_bot, is_q)
-        api.add_stats('Crm Send', time.time() - st, message.id)
-    except:
-        pass
+async def send_message_to_amocrm(setting, message, text, is_bot, is_q=False, last_q=''):
+    if last_q == api.get_last_question_id(message.lead_id):  # Если нет новых сообщений
+
+        try:
+            st = time.time()
+            message_id = await amocrm.send_message(
+                setting.amo_host,
+                setting.amo_email,
+                setting.amo_password,
+                text,
+                message.chat_id,
+            )
+            api.add_message(message_id, message.lead_id, text, is_bot, is_q)
+            api.add_stats('Crm Send', time.time() - st, message.id)
+        except:
+            pass
 
 
 async def process_message(message, setting):
@@ -53,23 +55,29 @@ async def process_message(message, setting):
 
     last_q = api.get_last_question_id(message.lead_id)
     fields = await get_fields(message, setting)
-    need_qualification = await qualification.need_qualification(setting, api.get_messages_history(message.lead_id))
+    need_qualification, is_first_qual = await qualification.need_qualification(setting, api.get_messages_history(message.lead_id), message.message)
 
     if need_qualification:  # Если есть квалификация
         qualification_answer = await qualification.create_qualification(setting, message, fields)
 
         if qualification_answer['fill_command']:
             await rest_amo.send_request(qualification_answer['fill_command'], '/fill-field')
+
+        if is_first_qual:
+            qualification_answer['qualification_status'] = True
+
         if qualification_answer['has_updates'] and qualification_answer['qualification_status']:
             if qualification_answer['finished']:
+                if setting.mode_id == 4:  # Database mode:
+                    pass  # Sending request to him
                 return await send_message_to_amocrm(setting, message, setting.qualification_finished if len(
-                    setting.qualification_finished) != 0 else 'Спасибо! Что вы хотели узнать?', True, True)
+                    setting.qualification_finished) != 0 else 'Спасибо! Что вы хотели узнать?', True, True, last_q)
             else:
-                params = "\n- ".join(qualification_answer["params"])
+                params = "\n".join(qualification_answer["params"])
 
                 return await send_message_to_amocrm(setting, message,
-                                                    qualification_answer['message'] + f'\n- {params}\n', True,
-                                                    True)
+                                                    qualification_answer['message'] + f'\n{params}\n', True,
+                                                    True, last_q)
         if qualification_answer['has_updates']:
             q_m = [
                 {'role': 'system',
@@ -84,14 +92,21 @@ async def process_message(message, setting):
             )
             params = "\n".join(qualification_answer["params"])
             answer_to_sent = answer_to_sent.data.message + f'\n{params}' + '\n' + qualification_answer['message']
-            return await send_message_to_amocrm(setting, message, answer_to_sent, True)
+            return await send_message_to_amocrm(setting, message, answer_to_sent, True, False, last_q)
 
+    if setting.mode_id == 4:
+         await amocrm.send_message(
+            setting.amo_host,
+            setting.amo_email,
+            setting.amo_password,
+            'Идет поиск..',
+            message.chat_id,
+        )
     # Если нет квалификации
     mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
     answer_to_sent = await mode_function(message, setting, fields)
     print('Ответ:', answer_to_sent)
-    if last_q == api.get_last_question_id(message.lead_id):  # Если нет новых сообщений
-        return await send_message_to_amocrm(setting, message, answer_to_sent, True)
+    return await send_message_to_amocrm(setting, message, answer_to_sent, True, False, last_q)
 
 
 async def process_bitrix(message, setting):
@@ -106,7 +121,7 @@ async def process_bitrix(message, setting):
 async def process_settings(setting):
     st = time.time()
     tasks = []
-    if '-' == setting.amo_email and False:
+    if '-' == setting.amo_email:
         print('yes')
         setting.statuses_ids = ['NEW', 'PREPARATION']
         messages = get_unanswered_messages(
@@ -120,7 +135,8 @@ async def process_settings(setting):
             tasks.append(task)
 
             print('BITRIX TASK!')
-
+    await asyncio.gather(*tasks)
+    return
     messages = await amocrm.read_unanswered_messages(
         setting.amo_host,
         setting.amo_email,

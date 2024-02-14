@@ -117,7 +117,11 @@ class AmoCRM:
                     self.headers["Host"] = self.host.replace("https://", "").replace(
                         "/", ""
                     )
-                    await self._create_amo_hash()
+                    try:
+                        if session_info.amo_hash:
+                            self.amo_hash = session_info.amo_hash
+                    except:
+                        await self._create_amo_hash()
                     await self._create_chat_token()
                     db.update_session(self.host, self.headers, self.amo_hash, self.chat_token)
                     return True
@@ -208,6 +212,7 @@ class AmoCRM:
 
     async def _create_amo_hash(self):
         url = f"{self.host}api/v4/account?with=amojo_id"
+        print('Created amo hash!')
         async with aiohttp.ClientSession() as session:
             response = await session.get(url, headers=self.headers)
             data = await response.json()
