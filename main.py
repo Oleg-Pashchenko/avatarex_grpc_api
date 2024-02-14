@@ -135,8 +135,7 @@ async def process_settings(setting):
             tasks.append(task)
 
             print('BITRIX TASK!')
-    await asyncio.gather(*tasks)
-    return
+
     messages = await amocrm.read_unanswered_messages(
         setting.amo_host,
         setting.amo_email,
