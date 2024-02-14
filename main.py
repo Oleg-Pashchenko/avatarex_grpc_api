@@ -155,6 +155,9 @@ async def process_settings(setting):
                 print('Вмешался менеджер для', setting.amo_host)
                 continue  # Manager intervention check
 
+            if '=== Исходящее сообщение, ' not in message.message and api.message_from_wazzap(message.lead_id):
+                continue
+
             if ".m4a" in message.message:
                 if setting.voice_detection is False:
                     continue

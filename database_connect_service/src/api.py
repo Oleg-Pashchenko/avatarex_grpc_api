@@ -10,7 +10,6 @@ from sqlalchemy.exc import SADeprecationWarning
 import dotenv
 import os
 
-
 dotenv.load_dotenv()
 
 
@@ -94,6 +93,7 @@ def get_last_question(lead_id: int):
         else:
             return None
 
+
 def add_message(message_id, lead_id, text, is_bot, is_q=False):
     obj = MessagesEntity(
         message_id=message_id,
@@ -148,6 +148,14 @@ def save_thread(lead_id: int, thread_id: int):
                         thread_id=thread_id)
     session.add(obj)
     session.commit()
+
+
+def message_from_wazzap(lead_id):
+    messages = get_messages_history(lead_id)
+    for m in messages:
+        if '=== Исходящее сообщение, ' in m['content']:
+            return True
+    return False
 
 
 def add_stats(t, name, message_id):
