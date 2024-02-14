@@ -94,17 +94,17 @@ async def process_message(message, setting):
             answer_to_sent = answer_to_sent.data.message + f'\n{params}' + '\n' + qualification_answer['message']
             return await send_message_to_amocrm(setting, message, answer_to_sent, True, False, last_q)
 
-    if 'Идет поиск' in api.get_last_activity_text(message.lead_id):
-        return
+    # if 'Идет поиск' in api.get_last_activity_text(message.lead_id):
+    #    return
 
-    if setting.mode_id == 4:
-         await amocrm.send_message(
-            setting.amo_host,
-            setting.amo_email,
-            setting.amo_password,
-            'Идет поиск..',
-            message.chat_id,
-        )
+    # if setting.mode_id == 4:
+    #      await amocrm.send_message(
+    #         setting.amo_host,
+    #         setting.amo_email,
+    #         setting.amo_password,
+    #         'Идет поиск..',
+    #         message.chat_id,
+    #     )
     # Если нет квалификации
     mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
     answer_to_sent = await mode_function(message, setting, fields)
@@ -151,11 +151,9 @@ async def process_settings(setting):
         print(message.message, 'для', setting.amo_host)
         try:
             if api.message_exists(message.lead_id, message.id):
-                print('Дубликат для', setting.amo_host)
                 continue  # Duplicate check
 
             if setting.manager_intervented_active and api.manager_intervened(message.lead_id, message.messages_history):
-                print('Вмешался менеджер для', setting.amo_host)
                 continue  # Manager intervention check
 
             #if '=== Исходящее сообщение, ' not in message.message and api.message_from_wazzap(message.lead_id):
