@@ -106,8 +106,6 @@ async def process_settings(setting):
     #         print('BITRIX TASK!')
     session = sessions.get_session(setting.amo_host)
     messages = await amocrm_connector.read_messages(setting, session)
-    if len(messages) > 0:
-        print(setting.amo_host, len(messages))
     for message in messages:
         try:
             if api.message_exists(message['lead_id'], message['id']):
