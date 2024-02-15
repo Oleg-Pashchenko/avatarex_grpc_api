@@ -126,7 +126,8 @@ async def process_settings(setting):
             print('Обрабатываю', message['answer'], 'для', setting.amo_host)
 
             api.add_message(message['id'], message['lead_id'], message['answer'], False)
-            await process_message(message, setting, session)
+
+            await asyncio.ensure_future(process_message(message, setting, session))
 
         except Exception as e:
             print(e)
@@ -139,7 +140,7 @@ async def cycle():
         tasks = []
         for setting in settings:
             task = process_settings(setting)
-            tasks.append(task)
-        await asyncio.gather(*tasks)
+            await asyncio.ensure_future(task)
+        await asyncio.sleep(1)
 
 asyncio.run(cycle())
