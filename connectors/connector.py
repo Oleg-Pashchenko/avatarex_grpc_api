@@ -7,11 +7,9 @@ async def send_request(request: dict, url: str):
             try:
                 response_json = await response.json()
                 if response_json['status'] is False:
-                    print(response_json)
                     return '-'
                 resp = response_json['answer']
                 if resp == '':
-                    print(response_json)
                     return '-'
                 return resp
 

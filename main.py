@@ -25,6 +25,7 @@ async def process_message(message, setting, session):
 
     last_q = api.get_last_question_id(message['lead_id'])
     fields = await amocrm_connector.get_fields(setting, session, message['lead_id'])
+    print(fields)
     # need_qualification, is_first_qual = await qualification.need_qualification(setting, api.get_messages_history(
     #     message['lead_id']), message['answer'])
     need_qualification = False
