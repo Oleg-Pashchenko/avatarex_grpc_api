@@ -51,7 +51,6 @@ async def get_answer(message, setting, fields):
         "api_token": setting.api_token,
         "use_another_models": True
     }
-    print(data)
 
     answer = await connector.send_request(
         request=data,
