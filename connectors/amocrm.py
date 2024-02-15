@@ -18,7 +18,10 @@ async def read_messages(setting, session):
         'stage_ids': setting.statuses_ids,
         'headers': session.headers
     }
-    return await connector.send_request(data, url)
+    answer = await connector.send_request(data, url)
+    if answer == '-':
+        return []
+    return answer
 
 
 async def send_message(setting: ApiSettings, session, text: str, chat_id: int):
@@ -40,7 +43,10 @@ async def get_fields(setting: ApiSettings, session, lead_id: int):
         'amo_host': setting.amo_host,
         'headers': session.headers
     }
-    return await connector.send_request(data, url)
+    answer = await connector.send_request(data, url)
+    if answer == '-':
+        return {}
+    return answer
 
 
 async def set_fields(setting: ApiSettings, session, lead_id, field_id, field_value):
