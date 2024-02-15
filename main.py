@@ -126,22 +126,21 @@ async def process_settings(setting):
             print('Обрабатываю', message['answer'], 'для', setting.amo_host)
 
             api.add_message(message['id'], message['lead_id'], message['answer'], False)
-            task = process_message(message, setting, session)
-            tasks.append(task)
+            await process_message(message, setting, session)
 
         except Exception as e:
             print(e)
             pass
-    await asyncio.gather(*tasks)
 
 
 async def cycle():
     while True:
         settings: list[ApiSettings] = get_enabled_api_settings()
-        start = time.time()
+        tasks = []
         for setting in settings:
-            await process_settings(setting)
-        print(time.time() - start)
+            task = process_settings(setting)
+            tasks.append(task)
+        await asyncio.gather(*tasks)
         await asyncio.sleep(3)
 
 asyncio.run(cycle())
