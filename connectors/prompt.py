@@ -35,7 +35,6 @@ def get_messages_context(messages: list[dict], context: str, tokens: int, max_to
             break
     for f in fields_to_view:
         response.append(f)
-    print(response)
     return response
 
 
