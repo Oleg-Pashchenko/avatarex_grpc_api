@@ -77,36 +77,14 @@ async def process_message(message, setting, session):
     return await send_message_to_amocrm(setting, session, message, answer_to_sent, True, False, last_q)
 
 
-async def process_bitrix(message, setting):
-    print('BITRIX STARTED!')
-    api.add_message(message.id, message['lead_id'], message['answer'], False)
-    mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
-    answer_to_sent = await mode_function(message, setting, {})
-    print('BITRIX Ответ:', answer_to_sent)
-    return await bitrix.send_message(setting, message, answer_to_sent)
-
 
 async def process_settings(setting):
     st = time.time()
     tasks = []
-    # if '-' == setting.amo_email:
-    #     print('yes')
-    #     setting.statuses_ids = ['NEW', 'PREPARATION']
-    #     messages = get_unanswered_messages(
-    #         setting.amo_host,
-    #         setting.pipeline_id,
-    #         setting.statuses_ids
-    #     )
-    #     print(messages)
-    #     for message in messages:
-    #         task = process_bitrix(message, setting)
-    #         tasks.append(task)
-    #
-    #         print('BITRIX TASK!')
-    session = sessions.get_session(setting.amo_host)
+    session = sessions.get_session(setting.amo_host)  # hard
     if session is None:
         return
-    messages = await amocrm_connector.read_messages(setting, session)
+    messages = await amocrm_connector.read_messages(setting, session)  # hard
     for message in messages:
         try:
             if api.message_exists(message['lead_id'], message['id']):
@@ -126,7 +104,7 @@ async def process_settings(setting):
             print('Обрабатываю', message['answer'], 'для', setting.amo_host)
 
             api.add_message(message['id'], message['lead_id'], message['answer'], False)
-            task = process_message(message, setting, session)
+            task = process_message(message, setting, session)  # very hard
             tasks.append(task)
 
         except Exception as e:
@@ -137,10 +115,14 @@ async def process_settings(setting):
 
 async def cycle():
     print('Script started!')
+    tick = 0
     while True:
-        settings: list[ApiSettings] = get_enabled_api_settings()
-        for setting in settings:
-            asyncio.ensure_future(process_settings(setting))
+        tick += 1
+        print(tick)
+        if tick % 30 == 0:
+            settings = get_enabled_api_settings()  # Получение настроек API
+        tasks = [process_settings(setting) for setting in settings]
+        await asyncio.gather(*tasks)  # Параллельная обработка для каждой настройки
         await asyncio.sleep(1)
 
 asyncio.run(cycle())
