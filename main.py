@@ -75,7 +75,7 @@ async def process_message(message, setting, session):
     mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
     answer_to_sent = await mode_function(message, setting, fields)
     print('Ответ:', answer_to_sent)
-    return await send_message_to_amocrm(setting, message, answer_to_sent, True, False, last_q)
+    return await send_message_to_amocrm(setting, session, message, answer_to_sent, True, False, last_q)
 
 
 async def process_bitrix(message, setting):
