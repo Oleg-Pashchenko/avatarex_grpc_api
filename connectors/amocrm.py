@@ -49,14 +49,13 @@ async def get_fields(setting: ApiSettings, session, lead_id: int):
     return answer
 
 
-async def set_fields(setting: ApiSettings, session, info):
-
+async def set_fields(setting: ApiSettings, session, info, lead_id):
     url = f'{host}/fill-field/'
     data = {
         'lead_id': lead_id,
-        'field_id': field_id,
+        'field_id': int(info['field_id']),
         'pipeline_id': setting.pipeline_id,
-        'value': field_value,
+        'value': str(info['value']),
         'host': setting.amo_host,
         'headers': session.headers
     }

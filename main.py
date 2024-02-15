@@ -30,7 +30,7 @@ async def process_message(message, setting, session):
     if need_qualification:  # Если есть квалификация
         qualification_answer = await qualification.create_qualification(setting, message, fields)
         if qualification_answer['fill_command'] is not None:
-            await amocrm_connector.set_fields(setting, session, qualification_answer['fill_command'])
+            await amocrm_connector.set_fields(setting, session, qualification_answer['fill_command'], message['lead_id'])
 
         if is_first_qual:
             qualification_answer['qualification_status'] = True
