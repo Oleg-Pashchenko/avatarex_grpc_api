@@ -49,9 +49,8 @@ async def get_fields(setting: ApiSettings, session, lead_id: int):
     return answer
 
 
-async def set_fields(setting: ApiSettings, session, lead_id, field_id, field_value):
-    print(lead_id)
-    return
+async def set_fields(setting: ApiSettings, session, info):
+
     url = f'{host}/fill-field/'
     data = {
         'lead_id': lead_id,
