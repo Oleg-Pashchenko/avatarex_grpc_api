@@ -42,6 +42,7 @@ def get_messages_context(messages: list[dict], context: str, tokens: int, max_to
 
 async def get_answer(message, setting, fields):
     database_messages = api.get_messages_history(message['lead_id'])
+    print(database_messages)
     messages_context = get_messages_context(database_messages, setting.prompt_context, setting.model_limit,
                                             setting.max_tokens, fields if setting.use_amocrm_fields else {})
 
