@@ -102,11 +102,11 @@ async def process_settings(setting):
             # )
 
             api.add_message(message['id'], message['lead_id'], message['answer'], False)
-            asyncio.create_task(process_message(message, setting, session))  # very hard
+            tasks.append(process_message(message, setting, session))  # very hard
 
         except Exception as e:
             pass
-
+    await asyncio.gather(*tasks)
 
 
 async def cycle():
@@ -117,7 +117,7 @@ async def cycle():
         print(tick)
         if tick % 30 == 0 or tick == 1:
             settings = get_enabled_api_settings()  # Получение настроек API
-        [asyncio.create_task(process_settings(setting)) for setting in settings]
+        [asyncio.ensure_future(process_settings(setting)) for setting in settings]
         await asyncio.sleep(2)
 
 asyncio.run(cycle())
