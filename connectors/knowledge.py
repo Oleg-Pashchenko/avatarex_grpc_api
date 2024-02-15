@@ -11,7 +11,7 @@ async def get_answer(message, setting):
         return await connector.send_request(
             request={
                 "knowledge_data": setting.knowledge_data,
-                "question": message.message,
+                "question": message['answer'],
                 'api_token': setting.api_token,
                 'model': setting.model_title,
                 'use_another_models': True,

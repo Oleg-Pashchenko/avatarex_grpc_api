@@ -17,6 +17,7 @@ async def send_request(request):
         async with session.post(server_url, json=request) as response:
             response_json = await response.json()
             resp = response_json['answer']
+            print(resp)
             if resp['fill_command']:
                 resp['fill_command']['pipeline_id'] = request['pipeline']
                 resp['fill_command']['amo_host'] = request['host']
@@ -29,7 +30,7 @@ async def send_request(request):
 async def create_qualification(setting, message, fields):
     data = {
         'context': setting.prompt_context,
-        'user_answer': message.message,
+        'user_answer': message['answer'],
         'token': setting.api_token,
         'amo_fields': fields,
         'avatarex_fields': setting.qualification_fields,
@@ -37,7 +38,7 @@ async def create_qualification(setting, message, fields):
         'host': setting.amo_host,
         'email': setting.amo_email,
         'password': setting.amo_password,
-        'lead_id': message.lead_id
+        'lead_id': message['lead_id']
     }
     return await send_request(data)
 

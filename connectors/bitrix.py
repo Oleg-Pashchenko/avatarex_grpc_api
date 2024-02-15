@@ -14,6 +14,6 @@ async def send_message(setting, message, answer_to_sent):
         'client_id': client_id,
         'message_id': message_id
     })
-    api.add_message(message.id, message.lead_id, message_text, True)
+    api.add_message(message.id, message['lead_id'], message_text, True)
 
     print(response.text)

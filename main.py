@@ -21,14 +21,14 @@ async def process_message(message, setting, session):
         setting.openai_error_message = '-'
     if setting.avatarex_error_message == '':
         setting.avatarex_error_message = '-'
-    if 'start' in message.message:
+    if 'start' in message['answer']:
         return
 
     last_q = api.get_last_question_id(message['lead_id'])
     fields = await amocrm_connector.get_fields(setting, session, message['lead_id'])
-    need_qualification, is_first_qual = await qualification.need_qualification(setting, api.get_messages_history(
-        message.lead_id), message.message)
-
+    # need_qualification, is_first_qual = await qualification.need_qualification(setting, api.get_messages_history(
+    #     message['lead_id']), message['answer'])
+    need_qualification = False
     if need_qualification:  # Если есть квалификация
         qualification_answer = await qualification.create_qualification(setting, message, fields)
 
@@ -60,7 +60,7 @@ async def process_message(message, setting, session):
             answer_to_sent = answer_to_sent.data.message + f'\n{params}' + '\n' + qualification_answer['message']
             return await send_message_to_amocrm(setting, session, message, answer_to_sent, True, False, last_q)
 
-    # if 'Идет поиск' in api.get_last_activity_text(message.lead_id):
+    # if 'Идет поиск' in api.get_last_activity_text(message['lead_id']):
     #    return
 
     # if setting.mode_id == 4:
@@ -80,7 +80,7 @@ async def process_message(message, setting, session):
 
 async def process_bitrix(message, setting):
     print('BITRIX STARTED!')
-    api.add_message(message.id, message.lead_id, message.message, False)
+    api.add_message(message.id, message['lead_id'], message['answer'], False)
     mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
     answer_to_sent = await mode_function(message, setting, {})
     print('BITRIX Ответ:', answer_to_sent)
@@ -109,6 +109,7 @@ async def process_settings(setting):
     if len(messages) > 0:
         print(setting.amo_host, len(messages))
     for message in messages:
+        print(message)
         try:
             # if api.message_exists(message['lead_id'], message['id']):
             #    continue  # Duplicate check
@@ -117,20 +118,21 @@ async def process_settings(setting):
                                                   #                           message['messages_history']):
             #    continue  # Manager intervention check
 
-            # if ".m4a" in message['message']:
+            # if ".m4a" in message['answer']:
             #    continue  # Voice messages detection
                 # if setting.voice_detection is False:
                 #     continue
-                # message['message'] = await whisper_service.client.run(
-                #     openai_api_key=setting.api_token, url=message['message']
+                # message['answer'] = await whisper_service.client.run(
+                #     openai_api_key=setting.api_token, url=message['answer']
                 # )
-            print('Обрабатываю', message['message'], 'для', setting.amo_host)
+            print('Обрабатываю', message['answer'], 'для', setting.amo_host)
 
-            api.add_message(message['id'], message['lead_id'], message['message'], False)
+            api.add_message(message['id'], message['lead_id'], message['answer'], False)
             task = process_message(message, setting, session)
             tasks.append(task)
 
         except Exception as e:
+            print(e)
             pass
     await asyncio.gather(*tasks)
 
