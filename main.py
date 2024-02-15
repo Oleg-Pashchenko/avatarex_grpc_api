@@ -141,6 +141,5 @@ async def cycle():
             task = process_settings(setting)
             tasks.append(task)
         await asyncio.gather(*tasks)
-        await asyncio.sleep(3)
 
 asyncio.run(cycle())
