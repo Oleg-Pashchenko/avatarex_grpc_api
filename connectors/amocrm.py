@@ -33,7 +33,6 @@ async def send_message(setting: ApiSettings, session, text: str, chat_id: int):
         'message': text,
         'chat_id': chat_id
     }
-    print(data)
     return await connector.send_request(data, url)
 
 
