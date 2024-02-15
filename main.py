@@ -75,7 +75,6 @@ async def process_message(message, setting, session):
     # Если нет квалификации
     mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
     answer_to_sent = await mode_function(message, setting, fields)
-    print('Ответ:', answer_to_sent)
     return await send_message_to_amocrm(setting, session, message, answer_to_sent, True, False, last_q)
 
 
@@ -141,8 +140,7 @@ async def cycle():
     while True:
         settings: list[ApiSettings] = get_enabled_api_settings()
         for setting in settings:
-            if 'chatgpt.amocrm' in setting.amo_host:
-                await process_settings(setting)
+            await process_settings(setting)
 
 
 asyncio.run(cycle())
