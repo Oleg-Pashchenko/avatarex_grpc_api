@@ -45,7 +45,6 @@ async def get_fields(setting: ApiSettings, session, lead_id: int):
     }
     print(data)
     answer = await connector.send_request(data, url)
-    print(answer)
     if answer == '-':
         return {}
     return answer
