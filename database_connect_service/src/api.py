@@ -115,8 +115,8 @@ def add_message(message_id, lead_id, text, is_bot, is_q=False):
 
 def manager_intervened(lead_id, message_history):
     try:
-        entity = json.loads(message_history)['message_list'][0]
-        for id, message in enumerate(json.loads(message_history)['message_list']):
+        entity = message_history['message_list'][0]
+        for id, message in enumerate(message_history['message_list']):
             if id == 5:
                 break
 

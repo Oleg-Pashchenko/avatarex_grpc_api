@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  core_service:
+    restart: always
+    build:
+      context: .
+      dockerfile: common/docker/Dockerfile
+
+  qualification_mode_service:
+    restart: always
+    build:
+      context: .
+      dockerfile: common/docker/Dockerfile_qualification

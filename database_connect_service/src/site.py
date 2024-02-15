@@ -13,7 +13,6 @@ from sqlalchemy.exc import SADeprecationWarning
 import dotenv
 import os
 
-import misc
 
 
 def as_dict(obj):

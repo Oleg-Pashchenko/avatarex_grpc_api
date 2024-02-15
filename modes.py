@@ -1,4 +1,4 @@
-from connectors import prompt, knowledge, database, assistants
+from connectors import prompt, knowledge, database
 
 
 async def prompt_mode(message, setting, fields):
