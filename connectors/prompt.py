@@ -44,7 +44,7 @@ async def get_answer(message, setting, fields):
                                             setting.max_tokens, fields if setting.use_amocrm_fields else {})
 
     data = {
-        "prompt": messages_context,
+        "prompt": messages_context[::-1],
         "model": setting.model_title,
         "max_tokens": setting.max_tokens,
         "temperature": setting.temperature,
