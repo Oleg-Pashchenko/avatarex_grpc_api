@@ -54,7 +54,7 @@ async def process_message(message, setting, session):
 
             answer_to_sent = await prompt.get_answer(message, setting, fields)
             params = "\n".join(qualification_answer["params"])
-            answer_to_sent = answer_to_sent.data.message + f'\n{params}' + '\n' + qualification_answer['message']
+            answer_to_sent = answer_to_sent['answer'] + f'\n{params}' + '\n' + qualification_answer['message']
             return await send_message_to_amocrm(setting, session, message, answer_to_sent, True, False, last_q)
 
     # if 'Идет поиск' in api.get_last_activity_text(message['lead_id']):
