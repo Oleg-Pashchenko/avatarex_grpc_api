@@ -12,7 +12,6 @@ from connectors import amocrm as amocrm_connector
 async def send_message_to_amocrm(setting, session, message, text, is_bot, is_q=False, last_q=''):
     if last_q == api.get_last_question_id(message['lead_id']):  # Если нет новых сообщений
         message_id = await amocrm_connector.send_message(setting, session, text, message['chat_id'])
-        print(message_id)
         api.add_message(message_id, message['lead_id'], text, is_bot, is_q)
 
 
