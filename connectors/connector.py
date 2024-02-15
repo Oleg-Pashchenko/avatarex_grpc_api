@@ -6,7 +6,7 @@ async def send_request(request: dict, url: str):
         async with session.post(url, json=request) as response:
             try:
                 response_json = await response.json()
-
+                print(response_json)
                 if response_json['status'] is False:
                     return '-'
                 resp = response_json['answer']
