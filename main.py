@@ -138,8 +138,10 @@ async def process_settings(setting):
 async def cycle():
     while True:
         settings: list[ApiSettings] = get_enabled_api_settings()
+        start = time.time()
         for setting in settings:
             await process_settings(setting)
+        print(time.time() - start)
         await asyncio.sleep(3)
 
 asyncio.run(cycle())
