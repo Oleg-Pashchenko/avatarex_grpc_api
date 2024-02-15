@@ -142,6 +142,5 @@ async def cycle():
         for setting in settings:
             asyncio.ensure_future(process_settings(setting))
         await asyncio.sleep(1)
-        print(len(settings))
 
 asyncio.run(cycle())
