@@ -140,6 +140,6 @@ async def cycle():
         settings: list[ApiSettings] = get_enabled_api_settings()
         for setting in settings:
             await process_settings(setting)
-
+        await asyncio.sleep(3)
 
 asyncio.run(cycle())
