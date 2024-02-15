@@ -105,6 +105,8 @@ async def process_settings(setting):
     #
     #         print('BITRIX TASK!')
     session = sessions.get_session(setting.amo_host)
+    if session is None:
+        return
     messages = await amocrm_connector.read_messages(setting, session)
     for message in messages:
         try:
