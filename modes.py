@@ -25,7 +25,7 @@ async def database_prompt_mode(message, setting, fields):
 
 
 async def assistants_mode(message, setting, fields):
-    return await assistants.get_answer()
+    return 'ok'
 
 
 modes = {

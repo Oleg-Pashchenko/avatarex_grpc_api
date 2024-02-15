@@ -54,7 +54,10 @@ async def get_answer(message, setting, fields):
         "use_another_models": True
     }
 
-    return await connector.send_request(
+    answer = await connector.send_request(
         request=data,
         url='http://178.253.22.162:10000/'
     )
+    if answer == '-':
+        return 'Повторите запрос позднее!'
+    return answer
