@@ -15,7 +15,6 @@ async def send_message_to_amocrm(setting, session, message, text, is_bot, is_q=F
         api.add_message(message_id, message['lead_id'], text, is_bot, is_q)
 
 
-
 async def process_message(message, setting, session):
     if setting.openai_error_message == '':
         setting.openai_error_message = '-'
@@ -111,20 +110,20 @@ async def process_settings(setting):
     for message in messages:
         print(message)
         try:
-            # if api.message_exists(message['lead_id'], message['id']):
-            #    continue  # Duplicate check
+            if api.message_exists(message['lead_id'], message['id']):
+                continue  # Duplicate check
 
-            # if setting.manager_intervented_active and api.manager_intervened(message['lead_id'],
-                                                  #                           message['messages_history']):
-            #    continue  # Manager intervention check
+            if setting.manager_intervented_active and api.manager_intervened(message['lead_id'],
+                                                                             message['messages_history']):
+                continue  # Manager intervention check
 
             # if ".m4a" in message['answer']:
             #    continue  # Voice messages detection
-                # if setting.voice_detection is False:
-                #     continue
-                # message['answer'] = await whisper_service.client.run(
-                #     openai_api_key=setting.api_token, url=message['answer']
-                # )
+            # if setting.voice_detection is False:
+            #     continue
+            # message['answer'] = await whisper_service.client.run(
+            #     openai_api_key=setting.api_token, url=message['answer']
+            # )
             print('Обрабатываю', message['answer'], 'для', setting.amo_host)
 
             api.add_message(message['id'], message['lead_id'], message['answer'], False)
