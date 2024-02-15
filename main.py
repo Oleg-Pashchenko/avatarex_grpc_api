@@ -121,8 +121,7 @@ async def cycle():
         print(tick)
         if tick % 30 == 0 or tick == 1:
             settings = get_enabled_api_settings()  # Получение настроек API
-        tasks = [process_settings(setting) for setting in settings]
-        await asyncio.gather(*tasks)  # Параллельная обработка для каждой настройки
+        tasks = [asyncio.ensure_future(process_settings(setting)) for setting in settings]
         await asyncio.sleep(1)
 
 asyncio.run(cycle())
