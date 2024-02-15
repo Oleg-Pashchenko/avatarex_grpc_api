@@ -127,7 +127,7 @@ async def process_settings(setting):
 
             api.add_message(message['id'], message['lead_id'], message['answer'], False)
 
-            await asyncio.ensure_future(process_message(message, setting, session))
+            await process_message(message, setting, session)
 
         except Exception as e:
             print(e)
@@ -135,12 +135,12 @@ async def process_settings(setting):
 
 
 async def cycle():
+    print('Script started!')
     while True:
         settings: list[ApiSettings] = get_enabled_api_settings()
         tasks = []
         for setting in settings:
             task = process_settings(setting)
             await asyncio.ensure_future(task)
-        await asyncio.sleep(1)
 
 asyncio.run(cycle())
