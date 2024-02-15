@@ -104,7 +104,7 @@ async def process_settings(setting):
             print('Обрабатываю', message['answer'], 'для', setting.amo_host)
 
             api.add_message(message['id'], message['lead_id'], message['answer'], False)
-            asyncio.ensure_future(process_message(message, setting, session))  # very hard
+            await process_message(message, setting, session)  # very hard
 
         except Exception as e:
             print(e)
