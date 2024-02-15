@@ -43,7 +43,9 @@ async def get_fields(setting: ApiSettings, session, lead_id: int):
         'amo_host': setting.amo_host,
         'headers': session.headers
     }
+    print(data)
     answer = await connector.send_request(data, url)
+    print(answer)
     if answer == '-':
         return {}
     return answer
