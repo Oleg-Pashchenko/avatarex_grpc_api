@@ -11,6 +11,7 @@ async def send_request(request: dict, url: str):
                     return '-'
                 resp = response_json['answer']
                 if resp == '':
+                    print(response_json)
                     return '-'
                 return resp
 
