@@ -100,13 +100,11 @@ async def process_settings(setting):
             # message['answer'] = await whisper_service.client.run(
             #     openai_api_key=setting.api_token, url=message['answer']
             # )
-            print('Обрабатываю', message['answer'], 'для', setting.amo_host)
 
             api.add_message(message['id'], message['lead_id'], message['answer'], False)
             asyncio.create_task(process_message(message, setting, session))  # very hard
 
         except Exception as e:
-            print(e)
             pass
 
 
