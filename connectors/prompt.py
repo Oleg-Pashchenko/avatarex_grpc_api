@@ -16,7 +16,6 @@ def tokens_counter(messages: list[dict]):
 def get_messages_context(messages: list[dict], context: str, tokens: int, max_tokens, fields):
     tokens *= 0.95  # На всякий случай резервируем 5% в запас
     tokens -= max_tokens  # Вычитаем выделенные токены на ответ
-    messages.reverse()
     fields_to_view = []
 
     if 'fields' in fields.keys():
@@ -36,18 +35,17 @@ def get_messages_context(messages: list[dict], context: str, tokens: int, max_to
             break
     for f in fields_to_view:
         response.append(f)
-
+    print(response)
     return response
 
 
 async def get_answer(message, setting, fields):
     database_messages = api.get_messages_history(message['lead_id'])
-    print(database_messages)
     messages_context = get_messages_context(database_messages, setting.prompt_context, setting.model_limit,
                                             setting.max_tokens, fields if setting.use_amocrm_fields else {})
 
     data = {
-        "prompt": messages_context.reverse(),
+        "prompt": messages_context,
         "model": setting.model_title,
         "max_tokens": setting.max_tokens,
         "temperature": setting.temperature,
