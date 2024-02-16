@@ -113,8 +113,8 @@ async def cycle():
     while True:
         tick += 1
         print(tick)
-        if tick % 30 == 0 or tick == 1:
-            settings = get_enabled_api_settings()  # Получение настроек API
+        # if tick % 30 == 0 or tick == 1:
+        settings = get_enabled_api_settings()  # Получение настроек API
         tasks = [process_settings(setting) for setting in settings]
         await asyncio.gather(*tasks)
 
