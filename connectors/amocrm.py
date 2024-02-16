@@ -60,3 +60,15 @@ async def set_fields(setting: ApiSettings, session, info, lead_id):
         'headers': session.headers
     }
     return await connector.send_request(data, url)
+
+
+async def move_deal(setting: ApiSettings, session, lead_id):
+    url = f'{host}/move-deal/'
+    data = {
+        'amo_host': setting.amo_host,
+        'headers': session.headers,
+        'deal_id': int(lead_id),
+        'pipeline_id_to_set': setting.pipeline_id,
+        'status_id_to_set': int(setting.qualification_finished_stage) if setting.qualification_finished_stage.isdigit() else 0
+    }
+    return await connector.send_request(data, url)

@@ -80,6 +80,7 @@ class ApiSettings:
     message_format: str
     repeat: int
     trigger_phrases: list
+    qualification_finished_stage: str
 
 
 @dataclasses.dataclass
@@ -128,6 +129,7 @@ class Qualification:
     id: int
     questions: list
     finish_message: str
+    stage: str
 
 
 @dataclasses.dataclass
@@ -313,7 +315,8 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                     search_rules={},
                     repeat=s.database_repeat,
                     message_format=s.database_message_format,
-                    trigger_phrases=triggers
+                    trigger_phrases=triggers,
+                    qualification_finished_stage=qual.stage
                 )
             )
         except Exception as e:
