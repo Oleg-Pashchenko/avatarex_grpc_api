@@ -14,7 +14,6 @@ import dotenv
 import os
 
 
-
 def as_dict(obj):
     data = obj.__dict__
     if "_sa_instance_state" in data:
@@ -81,6 +80,9 @@ class ApiSettings:
     repeat: int
     trigger_phrases: list
     qualification_finished_stage: str
+    is_date_work_active: bool
+    datetimeValueStart: str
+    datetimeValueFinish: str
 
 
 @dataclasses.dataclass
@@ -113,6 +115,9 @@ class Settings:
     trigger_phrases: str
     database_repeat: int
     message_format: str
+    is_date_work_active: bool
+    datetimeValueStart: str
+    datetimeValueFinish: str
 
 
 @dataclasses.dataclass
@@ -250,7 +255,7 @@ def get_enabled_api_settings() -> list[ApiSettings]:
             try:
                 q8 = session.query(AuthUser).filter(AuthUser.id == s.user_id_id)
             except Exception as e:
-                print(8 ,e)
+                print(8, e)
             try:
                 p = Pipeline(**q2.first().as_dict())
             except:
@@ -316,7 +321,10 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                     repeat=s.database_repeat,
                     message_format=s.database_message_format,
                     trigger_phrases=triggers,
-                    qualification_finished_stage=qual.stage
+                    qualification_finished_stage=qual.stage,
+                    is_date_work_active=s.is_date_work_active,
+                    datetimeValueStart=s.datetimeValueStart,
+                    datetimeValueFinish=s.datetimeValueFinish
                 )
             )
         except Exception as e:

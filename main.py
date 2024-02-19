@@ -26,11 +26,12 @@ async def process_message(message, setting, session):
     last_q = api.get_last_question_id(message['lead_id'])
     fields = await amocrm_connector.get_fields(setting, session, message['lead_id'])
     need_qualification, is_first_qual = await qualification.need_qualification(setting, api.get_messages_history(
-         message['lead_id']), message['answer'])
+        message['lead_id']), message['answer'])
     if need_qualification:  # Если есть квалификация
         qualification_answer = await qualification.create_qualification(setting, message, fields)
         if qualification_answer['fill_command'] is not None:
-            await amocrm_connector.set_fields(setting, session, qualification_answer['fill_command'], message['lead_id'])
+            await amocrm_connector.set_fields(setting, session, qualification_answer['fill_command'],
+                                              message['lead_id'])
 
         if is_first_qual:
             qualification_answer['qualification_status'] = True
@@ -75,9 +76,31 @@ async def process_message(message, setting, session):
     return await send_message_to_amocrm(setting, session, message, answer_to_sent, True, False, last_q)
 
 
-async def process_settings(setting):
+from datetime import datetime, time
+
+
+def is_time_between(start_time_str, end_time_str):
+    # Получаем текущее время
+    now = datetime.now().time()
+
+    # Преобразуем строки времени в объекты времени
+    start_time = datetime.strptime(start_time_str, "%H:%M").time()
+    end_time = datetime.strptime(end_time_str, "%H:%M").time()
+
+    # Проверяем, находится ли текущее время между заданными временами
+    if start_time <= end_time:
+        return start_time <= now <= end_time
+    else:
+        # Если время начала больше времени окончания, проверяем два условия
+        return start_time <= now or now <= end_time
+
+
+async def process_settings(setting: ApiSettings):
     st = time.time()
     tasks = []
+
+    if setting.is_date_work_active and not is_time_between(setting.datetimeValueStart, setting.datetimeValueFinish):
+        return
     session = sessions.get_session(setting.amo_host)  # hard
     if session is None:
         return
@@ -116,6 +139,8 @@ async def cycle():
         # if tick % 30 == 0 or tick == 1:
         settings = get_enabled_api_settings()  # Получение настроек API
         tasks = [process_settings(setting) for setting in settings]
+
         await asyncio.gather(*tasks)
+
 
 asyncio.run(cycle())
