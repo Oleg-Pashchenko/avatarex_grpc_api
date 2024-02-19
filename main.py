@@ -144,5 +144,5 @@ async def cycle():
         await asyncio.gather(*tasks)
 
 
-# asyncio.run(cycle())
+asyncio.run(cycle())
 
