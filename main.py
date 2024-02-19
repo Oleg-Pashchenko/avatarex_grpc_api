@@ -99,8 +99,8 @@ async def process_settings(setting: ApiSettings):
     st = time.time()
     tasks = []
 
-    if setting.is_date_work_active and not is_time_between(setting.datetimeValueStart, setting.datetimeValueFinish):
-        return
+    # if setting.is_date_work_active and not is_time_between(setting.datetimeValueStart, setting.datetimeValueFinish):
+    #    return
     session = sessions.get_session(setting.amo_host)  # hard
     if session is None:
         return
