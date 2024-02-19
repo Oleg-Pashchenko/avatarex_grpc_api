@@ -90,10 +90,10 @@ def is_time_between(start_time_str, end_time_str):
 
     # Проверяем, находится ли текущее время между заданными временами
     if start_time <= end_time:
-        return start_time <= now <= end_time
+        return not (start_time <= now <= end_time)
     else:
         # Если время начала больше времени окончания, проверяем два условия
-        return start_time <= now or now <= end_time
+        return not (start_time <= now or now <= end_time)
 
 
 async def process_settings(setting: ApiSettings):
