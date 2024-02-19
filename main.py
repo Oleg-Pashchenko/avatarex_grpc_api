@@ -82,14 +82,15 @@ def is_time_between(start_time_str, end_time_str):
     from datetime import datetime
 
     # Получаем текущее время
-    now = datetime.now().time()
+    import pytz
 
+    moscow_tz = pytz.timezone('Europe/Moscow')
+    now = datetime.now(moscow_tz).time()
     # Преобразуем строки времени в объекты времени
     start_time = datetime.strptime(start_time_str, "%H:%M").time()
     end_time = datetime.strptime(end_time_str, "%H:%M").time()
 
     # Проверяем, находится ли текущее время между заданными временами
-    print(start_time, now, end_time)
     if start_time <= end_time:
         return not (start_time <= now <= end_time)
     else:
