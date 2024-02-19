@@ -97,38 +97,41 @@ def is_time_between(start_time_str, end_time_str):
 
 
 async def process_settings(setting: ApiSettings):
-    st = time.time()
-    tasks = []
+    try:
+        st = time.time()
+        tasks = []
 
-    if setting.is_date_work_active and not is_time_between(setting.datetimeValueStart, setting.datetimeValueFinish):
-        return
-    session = sessions.get_session(setting.amo_host)  # hard
-    if session is None:
-        return
-    messages = await amocrm_connector.read_messages(setting, session)  # hard
-    for message in messages:
-        try:
-            if api.message_exists(message['lead_id'], message['id']):
-                continue  # Duplicate check
+        if setting.is_date_work_active and not is_time_between(setting.datetimeValueStart, setting.datetimeValueFinish):
+            return
+        session = sessions.get_session(setting.amo_host)  # hard
+        if session is None:
+            return
+        messages = await amocrm_connector.read_messages(setting, session)  # hard
+        for message in messages:
+            try:
+                if api.message_exists(message['lead_id'], message['id']):
+                    continue  # Duplicate check
 
-            if setting.manager_intervented_active and api.manager_intervened(message['lead_id'],
-                                                                             message['messages_history']):
-                continue  # Manager intervention check
+                if setting.manager_intervented_active and api.manager_intervened(message['lead_id'],
+                                                                                 message['messages_history']):
+                    continue  # Manager intervention check
 
-            # if ".m4a" in message['answer']:
-            #    continue  # Voice messages detection
-            # if setting.voice_detection is False:
-            #     continue
-            # message['answer'] = await whisper_service.client.run(
-            #     openai_api_key=setting.api_token, url=message['answer']
-            # )
+                # if ".m4a" in message['answer']:
+                #    continue  # Voice messages detection
+                # if setting.voice_detection is False:
+                #     continue
+                # message['answer'] = await whisper_service.client.run(
+                #     openai_api_key=setting.api_token, url=message['answer']
+                # )
 
-            api.add_message(message['id'], message['lead_id'], message['answer'], False)
-            tasks.append(process_message(message, setting, session))  # very hard
+                api.add_message(message['id'], message['lead_id'], message['answer'], False)
+                tasks.append(process_message(message, setting, session))  # very hard
 
-        except Exception as e:
-            pass
-    await asyncio.gather(*tasks)
+            except Exception as e:
+                pass
+        await asyncio.gather(*tasks)
+    except Exception as e:
+        print(setting.amo_host, e)
 
 
 async def cycle():
