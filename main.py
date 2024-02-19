@@ -89,7 +89,7 @@ def is_time_between(start_time_str, end_time_str):
     # Преобразуем строки времени в объекты времени
     start_time = datetime.strptime(start_time_str, "%H:%M").time()
     end_time = datetime.strptime(end_time_str, "%H:%M").time()
-
+    print(start_time, now, end_time)
     # Проверяем, находится ли текущее время между заданными временами
     if start_time <= end_time:
         return not (start_time <= now <= end_time)
