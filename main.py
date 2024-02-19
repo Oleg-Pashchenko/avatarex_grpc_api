@@ -76,10 +76,11 @@ async def process_message(message, setting, session):
     return await send_message_to_amocrm(setting, session, message, answer_to_sent, True, False, last_q)
 
 
-from datetime import datetime, time
 
 
 def is_time_between(start_time_str, end_time_str):
+    from datetime import datetime
+
     # Получаем текущее время
     now = datetime.now().time()
 
@@ -99,8 +100,8 @@ async def process_settings(setting: ApiSettings):
     st = time.time()
     tasks = []
 
-    # if setting.is_date_work_active and not is_time_between(setting.datetimeValueStart, setting.datetimeValueFinish):
-    #    return
+    if setting.is_date_work_active and not is_time_between(setting.datetimeValueStart, setting.datetimeValueFinish):
+        return
     session = sessions.get_session(setting.amo_host)  # hard
     if session is None:
         return
@@ -143,4 +144,5 @@ async def cycle():
         await asyncio.gather(*tasks)
 
 
-asyncio.run(cycle())
+# asyncio.run(cycle())
+
