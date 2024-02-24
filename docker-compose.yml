@@ -6,9 +6,3 @@ services:
     build:
       context: .
       dockerfile: common/docker/Dockerfile
-
-  core_bitrix_service:
-    restart: always
-    build:
-      context: .
-      dockerfile: common/docker/Dockerfile_bitrix
