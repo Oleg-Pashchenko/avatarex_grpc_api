@@ -1,7 +1,9 @@
 import dataclasses
 import datetime
+import json
 import os
 import time
+from typing import Any
 
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.ext.declarative import declarative_base
@@ -38,6 +40,7 @@ class Message:
     message: str
     bm: Bitrix_Message
 
+
 engine = create_engine(
     f'postgresql://{os.getenv("DB_B_USER")}:{os.getenv("DB_B_PASSWORD")}'
     f'@{os.getenv("DB_B_HOST")}:5432/{os.getenv("DB_B_NAME")}',
@@ -49,8 +52,7 @@ session = Session()
 Base.metadata.create_all(engine)
 
 
-
-def get_unanswered_messages(rest_hook, pipeline_id, status_ids):
+def get_unanswered_messages(rest_hook, pipeline_id, status_ids) -> Message:
     message_objects = session.query(Bitrix_Message).filter(
         Bitrix_Message.rest_hook == rest_hook,
         Bitrix_Message.pipeline_id == pipeline_id,
@@ -68,11 +70,11 @@ def get_unanswered_messages(rest_hook, pipeline_id, status_ids):
             continue
         ids.append(m.id)
         answer.append(Message(
-                id=m.id,
-                lead_id=int(str(m.dialog_id).replace('chat', '')),
-                message_id=m.id,
-                message=m.text,
-                bm=m  # Passing the Bitrix_Message instance
-              ))
+            id=m.id,
+            lead_id=int(str(m.dialog_id).replace('chat', '')),
+            message_id=m.id,
+            message=m.text,
+            bm=m  # Passing the Bitrix_Message instance
+        ))
 
     return answer
