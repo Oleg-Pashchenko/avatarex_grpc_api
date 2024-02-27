@@ -1,6 +1,6 @@
 import time
 
-from connectors import bitrix, prompt
+from connectors import bitrix, prompt, whisper
 from database_connect_service.src import api, sessions
 from database_connect_service.src.site import ApiSettings, get_enabled_api_settings
 from modes import modes
@@ -76,8 +76,6 @@ async def process_message(message, setting, session):
     return await send_message_to_amocrm(setting, session, message, answer_to_sent, True, False, last_q)
 
 
-
-
 def is_time_between(start_time_str, end_time_str):
     from datetime import datetime
 
@@ -91,10 +89,10 @@ def is_time_between(start_time_str, end_time_str):
     end_time = datetime.strptime(end_time_str, "%H:%M").time()
     # Проверяем, находится ли текущее время между заданными временами
     if start_time <= end_time:
-        return  start_time <= now <= end_time
+        return start_time <= now <= end_time
     else:
         # Если время начала больше времени окончания, проверяем два условия
-        return  start_time <= now or now <= end_time
+        return start_time <= now or now <= end_time
 
 
 async def process_settings(setting: ApiSettings):
@@ -117,13 +115,11 @@ async def process_settings(setting: ApiSettings):
                                                                                  message['messages_history']):
                     continue  # Manager intervention check
 
-                # if ".m4a" in message['answer']:
-                #    continue  # Voice messages detection
-                # if setting.voice_detection is False:
-                #     continue
-                # message['answer'] = await whisper_service.client.run(
-                #     openai_api_key=setting.api_token, url=message['answer']
-                # )
+                if ".m4a" in message['answer']:
+                    continue  # Voice messages detection
+                if setting.voice_detection is False:
+                    continue
+                message['answer'] = await whisper.get_answer(message, setting)
 
                 api.add_message(message['id'], message['lead_id'], message['answer'], False)
                 tasks.append(process_message(message, setting, session))  # very hard
@@ -149,4 +145,3 @@ async def cycle():
 
 
 asyncio.run(cycle())
-

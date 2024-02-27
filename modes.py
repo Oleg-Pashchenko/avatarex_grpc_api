@@ -1,4 +1,4 @@
-from connectors import prompt, knowledge, database
+from connectors import prompt, knowledge, database, assistants
 
 
 async def prompt_mode(message, setting, fields):
@@ -25,7 +25,8 @@ async def database_prompt_mode(message, setting, fields):
 
 
 async def assistants_mode(message, setting, fields):
-    return 'ok'
+    answer_to_sent = await assistants.get_answer(message, setting)
+    return answer_to_sent
 
 
 modes = {
