@@ -28,8 +28,8 @@ async def database_prompt_mode(message, setting, fields):
 async def assistants_mode(message, setting, fields):
     response = await assistants.get_answer(message, setting)
 
-    if not get_thread_by_lead_id(message.lead_id):
-        save_thread(lead_id=message.lead_id, thread_id=response['thread_id'])
+    if not get_thread_by_lead_id(message['lead_id']):
+        save_thread(lead_id=message['lead_id'], thread_id=response['thread_id'])
     return response['text']
 
 
