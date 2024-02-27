@@ -12,5 +12,5 @@ async def get_answer(message, setting: ApiSettings):
             'question': message['answer'],
             'thread_id': get_thread_by_lead_id(message['lead_id'])
         },
-        url='http://178.253.22.162:9999/'
+        url='http://178.253.22.162:9998/'
     )
