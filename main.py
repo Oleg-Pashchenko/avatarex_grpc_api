@@ -119,7 +119,9 @@ async def process_settings(setting: ApiSettings):
                     continue
 
                 if ".m4a" in message['answer']:
+                    print('gc')
                     message['answer'] = await whisper.get_answer(message, setting)
+                    print('gc', message['answer'])
 
                 api.add_message(message['id'], message['lead_id'], message['answer'], False)
                 tasks.append(process_message(message, setting, session))  # very hard
