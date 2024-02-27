@@ -1,4 +1,5 @@
 from connectors import prompt, knowledge, database, assistants
+from database_connect_service.src.api import get_thread_by_lead_id, save_thread
 
 
 async def prompt_mode(message, setting, fields):
@@ -25,8 +26,11 @@ async def database_prompt_mode(message, setting, fields):
 
 
 async def assistants_mode(message, setting, fields):
-    answer_to_sent = await assistants.get_answer(message, setting)
-    return answer_to_sent
+    response = await assistants.get_answer(message, setting)
+
+    if not get_thread_by_lead_id(message.lead_id):
+        save_thread(lead_id=message.lead_id, thread_id=response['thread_id'])
+    return response['text']
 
 
 modes = {
