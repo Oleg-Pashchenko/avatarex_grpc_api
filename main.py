@@ -115,11 +115,11 @@ async def process_settings(setting: ApiSettings):
                                                                                  message['messages_history']):
                     continue  # Manager intervention check
 
-                if ".m4a" in message['answer']:
-                    continue  # Voice messages detection
-                if setting.voice_detection is False:
+                if setting.voice_detection is False and ".m4a" in message['answer']:
                     continue
-                message['answer'] = await whisper.get_answer(message, setting)
+
+                if ".m4a" in message['answer']:
+                    message['answer'] = await whisper.get_answer(message, setting)
 
                 api.add_message(message['id'], message['lead_id'], message['answer'], False)
                 tasks.append(process_message(message, setting, session))  # very hard
