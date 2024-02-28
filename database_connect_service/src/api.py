@@ -122,7 +122,7 @@ def manager_intervened(lead_id, message_history):
         for id, message in enumerate(message_history['message_list']):
             try:
 
-                if not message_exists(lead_id, message['id']) and entity['author']['id'] != message['author']['id']:
+                if not message_exists(lead_id, message['id']) and entity['author']['id'] == message['author']['id']:
                     created_at = message['created_at']
                     datetime_from_timestamp = datetime.datetime.fromtimestamp(created_at)
                     current_datetime = datetime.datetime.now()
