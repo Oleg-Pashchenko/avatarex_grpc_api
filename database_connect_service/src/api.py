@@ -117,9 +117,11 @@ def manager_intervened(lead_id, message_history):
     try:
         entity = message_history['message_list'][0]
         fl = True
+        print(entity)
         for id, message in enumerate(message_history['message_list']):
             if id == 5:
                 break
+            print(message)
 
             if not message_exists(lead_id, message['id']) and entity['author']['id'] != message['author']['id']:
                 created_at = message['created_at']
