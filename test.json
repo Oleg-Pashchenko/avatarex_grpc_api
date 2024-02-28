@@ -1,0 +1,57 @@
+   {
+      "dialog": {
+        "id": 826,
+        "opened": true
+      },
+      "message_attributes": null,
+      "recipient": null,
+      "message": {
+        "type": "text",
+        "text": "\u0410\u0433\u0430",
+        "media_file_name": "",
+        "media": "",
+        "media_200_200": "",
+        "media_320_200": "",
+        "media_duration": 0
+      },
+      "author": {
+        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
+        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
+        "second_name": "",
+        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
+        "avatar": "",
+        "avatar_large": "",
+        "email": "",
+        "admin": false,
+        "is_online": false,
+        "bot": false,
+        "origin": "amo.ext.6247798",
+        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
+        "user_ref": "",
+        "ref": ""
+      },
+      "reply_markup": null,
+      "group_id": null,
+      "metadata": "",
+      "external_id": "amo.ext.6247798-279E95F0BBC0964AAD395E6BCCB9988F",
+      "id": "87b5053b-f202-47b8-9b38-c238c3032bfd",
+      "callback_data": "",
+      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
+      "text": "\u0410\u0433\u0430",
+      "reactions": null,
+      "error": {
+        "code": 0,
+        "description": ""
+      },
+      "chat_type": 0,
+      "error_code": 0,
+      "created_at": 1709113036,
+      "msec_created_at": 1709113036000,
+      "silent": false,
+      "delivery_status": 0,
+      "has_rich_link": false,
+      "can_be_replied": true,
+      "can_be_forwarded": false,
+      "can_be_reacted": true,
+      "chat_enabled": true
+    }

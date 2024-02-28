@@ -115,21 +115,21 @@ def add_message(message_id, lead_id, text, is_bot, is_q=False):
 
 def manager_intervened(lead_id, message_history):
     try:
-        print(message_history)
         entity = message_history['message_list'][0]
         fl = True
         for id, message in enumerate(message_history['message_list']):
-            if id == 5:
-                break
+            try:
 
-            if not message_exists(lead_id, message['id']) and entity['author']['id'] != message['author']['id']:
-                created_at = message['created_at']
-                datetime_from_timestamp = datetime.datetime.fromtimestamp(created_at)
-                current_datetime = datetime.datetime.now()
-                time_difference = current_datetime - datetime_from_timestamp
+                if not message_exists(lead_id, message['id']) and entity['author']['id'] != message['author']['id']:
+                    created_at = message['created_at']
+                    datetime_from_timestamp = datetime.datetime.fromtimestamp(created_at)
+                    current_datetime = datetime.datetime.now()
+                    time_difference = current_datetime - datetime_from_timestamp
 
-                if not (time_difference.total_seconds() < 60 * 60):
-                    fl = False
+                    if not (time_difference.total_seconds() < 60 * 60):
+                        fl = False
+            except Exception as e:
+                print(e, message)
         return fl
     except Exception as e:
         print(e)
