@@ -116,6 +116,7 @@ def add_message(message_id, lead_id, text, is_bot, is_q=False):
 def manager_intervened(lead_id, message_history):
     try:
         entity = message_history['message_list'][0]
+        fl = True
         for id, message in enumerate(message_history['message_list']):
             if id == 5:
                 break
@@ -126,10 +127,11 @@ def manager_intervened(lead_id, message_history):
                 current_datetime = datetime.datetime.now()
                 time_difference = current_datetime - datetime_from_timestamp
 
-                if time_difference.total_seconds() < 60 * 60:
-                    return True  # Больше часа
-        return False
-    except:
+                if not (time_difference.total_seconds() < 60 * 60):
+                    fl = False
+        return fl
+    except Exception as e:
+        print(e)
         return False
 
 

@@ -185,13 +185,13 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 Settings = Base.classes.settings
+AmoCRM = Base.classes.amocrm
+AuthUser = Base.classes.avatarex_users
 Pipeline = Base.classes.pipelines
 Qualification = Base.classes.qualification
 RequestSettings = Base.classes.request_settings
 PromptSettings = Base.classes.prompt_settings
 OpenAIModels = Base.classes.openai_models
-AmoCRM = Base.classes.amocrm
-AuthUser = Base.classes.avatarex_users
 
 for c in [
     AuthUser,
