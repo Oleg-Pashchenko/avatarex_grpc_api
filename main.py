@@ -107,6 +107,7 @@ async def process_settings(setting: ApiSettings):
             return
         messages = await amocrm_connector.read_messages(setting, session)  # hard
         for message in messages:
+            print(message)
             try:
                 if api.message_exists(message['lead_id'], message['id']):
                     continue  # Duplicate check
