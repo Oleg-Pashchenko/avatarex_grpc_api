@@ -102,6 +102,7 @@ async def run():
     print('Script started')
     messages: list[dict] = api.get_new_messages()
     for message in messages:
+        print(message)
         api.mark_message_as_readed(message)
         setting = site.get_setting_by_host(message['host'])
         session = sessions.get_session(message['host'])
