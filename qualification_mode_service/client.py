@@ -30,7 +30,7 @@ async def send_request(request):
 async def create_qualification(setting, message, fields):
     data = {
         'context': setting.prompt_context,
-        'user_answer': message['answer'],
+        'user_answer': message['text'],
         'token': setting.api_token,
         'amo_fields': fields,
         'avatarex_fields': setting.qualification_fields,

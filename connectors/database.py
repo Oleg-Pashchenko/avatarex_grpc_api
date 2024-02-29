@@ -4,7 +4,7 @@ from connectors import connector
 async def get_answer(setting, message):
     data = {
         'database': setting.database_data,
-        'question': message['answer'],
+        'question': message['text'],
         'answer_format': setting.message_format,
         'positions_count': setting.repeat,
         'openai_api_key': setting.api_token,

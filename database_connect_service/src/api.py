@@ -32,6 +32,9 @@ class Messages:
     text: str
     is_bot: bool
     is_q: bool
+    is_new: bool
+    host: str
+    messages_history: dict
 
 
 @dataclasses.dataclass
@@ -183,3 +186,17 @@ def add_stats(t, name, message_id):
         pass
     elif name == 'Start Time':
         pass
+
+
+def get_new_messages():
+    message_objects = (
+        session.query(MessagesEntity).filter(MessagesEntity.is_new == True).all()
+    )
+    messages_dict = [message.__dict__ for message in message_objects]
+    return messages_dict
+
+
+def mark_message_as_readed(message: dict):
+    message_object = session.query(MessagesEntity).filter(MessagesEntity.id == message['id']).first()
+    message_object.is_new = False
+    message_object.commit()

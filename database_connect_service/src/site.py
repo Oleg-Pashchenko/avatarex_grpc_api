@@ -333,3 +333,10 @@ def get_enabled_api_settings() -> list[ApiSettings]:
 
             # print('error', s.name, e)
     return result
+
+
+def get_setting_by_host(host):
+    settings = get_enabled_api_settings()
+    for setting in settings:
+        if setting.amo_host == host:
+            return setting

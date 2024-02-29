@@ -9,7 +9,7 @@ async def get_answer(message, setting: ApiSettings):
         request={
             "assistant_id": setting.assistant_id,
             'api_token': setting.api_token,
-            'question': message['answer'],
+            'question': message['text'],
             'thread_id': get_thread_by_lead_id(message['lead_id'])
         },
         url='http://178.253.22.162:9998/'
