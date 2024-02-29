@@ -127,7 +127,7 @@ async def process_settings(setting: ApiSettings):
                 tasks.append(process_message(message, setting, session))  # very hard
 
             except Exception as e:
-                pass
+                print('Ошибка', e)
         await asyncio.gather(*tasks)
     except Exception as e:
         print(setting.amo_host, e)
