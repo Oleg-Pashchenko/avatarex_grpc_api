@@ -198,7 +198,7 @@ def get_new_messages():
 
 def mark_message_as_readed(message: dict):
     object_to_update = session.query(MessagesEntity).filter(MessagesEntity.id == message['id']).all()[0]
-    print(object_to_update)
+    print(message['answer'])
     object_to_update.is_new = False
     session.add(object_to_update)
     session.commit()
