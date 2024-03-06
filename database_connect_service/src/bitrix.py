@@ -56,7 +56,7 @@ def get_unanswered_messages(rest_hook, pipeline_id, status_ids) -> Message:
     message_objects = session.query(Bitrix_Message).filter(
         Bitrix_Message.rest_hook == rest_hook,
         Bitrix_Message.pipeline_id == pipeline_id,
-        Bitrix_Message.status_id.in_(status_ids),
+       #  Bitrix_Message.status_id.in_(status_ids),
         Bitrix_Message.is_finished == False  # Assuming you want only unfinished messages
     ).all()
     answer = []
