@@ -35,8 +35,8 @@ async def cycle():
         settings: list[ApiSettings] = get_enabled_api_settings()  # Получение настроек API
         for setting in settings:
             if setting.amo_email == '-' and setting.amo_password == '-':
-                tasks.append(process_settings(setting))
-        await asyncio.gather(*tasks)
+                await process_settings(setting)
+      #   await asyncio.gather(*tasks)
         await asyncio.sleep(3)
 
 
