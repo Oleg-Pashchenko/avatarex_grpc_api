@@ -17,7 +17,7 @@ async def process_bitrix(message, setting):
 
 async def process_settings(setting: ApiSettings):
     print(setting.amo_host)
-    get_btx_statuses_by_id(setting.id)
+    get_btx_statuses_by_id(setting.pipeline_id_id)
     # setting.statuses_ids =
     print(setting.statuses_ids)
     setting.statuses_ids = ['NEW', 'PREPARATION']

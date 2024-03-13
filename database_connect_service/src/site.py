@@ -42,6 +42,7 @@ class AuthUser:
 @dataclasses.dataclass
 class ApiSettings:
     id: int
+    pipeline_id_id: int
     mode_id: int
     voice_detection: bool
     model_title: str
@@ -223,7 +224,8 @@ for c in [
 
 def get_btx_statuses_by_id(id):
     response = []
-    q = session.query(Settings).filter(Settings.id == id)[0].statuses
+    q = session.query(Statuses).filter(Statuses.pipeline_id_id == id)[0]
+
     for status in q:
         print(status)
        #  r = session.query(Statuses).filter(Statuses.id == status)[0].bitrix_status_id
@@ -316,6 +318,7 @@ def get_enabled_api_settings() -> list[ApiSettings]:
             result.append(
                 ApiSettings(
                     id=s.id,
+                    pipeline_id_id=s.pipeline_id_id,
                     mode_id=s.mode_id,
                     voice_detection=s.voice_detection,
                     model_title=model.title,
