@@ -211,7 +211,8 @@ for c in [
 
 
 def get_btx_statuses_by_id(id):
-    q = session.query(Settings).get(Settings.id == id)
+    print(id)
+    q = session.query(Settings).filter(Settings.id == id)[0]
     print(q)
 
 
