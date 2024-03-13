@@ -2,7 +2,7 @@ import asyncio
 import dataclasses
 
 from database_connect_service.src import api
-from database_connect_service.src.site import get_enabled_api_settings, ApiSettings
+from database_connect_service.src.site import get_enabled_api_settings, ApiSettings, get_btx_statuses_by_id
 from database_connect_service.src.bitrix import get_unanswered_messages
 from connectors import bitrix
 from modes import modes
@@ -17,6 +17,7 @@ async def process_bitrix(message, setting):
 
 async def process_settings(setting: ApiSettings):
     print(setting.amo_host)
+    setting.statuses_ids = get_btx_statuses_by_id(setting.id)
     print(setting.statuses_ids)
     setting.statuses_ids = ['NEW', 'PREPARATION']
     messages = get_unanswered_messages(

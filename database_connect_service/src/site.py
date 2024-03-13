@@ -41,6 +41,7 @@ class AuthUser:
 
 @dataclasses.dataclass
 class ApiSettings:
+    id: int
     mode_id: int
     voice_detection: bool
     model_title: str
@@ -208,6 +209,13 @@ for c in [
     c.as_dict = as_dict
 
 
+
+def get_btx_statuses_by_id(id):
+    q = session.query(Settings).get(Settings.id == id)
+    print(q)
+
+
+
 def get_enabled_api_settings() -> list[ApiSettings]:
     start_time = time.time()
     q = session.query(Settings).filter(Settings.is_enabled == True)
@@ -292,6 +300,7 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                 triggers = []
             result.append(
                 ApiSettings(
+                    id=s.id,
                     mode_id=s.mode_id,
                     voice_detection=s.voice_detection,
                     model_title=model.title,
