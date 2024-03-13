@@ -33,7 +33,7 @@ def get_messages_context(messages: list[dict], context: str, tokens: int, max_to
         if tokens < tokens_counter(response) + system_settings:
             response.pop(-1)
             break
-    # response = response[::-1]
+    response = response[::-1]
     for f in fields_to_view:
         response.append(f)
     return response
