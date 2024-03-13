@@ -39,8 +39,7 @@ async def process_message(message, setting, session):
         if qualification_answer['has_updates'] and qualification_answer['qualification_status']:
             if qualification_answer['finished']:
                 await amocrm_connector.move_deal(setting, session, message['lead_id'])
-                if setting.mode_id == 4:  # Database mode:
-                    pass  # Sending request to him
+
                 return await send_message_to_amocrm(setting, session, message, setting.qualification_finished if len(
                     setting.qualification_finished) != 0 else 'Спасибо! Что вы хотели узнать?', True, True, last_q)
             else:
