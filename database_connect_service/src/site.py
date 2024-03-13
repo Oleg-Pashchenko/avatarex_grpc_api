@@ -225,8 +225,9 @@ def get_btx_statuses_by_id(id):
     response = []
     q = session.query(Settings).filter(Settings.id == id)[0].statuses
     for status in q:
-        r = session.query(Statuses).filter(Statuses.id == status)[0].bitrix_status_id
-        response.append(r)
+        print(status)
+       #  r = session.query(Statuses).filter(Statuses.id == status)[0].bitrix_status_id
+       #  response.append(r)
     return response
 
 
