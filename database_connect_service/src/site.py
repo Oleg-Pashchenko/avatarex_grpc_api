@@ -198,7 +198,7 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 Settings = Base.classes.settings
-
+Statuses = Base.classes.statuses
 Pipeline = Base.classes.pipelines
 Qualification = Base.classes.qualification
 RequestSettings = Base.classes.request_settings
@@ -224,7 +224,7 @@ for c in [
 
 def get_btx_statuses_by_id(id):
     response = []
-    q = session.query(Statuses).filter(Statuses.pipeline_id_id == id)[0]
+    q = session.query(Statuses).filter(Statuses.pipeline_id_id == id)
 
     for status in q:
         print(status)
