@@ -47,9 +47,9 @@ async def get_answer(message, setting, fields, perephrase_message=None):
         messages_context = get_messages_context(database_messages, setting.prompt_context, setting.model_limit,
                                                 setting.max_tokens, fields if setting.use_amocrm_fields else {})
 
-    print(messages_context)
+    messages_context = messages_context[::-1]
     data = {
-        "prompt": messages_context[::-1],
+        "prompt": messages_context,
         "model": setting.model_title,
         "max_tokens": setting.max_tokens,
         "temperature": setting.temperature,
