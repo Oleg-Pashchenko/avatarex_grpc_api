@@ -17,6 +17,7 @@ async def process_bitrix(message, setting):
 
 async def process_settings(setting: ApiSettings):
     print(setting.amo_host)
+    print(setting.statuses_ids)
     setting.statuses_ids = ['NEW', 'PREPARATION']
     messages = get_unanswered_messages(
         setting.amo_host,

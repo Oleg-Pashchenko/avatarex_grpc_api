@@ -1,9 +1,8 @@
 version: '3'
 
 services:
-  core_service:
+  bitrix_service:
     restart: always
     build:
       context: .
-      dockerfile: common/docker/Dockerfile
-
+      dockerfile: common/docker/Dockerfile_bitrix
