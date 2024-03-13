@@ -87,6 +87,17 @@ class ApiSettings:
 
 
 @dataclasses.dataclass
+class Statuses:
+    id: int
+    status_id: int
+    name: str
+    order: int
+    is_active: bool
+    pipeline_id_id: int
+    user_id_id: int
+    bitrix_status_id: str
+
+@dataclasses.dataclass
 class Settings:
     id: int
     name: str
@@ -211,10 +222,12 @@ for c in [
 
 
 def get_btx_statuses_by_id(id):
-    print(id)
-    q = session.query(Settings).filter(Settings.id == id)[0]
-    print(q)
-
+    response = []
+    q = session.query(Settings).filter(Settings.id == id)[0].statuses
+    for status in q:
+        r = session.query(Statuses).filter(Statuses.id == status)[0].bitrix_status_id
+        response.append(r)
+    return response
 
 
 def get_enabled_api_settings() -> list[ApiSettings]:
