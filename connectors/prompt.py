@@ -48,6 +48,7 @@ async def get_answer(message, setting, fields, perephrase_message=None):
                                                 setting.max_tokens, fields if setting.use_amocrm_fields else {})
 
     messages_context = messages_context[::-1]
+    print(messages_context)
     data = {
         "prompt": messages_context,
         "model": setting.model_title,
@@ -56,7 +57,6 @@ async def get_answer(message, setting, fields, perephrase_message=None):
         "api_token": setting.api_token,
         "use_another_models": True
     }
-    print(data)
 
     answer = await connector.send_request(
         request=data,
