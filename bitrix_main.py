@@ -9,7 +9,6 @@ from modes import modes
 
 
 async def qualification_execute(message, setting):
-
     last_q = api.get_last_question_id(message['lead_id'])
     # fields = await amocrm_connector.get_fields(setting, session, message['lead_id'])
     need_qualification, is_first_qual = await qualification.need_qualification(setting, api.get_messages_history(
@@ -47,11 +46,13 @@ async def qualification_execute(message, setting):
     return True
 
 
-
 async def process_bitrix(message, setting):
+    if message.message == 'restart':
+        api.delete_messages(message.lead_id)
+        return
     api.add_message(message.id, message.lead_id, message.message, False)
-# if not await qualification_execute(message, setting):
-#         return
+    # if not await qualification_execute(message, setting):
+    #         return
     mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
     answer_to_sent = await mode_function(dataclasses.asdict(message), setting, {})
     return await bitrix.send_message(setting, message, answer_to_sent)
@@ -81,7 +82,7 @@ async def cycle():
         for setting in settings:
             if setting.amo_email == '-' and setting.amo_password == '-':
                 await process_settings(setting)
-      #   await asyncio.gather(*tasks)
+        #   await asyncio.gather(*tasks)
         await asyncio.sleep(3)
 
 

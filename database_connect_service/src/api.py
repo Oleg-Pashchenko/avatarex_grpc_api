@@ -113,6 +113,17 @@ def add_message(message_id, lead_id, text, is_bot, is_q=False):
     session.commit()
 
 
+def delete_messages(lead_id):
+    message_objects = session.query(MessagesEntity).filter(MessagesEntity.lead_id == lead_id).all()
+
+    # Delete each object in the list
+    for message_object in message_objects:
+        session.delete(message_object)
+
+    # Commit the changes to the database
+    session.commit()
+
+
 def manager_intervened(lead_id, message_history):
     try:
         if isinstance(message_history, str):
