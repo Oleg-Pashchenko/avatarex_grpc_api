@@ -217,6 +217,7 @@ for c in [
     ApiSettings,
     OpenAIModels,
     AmoCRM,
+    Statuses
 ]:
     c.as_dict = as_dict
 
@@ -231,6 +232,7 @@ def get_enabled_api_settings() -> list[ApiSettings]:
     for obj in q.all():
         try:
             s = Settings(**obj.as_dict())
+
 
             try:
                 s.database_data = json.loads(s.database_data)
@@ -274,6 +276,10 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                 q8 = session.query(AuthUser).filter(AuthUser.id == s.user_id_id)
             except Exception as e:
                 print(8, e)
+
+            statuses = []
+
+
             try:
                 p = Pipeline(**q2.first().as_dict())
             except:
@@ -307,6 +313,19 @@ def get_enabled_api_settings() -> list[ApiSettings]:
                 triggers = s.trigger_phrases.split(';')
             except:
                 triggers = []
+
+            if amo.email == '-':
+                statuses = []
+                try:
+                    for status in s.statuses:
+                        qq = session.query(Statuses).filter(
+                            Statuses.id == status
+                        ).first()
+                        statuses.append(qq.bitrix_status_id)
+                    s.statuses = statuses
+                except Exception as e:
+                    s.statuses = []
+
             result.append(
                 ApiSettings(
                     id=s.id,
