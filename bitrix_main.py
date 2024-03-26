@@ -47,7 +47,7 @@ async def qualification_execute(message, setting):
 
 
 async def process_bitrix(message, setting):
-    print(setting.statuses_ids)
+    print(setting.pipeline_id, setting.pipeline_id_id, setting.statuses_ids)
     setting.prompt_context = setting.prompt_context.replace('\n', '    ')
     if message.message == 'restart':
         api.delete_messages(message.lead_id)
