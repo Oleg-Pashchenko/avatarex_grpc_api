@@ -47,7 +47,7 @@ async def qualification_execute(message, setting):
 
 
 async def process_bitrix(message, setting):
-    print(message)
+    print(message.bm.pipeline_id, message.bm.status_id)
    #  get_btx_statuses_by_id(setting.id, setting.pipeline_id, setting.statuses_ids)
     setting.prompt_context = setting.prompt_context.replace('\n', '    ')
     if message.message == 'restart':
