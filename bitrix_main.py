@@ -2,7 +2,7 @@ import asyncio
 import dataclasses
 
 from database_connect_service.src import api
-from database_connect_service.src.site import get_enabled_api_settings, ApiSettings, get_btx_statuses_by_id
+from database_connect_service.src.site import get_enabled_api_settings, ApiSettings
 from database_connect_service.src.bitrix import get_unanswered_messages
 from connectors import bitrix, prompt
 from modes import modes
@@ -47,7 +47,8 @@ async def qualification_execute(message, setting):
 
 
 async def process_bitrix(message, setting):
-    print(setting.pipeline_id, setting.pipeline_id_id, setting.statuses_ids)
+    print(message)
+   #  get_btx_statuses_by_id(setting.id, setting.pipeline_id, setting.statuses_ids)
     setting.prompt_context = setting.prompt_context.replace('\n', '    ')
     if message.message == 'restart':
         api.delete_messages(message.lead_id)

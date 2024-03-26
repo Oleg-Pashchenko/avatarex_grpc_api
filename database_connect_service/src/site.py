@@ -222,16 +222,6 @@ for c in [
 
 
 
-def get_btx_statuses_by_id(statuses, id):
-    response = []
-    q = session.query(Statuses).filter(Statuses.pipeline_id_id == id)
-
-    for status in q:
-        if status.id in statuses:
-            response.append(status.bitrix_status_id)
-       #  r = session.query(Statuses).filter(Statuses.id == status)[0].bitrix_status_id
-       #  response.append(r)
-    return response
 
 
 def get_enabled_api_settings() -> list[ApiSettings]:
