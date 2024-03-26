@@ -241,6 +241,7 @@ def get_enabled_api_settings() -> list[ApiSettings]:
     for obj in q.all():
         try:
             s = Settings(**obj.as_dict())
+
             try:
                 s.database_data = json.loads(s.database_data)
             except Exception as e:
@@ -361,3 +362,5 @@ def get_enabled_api_settings() -> list[ApiSettings]:
 
             # print('error', s.name, e)
     return result
+
+

@@ -47,6 +47,7 @@ async def qualification_execute(message, setting):
 
 
 async def process_bitrix(message, setting):
+    print(setting.statuses_ids)
     setting.prompt_context = setting.prompt_context.replace('\n', '    ')
     if message.message == 'restart':
         api.delete_messages(message.lead_id)
@@ -60,17 +61,11 @@ async def process_bitrix(message, setting):
 
 
 async def process_settings(setting: ApiSettings):
-    print(setting.amo_host)
-    setting.statuses_ids = get_btx_statuses_by_id(setting.statuses_ids, setting.pipeline_id_id)
-    #
-    print(setting.statuses_ids)
-    setting.statuses_ids = ['NEW', 'PREPARATION']
     messages = get_unanswered_messages(
         setting.amo_host,
         setting.pipeline_id,
         setting.statuses_ids
     )
-    print(messages)
     tasks = []
     for message in messages:
         await process_bitrix(message, setting)
