@@ -2,8 +2,8 @@ import time
 
 from connectors import bitrix, prompt, whisper
 from database_connect_service.src import api, sessions
-from database_connect_service.src.site import ApiSettings, get_enabled_api_settings
-from modes import modes
+from database_connect_service.src.site import ApiSettings, get_enabled_api_settings, get_setting_by_id
+from modes import modes, database_prompt_mode
 from qualification_mode_service import client as qualification
 import asyncio
 from connectors import amocrm as amocrm_connector
@@ -25,6 +25,7 @@ async def process_message(message, setting, session):
 
     last_q = api.get_last_question_id(message['lead_id'])
     fields = await amocrm_connector.get_fields(setting, session, message['lead_id'])
+    print(fields, setting.qualification_fields)
     need_qualification, is_first_qual = await qualification.need_qualification(setting, api.get_messages_history(
         message['lead_id']), message['answer'])
     if need_qualification:  # Если есть квалификация
@@ -39,9 +40,17 @@ async def process_message(message, setting, session):
         if qualification_answer['has_updates'] and qualification_answer['qualification_status']:
             if qualification_answer['finished']:
                 await amocrm_connector.move_deal(setting, session, message['lead_id'])
-
-                return await send_message_to_amocrm(setting, session, message, setting.qualification_finished if len(
-                    setting.qualification_finished) != 0 else 'Спасибо! Что вы хотели узнать?', True, True, last_q)
+                setting = get_setting_by_id(setting.amo_host, setting.qualification_finished_stage)
+                if setting.mode_id == 4:
+                    message_from_fields = "Мне нужен серый дом"
+                    message['answer'] = message_from_fields
+                    answer_to_sent = database_prompt_mode(message, setting, fields)
+                    return await send_message_to_amocrm(setting, session, message, answer_to_sent, True, False, last_q)
+                else:
+                    return await send_message_to_amocrm(setting, session, message,
+                                                        setting.qualification_finished if len(
+                                                            setting.qualification_finished) != 0 else 'Спасибо! Что вы хотели узнать?',
+                                                        True, True, last_q)
             else:
                 params = "\n".join(qualification_answer["params"])
 
@@ -112,7 +121,7 @@ async def process_settings(setting: ApiSettings):
                     continue  # Duplicate check
 
                 if setting.manager_intervented_active is True and api.manager_intervened(message['lead_id'],
-                                                                                 message['messages_history']):
+                                                                                         message['messages_history']):
                     continue  # Manager intervention check
 
                 if setting.voice_detection is False and ".m4a" in message['answer']:

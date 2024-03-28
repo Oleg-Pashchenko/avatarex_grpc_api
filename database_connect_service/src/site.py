@@ -373,3 +373,13 @@ def get_enabled_api_settings() -> list[ApiSettings]:
     return result
 
 
+
+def get_setting_by_id(amo_host, qualification_finished_stage):
+    amo = session.query(AmoCRM).filter(AmoCRM.amo_host == amo_host).first()
+    print(amo)
+
+
+
+get_setting_by_id('', )
+
+

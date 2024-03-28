@@ -17,3 +17,15 @@ async def send_message(setting, message, answer_to_sent):
     api.add_message(message.id, message.lead_id, message_text, True)
 
     print(response.text)
+
+
+async def get_fields(setting, lead_id):
+    pass
+
+
+async def set_fields(setting, command, lead_id):
+    pass
+
+
+async def move_deal(lead_id, new_stage):
+    pass
