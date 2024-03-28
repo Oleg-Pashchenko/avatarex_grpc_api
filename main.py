@@ -50,6 +50,7 @@ async def process_message(message, setting, session):
                                 if int(af['id']) == int(qf['amo_id']):
                                     print(qf, af)
 
+
                                     message_from_fields += f'{af["name"]} - {af["active_value"]} '
                                     break
                     print(message_from_fields)
