@@ -7,6 +7,8 @@ from modes import modes, database_prompt_mode
 from qualification_mode_service import client as qualification
 import asyncio
 from connectors import amocrm as amocrm_connector
+from datetime import datetime
+import pytz
 
 
 async def send_message_to_amocrm(setting, session, message, text, is_bot, is_q=False, last_q=''):
@@ -53,8 +55,10 @@ async def process_message(message, setting, session):
                                     break
 
                     message['answer'] = message_from_fields
+                    print(message['answer'])
                     answer_to_sent = await database_prompt_mode(message, setting_2, fields)
-                    return await send_message_to_amocrm(setting_2, session, message, answer_to_sent, True, False, last_q)
+                    return await send_message_to_amocrm(setting_2, session, message, answer_to_sent, True, False,
+                                                        last_q)
                 else:
                     return await send_message_to_amocrm(setting, session, message,
                                                         setting.qualification_finished if len(
@@ -76,39 +80,19 @@ async def process_message(message, setting, session):
             answer_to_sent = answer_to_sent + f'\n{params}' + '\n' + qualification_answer['message']
             return await send_message_to_amocrm(setting, session, message, answer_to_sent, True, False, last_q)
 
-    # if 'Идет поиск' in api.get_last_activity_text(message['lead_id']):
-    #    return
-
-    # if setting.mode_id == 4:
-    #      await amocrm.send_message(
-    #         setting.amo_host,
-    #         setting.amo_email,
-    #         setting.amo_password,
-    #         'Идет поиск..',
-    #         message.chat_id,
-    #     )
-    # Если нет квалификации
     mode_function = modes.get(setting.mode_id, lambda: "Invalid Mode")
     answer_to_sent = await mode_function(message, setting, fields)
     return await send_message_to_amocrm(setting, session, message, answer_to_sent, True, False, last_q)
 
 
 def is_time_between(start_time_str, end_time_str):
-    from datetime import datetime
-
-    # Получаем текущее время
-    import pytz
-
     moscow_tz = pytz.timezone('Europe/Moscow')
     now = datetime.now(moscow_tz).time()
-    # Преобразуем строки времени в объекты времени
     start_time = datetime.strptime(start_time_str, "%H:%M").time()
     end_time = datetime.strptime(end_time_str, "%H:%M").time()
-    # Проверяем, находится ли текущее время между заданными временами
     if start_time <= end_time:
         return start_time <= now <= end_time
     else:
-        # Если время начала больше времени окончания, проверяем два условия
         return start_time <= now or now <= end_time
 
 
@@ -119,16 +103,17 @@ async def process_settings(setting: ApiSettings):
 
         if setting.is_date_work_active and not is_time_between(setting.datetimeValueStart, setting.datetimeValueFinish):
             return
-        session = sessions.get_session(setting.amo_host)  # hard
+        session = sessions.get_session(setting.amo_host)
         if session is None:
             return
-        messages = await amocrm_connector.read_messages(setting, session)  # hard
+        messages = await amocrm_connector.read_messages(setting, session)
         for message in messages:
             try:
                 if api.message_exists(message['lead_id'], message['id']):
                     continue  # Duplicate check
 
-                if setting.manager_intervented_active is True and api.manager_intervened(setting.interventedtimeValue, message['lead_id'],
+                if setting.manager_intervented_active is True and api.manager_intervened(setting.interventedtimeValue,
+                                                                                         message['lead_id'],
                                                                                          message['messages_history']):
                     continue  # Manager intervention check
 
@@ -149,11 +134,8 @@ async def process_settings(setting: ApiSettings):
 
 
 async def cycle():
-    tick = 0
     while True:
-        tick += 1
-        # if tick % 30 == 0 or tick == 1:
-        settings = get_enabled_api_settings()  # Получение настроек API
+        settings = get_enabled_api_settings()
         tasks = [process_settings(setting) for setting in settings]
 
         await asyncio.gather(*tasks)
