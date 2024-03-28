@@ -85,6 +85,7 @@ class ApiSettings:
     is_date_work_active: bool
     datetimeValueStart: str
     datetimeValueFinish: str
+    interventedtimeValue: int
 
 
 @dataclasses.dataclass
@@ -117,6 +118,7 @@ class Settings:
     prompt_settings_id: int
     fields: list
     is_manager_intervented_active: bool
+    interventedtimeValue: int
 
     database_data: list
     database_link: str

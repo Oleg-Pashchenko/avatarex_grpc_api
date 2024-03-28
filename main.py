@@ -128,7 +128,7 @@ async def process_settings(setting: ApiSettings):
                 if api.message_exists(message['lead_id'], message['id']):
                     continue  # Duplicate check
 
-                if setting.manager_intervented_active is True and api.manager_intervened(message['lead_id'],
+                if setting.manager_intervented_active is True and api.manager_intervened(setting.interventedtimeValue, message['lead_id'],
                                                                                          message['messages_history']):
                     continue  # Manager intervention check
 

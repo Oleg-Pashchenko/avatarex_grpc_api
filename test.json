@@ -1,10 +1,193 @@
- {'fields': [{'id': 1266839, 'name': 'Колличество семей', 'type': 'select', 'active_value': '5', 'possible_values': None}, {'id': 1266841, 'name': 'Колличество мониторов', 'type': 'select', 'active_value': '7', 'possible_values': None}, {'id': 1266843, 'name': 'Функция отпечатка пальца', 'type': 'select', 'active_value': 'нет', 'possible_values': None}, {'id': 1266845, 'name': 'Размер монитора в дюймах', 'type': 'select', 'active_value': '4,3', 'possible_values': None}], 'all_fields': [
-{'id': 1257668, 'name': 'ANREDE', 'type': 'text', 'active_value': None, 'possible_values': []}, {'id': 1257670, 'name': 'STRASSE', 'type': 'text', 'active_value': None, 'possible_values': []}, {'id': 1257672, 'name': 'LAND', 'type': 'text', 'active_value': None, 'possible_values': []}, {'id': 1257674, 'name': 'PLZ', 'type': 'text', 'active_value': None, 'possible_values': []}, {'id': 1257676, 'name': 'ORT', 'type': 'text', 'active_value': None, 'possible_values': []}, {'id': 1257680, 'name': 'QUELLE', 'type': 'text', 'active_value': None, 'possible_values': []}, {'id': 1257682, 'name': 'ZUSATZ', 'type': 'text', 'active_value': None, 'possible_values': []}, {'id': 1266839, 'name': 'Колличество семей', 'type': 'select', 'active_value': None, 'possible_values': [{'id': 914757, 'value': '1', 'sort': 500}, {'id': 914759, 'value': '5', 'sort': 1}, {'id': 914761, 'value': '7', 'sort': 2}]}, {'id': 1266841, 'name': 'Колличество мониторов', 'type': 'select', 'active_value': None, 'possible_values': [{'id': 914763, 'value': '4', 'sort': 500}, {'id': 914765, 'value': '5', 'sort': 1}, {'id': 914767, 'value': '7', 'sort': 2}]}, {'id': 1266843, 'name': 'Функция отпечатка пальца', 'type': 'select', 'active_value': None, 'possible_values': [{'id': 914769, 'value': 'да', 'sort': 500}, {'id': 914771, 'value': 'нет', 'sort': 1}]}, {'id': 1266845, 'name': 'Размер монитора в дюймах', 'type': 'select', 'active_value': None, 'possible_values': [{'id': 914773, 'value': '7', 'sort': 500}, {'id': 914775, 'value': '4,3', 'sort': 1}]}, {'id': 1266847, 'name': 'Цена', 'type': 'select', 'active_value': None, 'possible_values': [{'id': 914777, 'value': '1099', 'sort': 500}, {'id': 914779, 'value': '1519', 'sort': 1}, {'id': 914781, 'value': '1399', 'sort': 2}, {'id': 914783, 'value': '1719', 'sort': 3}]}
-]} [
-{'amo_id': '1257668', 'enabled': False, 'message': '', 'field_name': 'ANREDE', 'additional_messages': []}, {'amo_id': '1257668', 'enabled': False, 'message': '', 'field_name': 'ANREDE', 'additional_messages': []}, {'amo_id': '1257672', 'enabled': False, 'message': '', 'field_name': 'LAND', 'additional_messages': []}, {'amo_id': '1257672', 'enabled': False, 'message': '', 'field_name': 'LAND', 'additional_messages': []}, {'amo_id': '1257670', 'enabled': False, 'message': '', 'field_name': 'STRASSE', 'additional_messages': []}, {'amo_id': '1257670', 'enabled': False, 'message': '', 'field_name': 'STRASSE', 'additional_messages': []}, {'amo_id': '1257680', 'enabled': False, 'message': '', 'field_name': 'QUELLE', 'additional_messages': []}, {'amo_id': '1257680', 'enabled': False, 'message': '', 'field_name': 'QUELLE', 'additional_messages': []}, {'amo_id': '1257674', 'enabled': False, 'message': '', 'field_name': 'PLZ', 'additional_messages': []}, {'amo_id': '1257674', 'enabled': False, 'message': '', 'field_name': 'PLZ', 'additional_messages': []}, {'amo_id': '1257676', 'enabled': False, 'message': '', 'field_name': 'ORT', 'additional_messages': []}, {'amo_id': '1257676', 'enabled': False, 'message': '', 'field_name': 'ORT', 'additional_messages': []}, {'amo_id': '1257682', 'enabled': False, 'message': '', 'field_name': 'ZUSATZ', 'additional_messages': []}, {'amo_id': '1257682', 'enabled': False, 'message': '', 'field_name': 'ZUSATZ', 'additional_messages': []}, {'amo_id': '1266839', 'enabled': True, 'message': 'Какое количество семей?', 'field_name': 'Колличество семей', 'additional_messages': []}, {'amo_id': '1266839', 'enabled': True, 'message': 'Какое количество семей?', 'field_name': 'Колличество семей', 'additional_messages': []}, {'amo_id': '1266841', 'enabled': True, 'message': 'Какое количество мониторов?', 'field_name': 'Колличество мониторов', 'additional_messages': []}, {'amo_id': '1266841', 'enabled': True, 'message': 'Какое количество мониторов?', 'field_name': 'Колличество мониторов', 'additional_messages': []}, {'amo_id': '1266843', 'enabled': True, 'message': 'Нужна ли функция отпечатка пальцев?', 'field_name': 'Функция отпечатка пальца', 'additional_messages': []}, {'amo_id': '1266843', 'enabled': True, 'message': 'Нужна ли функция отпечатка пальцев?', 'field_name': 'Функция отпечатка пальца', 'additional_messages': []}, {'amo_id': '1266845', 'enabled': True, 'message': 'Какой размер монитора?', 'field_name': 'Размер монитора в дюймах', 'additional_messages': []}, {'amo_id': '1266845', 'enabled': True, 'message': 'Какой размер монитора?', 'field_name': 'Размер монитора в дюймах', 'additional_messages': []}, {'amo_id': '1266847', 'enabled': True, 'message': 'Какая цена? ', 'field_name': 'Цена', 'additional_messages': []}, {'amo_id': '1266847', 'enabled': True, 'message': 'Какая цена? ', 'field_name': 'Цена', 'additional_messages': []}
-]
-core_service-1  | ApiSettings(id=527, pipeline_id_id=257, mode_id=1, voice_detection=True, model_title='gpt-4-0125-preview', model_limit=128000, pipeline_id=7850431, statuses_ids=[63412155], use_amocrm_fields=True, amocrm_fields=[], qualification_fields=[
-{'amo_id': '1257668', 'enabled': False, 'message': '', 'field_name': 'ANREDE', 'additional_messages': []}, {'amo_id': '1257668', 'enabled': False, 'message': '', 'field_name': 'ANREDE', 'additional_messages': []}, {'amo_id': '1257670', 'enabled': False, 'message': '', 'field_name': 'STRASSE', 'additional_messages': []}, {'amo_id': '1257670', 'enabled': False, 'message': '', 'field_name': 'STRASSE', 'additional_messages': []}, {'amo_id': '1257672', 'enabled': False, 'message': '', 'field_name': 'LAND', 'additional_messages': []}, {'amo_id': '1257672', 'enabled': False, 'message': '', 'field_name': 'LAND', 'additional_messages': []}, {'amo_id': '1257674', 'enabled': False, 'message': '', 'field_name': 'PLZ', 'additional_messages': []}, {'amo_id': '1257674', 'enabled': False, 'message': '', 'field_name': 'PLZ', 'additional_messages': []}, {'amo_id': '1257676', 'enabled': False, 'message': '', 'field_name': 'ORT', 'additional_messages': []}, {'amo_id': '1257676', 'enabled': False, 'message': '', 'field_name': 'ORT', 'additional_messages': []}, {'amo_id': '1257680', 'enabled': False, 'message': '', 'field_name': 'QUELLE', 'additional_messages': []}, {'amo_id': '1257680', 'enabled': False, 'message': '', 'field_name': 'QUELLE', 'additional_messages': []}, {'amo_id': '1257682', 'enabled': False, 'message': '', 'field_name': 'ZUSATZ', 'additional_messages': []}, {'amo_id': '1257682', 'enabled': False, 'message': '', 'field_name': 'ZUSATZ', 'additional_messages': []}
-], qualification_finished='', hi_message='', openai_error_message='', avatarex_error_message='', prompt_context='', max_tokens=1000, temperature=1.0, fine_tuned_model='', use_fine_tuned=False, manager_intervented_active=False, amo_email='domofon990@gmail.com', amo_password='FP96jO8C', amo_host='https://domofon990.kommo.com/', api_token='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', knowledge_data=[], assistant_id='', database_data=[
-{'Артикул производителия': 'ERA-KIT-1FAM4-WIFI-FN-EVO-7M-WIFI-SILVER-XB BUS', 'Производитель': 'BALTER', 'Название продукта': '\nBalter ERA видеодомофон', 'Колличество семей': 1, 'Колличество мониторов': 4.0, 'Функция отпечатка пальца': 'да', 'Цвет внутренней станции': 'белый ', 'Цвет дверной станции': 'серебряный', 'RFID-ключи': 19.0, 'Размер монитора в дюймах': 7.0, 'Цена ': 2479, 'Максимальная длительность доставки в днях': 2, 'Ссылка': 'https://www.ihrschutz24.de/Video-Tuersprechanlagen/Balter-ERA-Video-Tuersprechanlage-mit-Fingerprint-fuer-1-Familienhaus-mit-4x-7--Monitor.html?combi_id=115471'}, {'Артикул производителия': 'ERA-KIT-1FAM4-WIFI-FN-EVO-7M-WIFI-BLACK-SILVER-XB BUS', 'Производитель': 'BALTER', 'Название продукта': 'Balter ERA видеодомофон', 'Колличество семей': 1, 'Колличество мониторов': 4.0, 'Функция отпечатка пальца': 'да', 'Цвет внутренней станции': 'черный', 'Цвет дверной станции': 'серебряный', 'RFID-ключи': 19.0, 'Размер монитора в дюймах': 7.0, 'Цена ': 2479, 'Максимальная длительность доставки в днях': 2, 'Ссылка': 'https://www.ihrschutz24.de/Video-Tuersprechanlagen/Balter-ERA-Video-Tuersprechanlage-mit-Fingerprint-fuer-1-Familienhaus-mit-4x-7--Monitor.html?combi_id=115472'}, {'Артикул производителия': 'ERA-KIT-1FAM4-WIFI-FN-EVO-7M-WIFI-SILVER-XB BUS', 'Производитель': 'BALTER', 'Название продукта': 'Balter ERA видеодомофон ', 'Колличество семей': 1, 'Колличество мониторов': 4.0, 'Функция отпечатка пальца': 'да', 'Цвет внутренней станции': 'белый ', 'Цвет дверной станции': 'серебряный', 'RFID-ключи': 20.0, 'Размер монитора в дюймах': 7.0, 'Цена ': 2489, 'Максимальная длительность доставки в днях': 2, 'Ссылка': 'https://www.ihrschutz24.de/Video-Tuersprechanlagen/Balter-ERA-Video-Tuersprechanlage-mit-Fingerprint-fuer-1-Familienhaus-mit-4x-7--Monitor.html?combi_id=115473'}, {'Артикул производителия': 'ERA-KIT-1FAM4-WIFI-FN-EVO-7M-WIFI-BLACK-SILVER-XB BUS', 'Производитель': 'BALTER', 'Название продукта': 'Balter ERA видеодомофон', 'Колличество семей': 1, 'Колличество мониторов': 4.0, 'Функция отпечатка пальца': 'да', 'Цвет внутренней станции': 'черный', 'Цвет дверной станции': 'серебряный', 'RFID-ключи': 20.0, 'Размер монитора в дюймах': 7.0, 'Цена ': 2489, 'Максимальная длительность доставки в днях': 2, 'Ссылка': 'https://www.ihrschutz24.de/Video-Tuersprechanlagen/Balter-ERA-Video-Tuersprechanlage-mit-Fingerprint-fuer-1-Familienhaus-mit-4x-7--Monitor.html?combi_id=115474'}, {'Артикул производителия': 'EVO-QUICK-5FAM-AG', 'Производитель': 'BALTER', 'Название продукта': 'Видеодомофон BALTER EVO QUICK', 'Колличество семей': 5, 'Колличество мониторов': 5.0, 'Функция отпечатка пальца': 'нет', 'Цвет внутренней станции': nan, 'Цвет дверной станции': 'антрацитово-серый', 'RFID-ключи': nan, 'Размер монитора в дюймах': 4.3, 'Цена ': 1219, 'Максимальная длительность доставки в днях': 2, 'Ссылка': 'https://www.ihrschutz24.de/Video-Tuersprechanlagen/Balter-Video-Tuersprechanlagen/Video-Tuersprechanlage-BALTER-EVO-QUICK-fuer-5-Familienhaus-mit-5x-4-3-Zoll-Monitor.html?combi_id=115475'}, {'Артикул производителия': 'EVO-QUICK-5FAM-SL', 'Производитель': 'BALTER', 'Название продукта': '\nВидеодомофон BALTER EVO QUICK', 'Колличество семей': 5, 'Колличество мониторов': 5.0, 'Функция отпечатка пальца': 'нет', 'Цвет внутренней станции': nan, 'Цвет дверной станции': 'серебряный', 'RFID-ключи': nan, 'Размер монитора в дюймах': 4.3, 'Цена ': 1099, 'Максимальная длительность доставки в днях': 2, 'Ссылка': 'https://www.ihrschutz24.de/Video-Tuersprechanlagen/Balter-Video-Tuersprechanlagen/Video-Tuersprechanlage-BALTER-EVO-QUICK-fuer-5-Familienhaus-mit-5x-4-3-Zoll-Monitor.html?combi_id=115476'}, {'Артикул производителия': 'EVO-QUICK-7FAM-AG', 'Производитель': 'BALTER', 'Название продукта': '\nВидеодомофон BALTER EVO QUICK ', 'Колличество семей': 7, 'Колличество мониторов': 7.0, 'Функция отпечатка пальца': 'нет', 'Цвет внутренней станции': nan, 'Цвет дверной станции': 'антрацитово-серый', 'RFID-ключи': nan, 'Размер монитора в дюймах': 4.3, 'Цена ': 1519, 'Максимальная длительность доставки в днях': 2, 'Ссылка': 'https://www.ihrschutz24.de/Video-Tuersprechanlagen/Balter-Video-Tuersprechanlagen/Video-Tuersprechanlage-BALTER-EVO-QUICK-fuer-7-Familienhaus-mit-7x-4-3-Zoll-Monitor.html?combi_id=115477'}, {'Артикул производителия': 'EVO-QUICK-7FAM-SL', 'Производитель': 'BALTER', 'Название продукта': 'Видеодомофон BALTER EVO QUICK ', 'Колличество семей': 7, 'Колличество мониторов': 7.0, 'Функция отпечатка пальца': 'нет', 'Цвет внутренней станции': nan, 'Цвет дверной станции': 'серебряный', 'RFID-ключи': nan, 'Размер монитора в дюймах': 4.3, 'Цена ': 1399, 'Максимальная длительность доставки в днях': 2, 'Ссылка': 'https://www.ihrschutz24.de/Video-Tuersprechanlagen/Balter-Video-Tuersprechanlagen/Video-Tuersprechanlage-BALTER-EVO-QUICK-fuer-7-Familienhaus-mit-7x-4-3-Zoll-Monitor.html?combi_id=115478'}, {'Артикул производителия': 'EVO-KIT-5FAM-EVO-7M-AG', 'Производитель': 'BALTER', 'Название продукта': '\nBALTER EVO видеодомофон на 2-проводной шине BUS ', 'Колличество семей': 5, 'Колличество мониторов': nan, 'Функция отпечатка пальца': 'нет', 'Цвет внутренней станции': 'белый ', 'Цвет дверной станции': 'антрацитово-серый', 'RFID-ключи': nan, 'Размер монитора в дюймах': nan, 'Цена ': 1719, 'Максимальная длительность доставки в днях': 2, 'Ссылка': 'https://www.ihrschutz24.de/Video-Tuersprechanlagen/Balter-Video-Tuersprechanlagen/BALTER-EVO-Video-Tuersprechanlage-2-Draht-BUS-fuer-5-Familienhaus.html?combi_id=115479'}, {'Артикул производителия': 'EVO-KIT-5FAM-EVO-7M-BLACK-AG', 'Производитель': 'BALTER', 'Название продукта': 'BALTER EVO видеодомофон на 2-проводной шине BUS', 'Колличество семей': 5, 'Колличество мониторов': nan, 'Функция отпечатка пальца': 'нет', 'Цвет внутренней станции': 'черный', 'Цвет дверной станции': 'антрацитово-серый', 'RFID-ключи': nan, 'Размер монитора в дюймах': nan, 'Цена ': 1719, 'Максимальная длительность доставки в днях': 2, 'Ссылка': 'https://www.ihrschutz24.de/Video-Tuersprechanlagen/Balter-Video-Tuersprechanlagen/BALTER-EVO-Video-Tuersprechanlage-2-Draht-BUS-fuer-5-Familienhaus.html?combi_id=115480'}, {'Артикул производителия': 'EVO-KIT-5FAM-EVO-7M-SL', 'Производитель': 'BALTER', 'Название продукта': '\nBALTER EVO видеодомофон на 2-проводной шине BUS ', 'Колличество семей': 5, 'Колличество мониторов': nan, 'Функция отпечатка пальца': 'нет', 'Цвет внутренней станции': 'белый ', 'Цвет дверной станции': 'серебряный', 'RFID-ключи': nan, 'Размер монитора в дюймах': nan, 'Цена ': 1599, 'Максимальная длительность доставки в днях': 2, 'Ссылка': 'https://www.ihrschutz24.de/Video-Tuersprechanlagen/Balter-Video-Tuersprechanlagen/BALTER-EVO-Video-Tuersprechanlage-2-Draht-BUS-fuer-5-Familienhaus.html?combi_id=115481'}, {'Артикул производителия': 'EVO-KIT-5FAM-EVO-7M-BLACK-SL', 'Производитель': 'BALTER', 'Название продукта': '\nBALTER EVO видеодомофон на 2-проводной шине BUS ', 'Колличество семей': 5, 'Колличество мониторов': nan, 'Функция отпечатка пальца': 'нет', 'Цвет внутренней станции': 'черный', 'Цвет дверной станции': 'серебряный', 'RFID-ключи': nan, 'Размер монитора в дюймах': nan, 'Цена ': 1599, 'Максимальная длительность доставки в днях': 2, 'Ссылка': 'https://www.ihrschutz24.de/Video-Tuersprechanlagen/Balter-Video-Tuersprechanlagen/BALTER-EVO-Video-Tuersprechanlage-2-Draht-BUS-fuer-5-Familienhaus.html?combi_id=115482'}
-], search_rules={}, message_format='Говори вежливо', repeat=1, trigger_phrases=[''], qualification_finished_stage='0', is_date_work_active=False, datetimeValueStart='', datetimeValueFinish='')
+{
+  "fields": [
+    {
+      "id": 1266839,
+      "name": "Колличество семей",
+      "type": "select",
+      "active_value": "5",
+      "possible_values": null
+    },
+    {
+      "id": 1266841,
+      "name": "Колличество мониторов",
+      "type": "select",
+      "active_value": "7",
+      "possible_values": null
+    },
+    {
+      "id": 1266843,
+      "name": "Функция отпечатка пальца",
+      "type": "select",
+      "active_value": "нет",
+      "possible_values": null
+    },
+    {
+      "id": 1266845,
+      "name": "Размер монитора в дюймах",
+      "type": "select",
+      "active_value": "4,3",
+      "possible_values": null
+    }
+  ],
+  "all_fields": [
+    {
+      "id": 1257668,
+      "name": "ANREDE",
+      "type": "text",
+      "active_value": null,
+      "possible_values": []
+    },
+    {
+      "id": 1257670,
+      "name": "STRASSE",
+      "type": "text",
+      "active_value": null,
+      "possible_values": []
+    },
+    {
+      "id": 1257672,
+      "name": "LAND",
+      "type": "text",
+      "active_value": null,
+      "possible_values": []
+    },
+    {
+      "id": 1257674,
+      "name": "PLZ",
+      "type": "text",
+      "active_value": null,
+      "possible_values": []
+    },
+    {
+      "id": 1257676,
+      "name": "ORT",
+      "type": "text",
+      "active_value": null,
+      "possible_values": []
+    },
+    {
+      "id": 1257680,
+      "name": "QUELLE",
+      "type": "text",
+      "active_value": null,
+      "possible_values": []
+    },
+    {
+      "id": 1257682,
+      "name": "ZUSATZ",
+      "type": "text",
+      "active_value": null,
+      "possible_values": []
+    },
+    {
+      "id": 1266839,
+      "name": "Колличество семей",
+      "type": "select",
+      "active_value": null,
+      "possible_values": [
+        {
+          "id": 914757,
+          "value": "1",
+          "sort": 500
+        },
+        {
+          "id": 914759,
+          "value": "5",
+          "sort": 1
+        },
+        {
+          "id": 914761,
+          "value": "7",
+          "sort": 2
+        }
+      ]
+    },
+    {
+      "id": 1266841,
+      "name": "Колличество мониторов",
+      "type": "select",
+      "active_value": null,
+      "possible_values": [
+        {
+          "id": 914763,
+          "value": "4",
+          "sort": 500
+        },
+        {
+          "id": 914765,
+          "value": "5",
+          "sort": 1
+        },
+        {
+          "id": 914767,
+          "value": "7",
+          "sort": 2
+        }
+      ]
+    },
+    {
+      "id": 1266843,
+      "name": "Функция отпечатка пальца",
+      "type": "select",
+      "active_value": null,
+      "possible_values": [
+        {
+          "id": 914769,
+          "value": "да",
+          "sort": 500
+        },
+        {
+          "id": 914771,
+          "value": "нет",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "id": 1266845,
+      "name": "Размер монитора в дюймах",
+      "type": "select",
+      "active_value": null,
+      "possible_values": [
+        {
+          "id": 914773,
+          "value": "7",
+          "sort": 500
+        },
+        {
+          "id": 914775,
+          "value": "4,3",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "id": 1266847,
+      "name": "Цена",
+      "type": "select",
+      "active_value": null,
+      "possible_values": [
+        {
+          "id": 914777,
+          "value": "1099",
+          "sort": 500
+        },
+        {
+          "id": 914779,
+          "value": "1519",
+          "sort": 1
+        },
+        {
+          "id": 914781,
+          "value": "1399",
+          "sort": 2
+        },
+        {
+          "id": 914783,
+          "value": "1719",
+          "sort": 3
+        }
+      ]
+    }
+  ]
+} 

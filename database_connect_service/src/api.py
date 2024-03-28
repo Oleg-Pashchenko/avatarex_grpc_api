@@ -124,7 +124,7 @@ def delete_messages(lead_id):
     session.commit()
 
 
-def manager_intervened(lead_id, message_history):
+def manager_intervened(intervented_time, lead_id, message_history):
     try:
         if isinstance(message_history, str):
             message_history = json.loads(message_history)
@@ -139,7 +139,7 @@ def manager_intervened(lead_id, message_history):
                     current_datetime = datetime.datetime.now()
                     time_difference = current_datetime - datetime_from_timestamp
 
-                    if not (time_difference.total_seconds() < 60 * 60):
+                    if not (time_difference.total_seconds() < 60 * intervented_time):
                         fl = False
             except Exception as e:
                 pass
