@@ -39,16 +39,16 @@ async def process_message(message, setting, session):
         if qualification_answer['has_updates'] and qualification_answer['qualification_status']:
             if qualification_answer['finished']:
                 await amocrm_connector.move_deal(setting, session, message['lead_id'])
-                print(fields, setting.qualification_fields)
 
                 setting = get_setting_by_id(setting.amo_host, setting.qualification_finished_stage)
-                print(setting)
                 if setting and setting.mode_id == 4:
                     message_from_fields = ''
                     for qf in setting.qualification_fields:
                         if qf['enabled']:
+                            print(qf)
                             for af in fields['all_fields']:
                                 if int(af['id']) == int(qf['amo_id']):
+                                    print(qf, af)
                                     message_from_fields += f'{af["name"]} - {af["active_value"]} '
                                     break
                     print(message_from_fields)
