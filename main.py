@@ -40,10 +40,11 @@ async def process_message(message, setting, session):
             if qualification_answer['finished']:
                 await amocrm_connector.move_deal(setting, session, message['lead_id'])
 
-                setting = get_setting_by_id(setting.amo_host, setting.qualification_finished_stage)
-                if setting and setting.mode_id == 4:
+                setting_2 = get_setting_by_id(setting.amo_host, setting.qualification_finished_stage)
+                if setting_2 and setting_2.mode_id == 4:
                     message_from_fields = ''
                     for qf in setting.qualification_fields:
+                        print(qf)
                         if qf['enabled']:
                             print(qf)
                             for af in fields['all_fields']:
@@ -53,10 +54,11 @@ async def process_message(message, setting, session):
 
                                     message_from_fields += f'{af["name"]} - {af["active_value"]} '
                                     break
+
                     print(message_from_fields)
                     message['answer'] = message_from_fields
-                    answer_to_sent = await database_prompt_mode(message, setting, fields)
-                    return await send_message_to_amocrm(setting, session, message, answer_to_sent, True, False, last_q)
+                    answer_to_sent = await database_prompt_mode(message, setting_2, fields)
+                    return await send_message_to_amocrm(setting_2, session, message, answer_to_sent, True, False, last_q)
                 else:
                     return await send_message_to_amocrm(setting, session, message,
                                                         setting.qualification_finished if len(
