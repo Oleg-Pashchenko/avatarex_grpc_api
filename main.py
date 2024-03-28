@@ -42,7 +42,13 @@ async def process_message(message, setting, session):
                 await amocrm_connector.move_deal(setting, session, message['lead_id'])
                 setting = get_setting_by_id(setting.amo_host, setting.qualification_finished_stage)
                 if setting and setting.mode_id == 4:
-                    message_from_fields = "Мне нужен серый дом"
+                    message_from_fields = ''
+                    for qf in setting.qualification_fields:
+                        if qf['enabled']:
+                            for af in fields['all_fields']:
+                                if int(af['id']) == int(qf['amo_id']):
+                                    message_from_fields += f'{af["name"]} - {af["active_value"]} '
+                                    break
                     message['answer'] = message_from_fields
                     answer_to_sent = database_prompt_mode(message, setting, fields)
                     return await send_message_to_amocrm(setting, session, message, answer_to_sent, True, False, last_q)

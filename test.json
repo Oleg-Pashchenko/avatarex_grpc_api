@@ -1,940 +1,266 @@
-{
-  "message_list": [
-
-    {
-      "dialog": {
-        "id": 826,
-        "opened": true
-      },
-      "message_attributes": null,
-      "recipient": {
-        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
-        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "second_name": "",
-        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amo.ext.6247798",
-        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
-        "user_ref": "",
-        "ref": ""
-      },
-      "message": {
+[
+  {
+    "fields": [],
+    "all_fields": [
+      {
+        "id": 1257668,
+        "name": "ANREDE",
         "type": "text",
-        "text": "\u041f\u043e\u0445\u043e\u0436\u0435, \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e \u043f\u0440\u043e\u0438\u0437\u043e\u0448\u043b\u0430 \u043e\u043f\u0435\u0447\u0430\u0442\u043a\u0430. \u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u0412\u0430\u043c \u043f\u043e\u043c\u043e\u0447\u044c? \u0415\u0441\u043b\u0438 \u0443 \u0412\u0430\u0441 \u0435\u0441\u0442\u044c \u0432\u043e\u043f\u0440\u043e\u0441\u044b \u043a\u0430\u0441\u0430\u0442\u0435\u043b\u044c\u043d\u043e \u043d\u0430\u0448\u0438\u0445 \u0441\u0435\u043f\u0442\u0438\u043a\u043e\u0432, \u043f\u043e\u0433\u0440\u0435\u0431\u043e\u0432, \u043a\u0435\u0441\u0441\u043e\u043d\u043e\u0432 \u0438\u043b\u0438 \u0443\u0441\u043b\u0443\u0433 \u043c\u043e\u043d\u0442\u0430\u0436\u0430, \u0431\u0443\u0434\u0443 \u0440\u0430\u0434 \u043f\u0440\u043e\u043a\u043e\u043d\u0441\u0443\u043b\u044c\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c!",
-        "media_file_name": "",
-        "media": "",
-        "media_200_200": "",
-        "media_320_200": "",
-        "media_duration": 0
+        "active_value": null,
+        "possible_values": []
       },
-      "author": {
-        "id": "e730570c-2330-402a-be4a-1934efdb936f",
-        "name": "Alex",
-        "second_name": "",
-        "full_name": "Alex",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amocrm",
-        "origin_profile": "",
-        "user_ref": "",
-        "ref": ""
-      },
-      "reply_markup": null,
-      "group_id": null,
-      "metadata": "",
-      "external_id": "",
-      "id": "78813069-9b73-4c21-bf70-0ffb5a07a974",
-      "callback_data": "",
-      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "text": "\u041f\u043e\u0445\u043e\u0436\u0435, \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e \u043f\u0440\u043e\u0438\u0437\u043e\u0448\u043b\u0430 \u043e\u043f\u0435\u0447\u0430\u0442\u043a\u0430. \u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u0412\u0430\u043c \u043f\u043e\u043c\u043e\u0447\u044c? \u0415\u0441\u043b\u0438 \u0443 \u0412\u0430\u0441 \u0435\u0441\u0442\u044c \u0432\u043e\u043f\u0440\u043e\u0441\u044b \u043a\u0430\u0441\u0430\u0442\u0435\u043b\u044c\u043d\u043e \u043d\u0430\u0448\u0438\u0445 \u0441\u0435\u043f\u0442\u0438\u043a\u043e\u0432, \u043f\u043e\u0433\u0440\u0435\u0431\u043e\u0432, \u043a\u0435\u0441\u0441\u043e\u043d\u043e\u0432 \u0438\u043b\u0438 \u0443\u0441\u043b\u0443\u0433 \u043c\u043e\u043d\u0442\u0430\u0436\u0430, \u0431\u0443\u0434\u0443 \u0440\u0430\u0434 \u043f\u0440\u043e\u043a\u043e\u043d\u0441\u0443\u043b\u044c\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c!",
-      "reactions": null,
-      "error": {
-        "code": 0,
-        "description": ""
-      },
-      "chat_type": 0,
-      "error_code": 0,
-      "created_at": 1709112993,
-      "msec_created_at": 1709112993776,
-      "silent": false,
-      "delivery_status": 2,
-      "has_rich_link": false,
-      "can_be_replied": true,
-      "can_be_forwarded": false,
-      "can_be_reacted": true,
-      "chat_enabled": true
-    },
-    {
-      "dialog": {
-        "id": 826,
-        "opened": true
-      },
-      "message_attributes": null,
-      "recipient": null,
-      "message": {
+      {
+        "id": 1257670,
+        "name": "STRASSE",
         "type": "text",
-        "text": "\u0422\u0435\u0441",
-        "media_file_name": "",
-        "media": "",
-        "media_200_200": "",
-        "media_320_200": "",
-        "media_duration": 0
+        "active_value": null,
+        "possible_values": []
       },
-      "author": {
-        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
-        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "second_name": "",
-        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amo.ext.6247798",
-        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
-        "user_ref": "",
-        "ref": ""
-      },
-      "reply_markup": null,
-      "group_id": null,
-      "metadata": "",
-      "external_id": "amo.ext.6247798-48BE9C929C7EA2032FD5E780A19D2942",
-      "id": "b58c1e47-010c-4924-86e3-a25e4c07240c",
-      "callback_data": "",
-      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "text": "\u0422\u0435\u0441",
-      "reactions": null,
-      "error": {
-        "code": 0,
-        "description": ""
-      },
-      "chat_type": 0,
-      "error_code": 0,
-      "created_at": 1709112963,
-      "msec_created_at": 1709112963000,
-      "silent": false,
-      "delivery_status": 0,
-      "has_rich_link": false,
-      "can_be_replied": true,
-      "can_be_forwarded": false,
-      "can_be_reacted": true,
-      "chat_enabled": true
-    },
-    {
-      "dialog": {
-        "id": 826,
-        "opened": true
-      },
-      "message_attributes": null,
-      "recipient": {
-        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
-        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "second_name": "",
-        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amo.ext.6247798",
-        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
-        "user_ref": "",
-        "ref": ""
-      },
-      "message": {
+      {
+        "id": 1257672,
+        "name": "LAND",
         "type": "text",
-        "text": "\u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u043f\u043e\u043c\u043e\u0447\u044c \u0412\u0430\u043c \u0441\u0435\u0433\u043e\u0434\u043d\u044f? \u0415\u0441\u043b\u0438 \u0443 \u0412\u0430\u0441 \u0435\u0441\u0442\u044c \u0432\u043e\u043f\u0440\u043e\u0441\u044b \u043e \u043d\u0430\u0448\u0435\u0439 \u043f\u0440\u043e\u0434\u0443\u043a\u0446\u0438\u0438 \u0438\u043b\u0438 \u0443\u0441\u043b\u0443\u0433\u0430\u0445, \u043f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u0434\u0430\u0439\u0442\u0435 \u043c\u043d\u0435 \u0437\u043d\u0430\u0442\u044c!",
-        "media_file_name": "",
-        "media": "",
-        "media_200_200": "",
-        "media_320_200": "",
-        "media_duration": 0
+        "active_value": null,
+        "possible_values": []
       },
-      "author": {
-        "id": "e730570c-2330-402a-be4a-1934efdb936f",
-        "name": "Alex",
-        "second_name": "",
-        "full_name": "Alex",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amocrm",
-        "origin_profile": "",
-        "user_ref": "",
-        "ref": ""
-      },
-      "reply_markup": null,
-      "group_id": null,
-      "metadata": "",
-      "external_id": "",
-      "id": "d9912914-f403-4e15-918e-67acc82082c3",
-      "callback_data": "",
-      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "text": "\u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u043f\u043e\u043c\u043e\u0447\u044c \u0412\u0430\u043c \u0441\u0435\u0433\u043e\u0434\u043d\u044f? \u0415\u0441\u043b\u0438 \u0443 \u0412\u0430\u0441 \u0435\u0441\u0442\u044c \u0432\u043e\u043f\u0440\u043e\u0441\u044b \u043e \u043d\u0430\u0448\u0435\u0439 \u043f\u0440\u043e\u0434\u0443\u043a\u0446\u0438\u0438 \u0438\u043b\u0438 \u0443\u0441\u043b\u0443\u0433\u0430\u0445, \u043f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u0434\u0430\u0439\u0442\u0435 \u043c\u043d\u0435 \u0437\u043d\u0430\u0442\u044c!",
-      "reactions": null,
-      "error": {
-        "code": 0,
-        "description": ""
-      },
-      "chat_type": 0,
-      "error_code": 0,
-      "created_at": 1709112858,
-      "msec_created_at": 1709112858790,
-      "silent": false,
-      "delivery_status": 2,
-      "has_rich_link": false,
-      "can_be_replied": true,
-      "can_be_forwarded": false,
-      "can_be_reacted": true,
-      "chat_enabled": true
-    },
-    {
-      "dialog": {
-        "id": 826,
-        "opened": true
-      },
-      "message_attributes": null,
-      "recipient": null,
-      "message": {
+      {
+        "id": 1257674,
+        "name": "PLZ",
         "type": "text",
-        "text": "\u0422\u0435\u0441\u0442",
-        "media_file_name": "",
-        "media": "",
-        "media_200_200": "",
-        "media_320_200": "",
-        "media_duration": 0
+        "active_value": null,
+        "possible_values": []
       },
-      "author": {
-        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
-        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "second_name": "",
-        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amo.ext.6247798",
-        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
-        "user_ref": "",
-        "ref": ""
-      },
-      "reply_markup": null,
-      "group_id": null,
-      "metadata": "",
-      "external_id": "amo.ext.6247798-679C25BF93AF78DAF57754B2E422C2D2",
-      "id": "f95d3128-1322-469f-952e-2312074ee115",
-      "callback_data": "",
-      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "text": "\u0422\u0435\u0441\u0442",
-      "reactions": null,
-      "error": {
-        "code": 0,
-        "description": ""
-      },
-      "chat_type": 0,
-      "error_code": 0,
-      "created_at": 1709112827,
-      "msec_created_at": 1709112827000,
-      "silent": false,
-      "delivery_status": 0,
-      "has_rich_link": false,
-      "can_be_replied": true,
-      "can_be_forwarded": false,
-      "can_be_reacted": true,
-      "chat_enabled": true
-    },
-    {
-      "dialog": {
-        "id": 826,
-        "opened": true
-      },
-      "message_attributes": null,
-      "recipient": {
-        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
-        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "second_name": "",
-        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amo.ext.6247798",
-        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
-        "user_ref": "",
-        "ref": ""
-      },
-      "message": {
+      {
+        "id": 1257676,
+        "name": "ORT",
         "type": "text",
-        "text": "\u042f - \u0432\u0438\u0440\u0442\u0443\u0430\u043b\u044c\u043d\u044b\u0439 \u043f\u043e\u043c\u043e\u0449\u043d\u0438\u043a, \u0441\u043e\u0437\u0434\u0430\u043d\u043d\u044b\u0439, \u0447\u0442\u043e\u0431\u044b \u043f\u0440\u0435\u0434\u043e\u0441\u0442\u0430\u0432\u043b\u044f\u0442\u044c \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044e \u043e \u043f\u0440\u043e\u0434\u0443\u043a\u0446\u0438\u0438 \u0438 \u0443\u0441\u043b\u0443\u0433\u0430\u0445 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438 \"\u0421\u041a \u0423\u0440\u0430\u043b\". \u041c\u043e\u044f \u0446\u0435\u043b\u044c - \u043f\u043e\u043c\u043e\u0447\u044c \u0412\u0430\u043c \u043f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u043d\u0443\u0436\u043d\u044b\u0435 \u0441\u0432\u0435\u0434\u0435\u043d\u0438\u044f \u043e \u043d\u0430\u0448\u0438\u0445 \u0436\u0435\u043b\u0435\u0437\u043e\u0431\u0435\u0442\u043e\u043d\u043d\u044b\u0445 \u0441\u0435\u043f\u0442\u0438\u043a\u0430\u0445, \u043f\u043e\u0433\u0440\u0435\u0431\u0430\u0445, \u043a\u0435\u0441\u0441\u043e\u043d\u0430\u0445 \u0438 \u0443\u0441\u043b\u0443\u0433\u0430\u0445 \u043c\u043e\u043d\u0442\u0430\u0436\u0430. \u0415\u0441\u043b\u0438 \u0443 \u0412\u0430\u0441 \u0435\u0441\u0442\u044c \u0432\u043e\u043f\u0440\u043e\u0441\u044b \u0438\u043b\u0438 \u0412\u044b \u0438\u0449\u0435\u0442\u0435 \u043a\u043e\u043d\u0441\u0443\u043b\u044c\u0442\u0430\u0446\u0438\u044e, \u044f \u0437\u0434\u0435\u0441\u044c, \u0447\u0442\u043e\u0431\u044b \u043f\u043e\u043c\u043e\u0447\u044c!",
-        "media_file_name": "",
-        "media": "",
-        "media_200_200": "",
-        "media_320_200": "",
-        "media_duration": 0
+        "active_value": null,
+        "possible_values": []
       },
-      "author": {
-        "id": "e730570c-2330-402a-be4a-1934efdb936f",
-        "name": "Alex",
-        "second_name": "",
-        "full_name": "Alex",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amocrm",
-        "origin_profile": "",
-        "user_ref": "",
-        "ref": ""
-      },
-      "reply_markup": null,
-      "group_id": null,
-      "metadata": "",
-      "external_id": "",
-      "id": "62d29b20-33e0-4397-83fc-11a6166af006",
-      "callback_data": "",
-      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "text": "\u042f - \u0432\u0438\u0440\u0442\u0443\u0430\u043b\u044c\u043d\u044b\u0439 \u043f\u043e\u043c\u043e\u0449\u043d\u0438\u043a, \u0441\u043e\u0437\u0434\u0430\u043d\u043d\u044b\u0439, \u0447\u0442\u043e\u0431\u044b \u043f\u0440\u0435\u0434\u043e\u0441\u0442\u0430\u0432\u043b\u044f\u0442\u044c \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044e \u043e \u043f\u0440\u043e\u0434\u0443\u043a\u0446\u0438\u0438 \u0438 \u0443\u0441\u043b\u0443\u0433\u0430\u0445 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438 \"\u0421\u041a \u0423\u0440\u0430\u043b\". \u041c\u043e\u044f \u0446\u0435\u043b\u044c - \u043f\u043e\u043c\u043e\u0447\u044c \u0412\u0430\u043c \u043f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u043d\u0443\u0436\u043d\u044b\u0435 \u0441\u0432\u0435\u0434\u0435\u043d\u0438\u044f \u043e \u043d\u0430\u0448\u0438\u0445 \u0436\u0435\u043b\u0435\u0437\u043e\u0431\u0435\u0442\u043e\u043d\u043d\u044b\u0445 \u0441\u0435\u043f\u0442\u0438\u043a\u0430\u0445, \u043f\u043e\u0433\u0440\u0435\u0431\u0430\u0445, \u043a\u0435\u0441\u0441\u043e\u043d\u0430\u0445 \u0438 \u0443\u0441\u043b\u0443\u0433\u0430\u0445 \u043c\u043e\u043d\u0442\u0430\u0436\u0430. \u0415\u0441\u043b\u0438 \u0443 \u0412\u0430\u0441 \u0435\u0441\u0442\u044c \u0432\u043e\u043f\u0440\u043e\u0441\u044b \u0438\u043b\u0438 \u0412\u044b \u0438\u0449\u0435\u0442\u0435 \u043a\u043e\u043d\u0441\u0443\u043b\u044c\u0442\u0430\u0446\u0438\u044e, \u044f \u0437\u0434\u0435\u0441\u044c, \u0447\u0442\u043e\u0431\u044b \u043f\u043e\u043c\u043e\u0447\u044c!",
-      "reactions": null,
-      "error": {
-        "code": 0,
-        "description": ""
-      },
-      "chat_type": 0,
-      "error_code": 0,
-      "created_at": 1709111430,
-      "msec_created_at": 1709111430030,
-      "silent": false,
-      "delivery_status": 2,
-      "has_rich_link": false,
-      "can_be_replied": true,
-      "can_be_forwarded": false,
-      "can_be_reacted": true,
-      "chat_enabled": true
-    },
-    {
-      "dialog": {
-        "id": 826,
-        "opened": true
-      },
-      "message_attributes": null,
-      "recipient": null,
-      "message": {
+      {
+        "id": 1257680,
+        "name": "QUELLE",
         "type": "text",
-        "text": "\u0420\u0430\u0441\u0441\u043a\u0430\u0436\u0438 \u043e \u0441\u0435\u0431\u0435",
-        "media_file_name": "",
-        "media": "",
-        "media_200_200": "",
-        "media_320_200": "",
-        "media_duration": 0
+        "active_value": null,
+        "possible_values": []
       },
-      "author": {
-        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
-        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "second_name": "",
-        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amo.ext.6247798",
-        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
-        "user_ref": "",
-        "ref": ""
-      },
-      "reply_markup": null,
-      "group_id": null,
-      "metadata": "",
-      "external_id": "amo.ext.6247798-AEE72CC3A645FD4FFF501986827A26C4",
-      "id": "91dc2e55-77f8-49f3-afdf-27de12a6dfd9",
-      "callback_data": "",
-      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "text": "\u0420\u0430\u0441\u0441\u043a\u0430\u0436\u0438 \u043e \u0441\u0435\u0431\u0435",
-      "reactions": null,
-      "error": {
-        "code": 0,
-        "description": ""
-      },
-      "chat_type": 0,
-      "error_code": 0,
-      "created_at": 1709111401,
-      "msec_created_at": 1709111401000,
-      "silent": false,
-      "delivery_status": 0,
-      "has_rich_link": false,
-      "can_be_replied": true,
-      "can_be_forwarded": false,
-      "can_be_reacted": true,
-      "chat_enabled": true
-    },
-    {
-      "dialog": {
-        "id": 826,
-        "opened": true
-      },
-      "message_attributes": null,
-      "recipient": {
-        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
-        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "second_name": "",
-        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amo.ext.6247798",
-        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
-        "user_ref": "",
-        "ref": ""
-      },
-      "message": {
+      {
+        "id": 1257682,
+        "name": "ZUSATZ",
         "type": "text",
-        "text": "\u0414\u0430, \u044f \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u043d\u043e\u0435 \u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0435\u043d\u0438\u0435, \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u0430\u043d\u043d\u043e\u0435 \u0434\u043b\u044f \u043f\u0440\u0435\u0434\u043e\u0441\u0442\u0430\u0432\u043b\u0435\u043d\u0438\u044f \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u0438 \u0438 \u043f\u043e\u043c\u043e\u0449\u0438 \u0432 \u0432\u043e\u043f\u0440\u043e\u0441\u0430\u0445, \u0441\u0432\u044f\u0437\u0430\u043d\u043d\u044b\u0445 \u0441 \u043f\u0440\u043e\u0434\u0443\u043a\u0446\u0438\u0435\u0439 \u0438 \u0443\u0441\u043b\u0443\u0433\u0430\u043c\u0438 \u043d\u0430\u0448\u0435\u0439 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438 \"\u0421\u041a \u0423\u0440\u0430\u043b\". \u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u0412\u0430\u043c \u043f\u043e\u043c\u043e\u0447\u044c?",
-        "media_file_name": "",
-        "media": "",
-        "media_200_200": "",
-        "media_320_200": "",
-        "media_duration": 0
+        "active_value": null,
+        "possible_values": []
       },
-      "author": {
-        "id": "e730570c-2330-402a-be4a-1934efdb936f",
-        "name": "Alex",
-        "second_name": "",
-        "full_name": "Alex",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amocrm",
-        "origin_profile": "",
-        "user_ref": "",
-        "ref": ""
+      {
+        "id": 1266839,
+        "name": "Колличество семей",
+        "type": "select",
+        "active_value": null,
+        "possible_values": [
+          {
+            "id": 914757,
+            "value": "1",
+            "sort": 500
+          },
+          {
+            "id": 914759,
+            "value": "5",
+            "sort": 1
+          },
+          {
+            "id": 914761,
+            "value": "7",
+            "sort": 2
+          }
+        ]
       },
-      "reply_markup": null,
-      "group_id": null,
-      "metadata": "",
-      "external_id": "",
-      "id": "fb17a5af-7efd-46d6-befd-60ea58db5f35",
-      "callback_data": "",
-      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "text": "\u0414\u0430, \u044f \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u043d\u043e\u0435 \u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0435\u043d\u0438\u0435, \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u0430\u043d\u043d\u043e\u0435 \u0434\u043b\u044f \u043f\u0440\u0435\u0434\u043e\u0441\u0442\u0430\u0432\u043b\u0435\u043d\u0438\u044f \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u0438 \u0438 \u043f\u043e\u043c\u043e\u0449\u0438 \u0432 \u0432\u043e\u043f\u0440\u043e\u0441\u0430\u0445, \u0441\u0432\u044f\u0437\u0430\u043d\u043d\u044b\u0445 \u0441 \u043f\u0440\u043e\u0434\u0443\u043a\u0446\u0438\u0435\u0439 \u0438 \u0443\u0441\u043b\u0443\u0433\u0430\u043c\u0438 \u043d\u0430\u0448\u0435\u0439 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438 \"\u0421\u041a \u0423\u0440\u0430\u043b\". \u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u0412\u0430\u043c \u043f\u043e\u043c\u043e\u0447\u044c?",
-      "reactions": null,
-      "error": {
-        "code": 0,
-        "description": ""
+      {
+        "id": 1266841,
+        "name": "Колличество мониторов",
+        "type": "select",
+        "active_value": null,
+        "possible_values": [
+          {
+            "id": 914763,
+            "value": "4",
+            "sort": 500
+          },
+          {
+            "id": 914765,
+            "value": "5",
+            "sort": 1
+          },
+          {
+            "id": 914767,
+            "value": "7",
+            "sort": 2
+          }
+        ]
       },
-      "chat_type": 0,
-      "error_code": 0,
-      "created_at": 1709111363,
-      "msec_created_at": 1709111363438,
-      "silent": false,
-      "delivery_status": 2,
-      "has_rich_link": false,
-      "can_be_replied": true,
-      "can_be_forwarded": false,
-      "can_be_reacted": true,
-      "chat_enabled": true
-    },
-    {
-      "dialog": {
-        "id": 826,
-        "opened": true
+      {
+        "id": 1266843,
+        "name": "Функция отпечатка пальца",
+        "type": "select",
+        "active_value": null,
+        "possible_values": [
+          {
+            "id": 914769,
+            "value": "да",
+            "sort": 500
+          },
+          {
+            "id": 914771,
+            "value": "нет",
+            "sort": 1
+          }
+        ]
       },
-      "message_attributes": null,
-      "recipient": null,
-      "message": {
-        "type": "text",
-        "text": "\u0422\u044b \u043d\u0435\u0439\u0440\u043e\u0441\u0435\u0442\u044c?",
-        "media_file_name": "",
-        "media": "",
-        "media_200_200": "",
-        "media_320_200": "",
-        "media_duration": 0
+      {
+        "id": 1266845,
+        "name": "Размер монитора в дюймах",
+        "type": "select",
+        "active_value": null,
+        "possible_values": [
+          {
+            "id": 914773,
+            "value": "7",
+            "sort": 500
+          },
+          {
+            "id": 914775,
+            "value": "4,3",
+            "sort": 1
+          }
+        ]
       },
-      "author": {
-        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
-        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "second_name": "",
-        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amo.ext.6247798",
-        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
-        "user_ref": "",
-        "ref": ""
-      },
-      "reply_markup": null,
-      "group_id": null,
-      "metadata": "",
-      "external_id": "amo.ext.6247798-DD263B3FCCEFFABA6CDA2B1E1B5DBC3A",
-      "id": "601e90f6-d097-425a-ac1f-fedf246ca5ff",
-      "callback_data": "",
-      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "text": "\u0422\u044b \u043d\u0435\u0439\u0440\u043e\u0441\u0435\u0442\u044c?",
-      "reactions": null,
-      "error": {
-        "code": 0,
-        "description": ""
-      },
-      "chat_type": 0,
-      "error_code": 0,
-      "created_at": 1709111308,
-      "msec_created_at": 1709111308000,
-      "silent": false,
-      "delivery_status": 0,
-      "has_rich_link": false,
-      "can_be_replied": true,
-      "can_be_forwarded": false,
-      "can_be_reacted": true,
-      "chat_enabled": true
-    },
-    {
-      "dialog": {
-        "id": 826,
-        "opened": true
-      },
-      "message_attributes": null,
-      "recipient": {
-        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
-        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "second_name": "",
-        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amo.ext.6247798",
-        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
-        "user_ref": "",
-        "ref": ""
-      },
-      "message": {
-        "type": "text",
-        "text": "\u042f \u0430\u0441\u0441\u0438\u0441\u0442\u0435\u043d\u0442 \u043c\u0435\u043d\u0435\u0434\u0436\u0435\u0440\u0430 \u043f\u0440\u043e\u0434\u0430\u0436 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438 \"\u0421\u041a \u0423\u0440\u0430\u043b\", \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u0438\u0437\u0438\u0440\u0443\u044e\u0449\u0435\u0439\u0441\u044f \u043d\u0430 \u043f\u0440\u043e\u0434\u0430\u0436\u0435 \u0438 \u043c\u043e\u043d\u0442\u0430\u0436\u0435 \u0436\u0435\u043b\u0435\u0437\u043e\u0431\u0435\u0442\u043e\u043d\u043d\u044b\u0445 \u0441\u0435\u043f\u0442\u0438\u043a\u043e\u0432, \u043f\u043e\u0433\u0440\u0435\u0431\u043e\u0432 \u0438 \u043a\u0435\u0441\u0441\u043e\u043d\u043e\u0432. \u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u043f\u043e\u043c\u043e\u0447\u044c \u0412\u0430\u043c \u0441\u0435\u0433\u043e\u0434\u043d\u044f?",
-        "media_file_name": "",
-        "media": "",
-        "media_200_200": "",
-        "media_320_200": "",
-        "media_duration": 0
-      },
-      "author": {
-        "id": "e730570c-2330-402a-be4a-1934efdb936f",
-        "name": "Alex",
-        "second_name": "",
-        "full_name": "Alex",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amocrm",
-        "origin_profile": "",
-        "user_ref": "",
-        "ref": ""
-      },
-      "reply_markup": null,
-      "group_id": null,
-      "metadata": "",
-      "external_id": "",
-      "id": "c2a1f436-3c52-42b5-b89f-09bd0b616847",
-      "callback_data": "",
-      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "text": "\u042f \u0430\u0441\u0441\u0438\u0441\u0442\u0435\u043d\u0442 \u043c\u0435\u043d\u0435\u0434\u0436\u0435\u0440\u0430 \u043f\u0440\u043e\u0434\u0430\u0436 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438 \"\u0421\u041a \u0423\u0440\u0430\u043b\", \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u0438\u0437\u0438\u0440\u0443\u044e\u0449\u0435\u0439\u0441\u044f \u043d\u0430 \u043f\u0440\u043e\u0434\u0430\u0436\u0435 \u0438 \u043c\u043e\u043d\u0442\u0430\u0436\u0435 \u0436\u0435\u043b\u0435\u0437\u043e\u0431\u0435\u0442\u043e\u043d\u043d\u044b\u0445 \u0441\u0435\u043f\u0442\u0438\u043a\u043e\u0432, \u043f\u043e\u0433\u0440\u0435\u0431\u043e\u0432 \u0438 \u043a\u0435\u0441\u0441\u043e\u043d\u043e\u0432. \u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u043f\u043e\u043c\u043e\u0447\u044c \u0412\u0430\u043c \u0441\u0435\u0433\u043e\u0434\u043d\u044f?",
-      "reactions": null,
-      "error": {
-        "code": 0,
-        "description": ""
-      },
-      "chat_type": 0,
-      "error_code": 0,
-      "created_at": 1709111293,
-      "msec_created_at": 1709111293948,
-      "silent": false,
-      "delivery_status": 2,
-      "has_rich_link": false,
-      "can_be_replied": true,
-      "can_be_forwarded": false,
-      "can_be_reacted": true,
-      "chat_enabled": true
-    },
-    {
-      "dialog": {
-        "id": 826,
-        "opened": true
-      },
-      "message_attributes": null,
-      "recipient": null,
-      "message": {
-        "type": "text",
-        "text": "\u0422\u044b \u043a\u0442\u043e",
-        "media_file_name": "",
-        "media": "",
-        "media_200_200": "",
-        "media_320_200": "",
-        "media_duration": 0
-      },
-      "author": {
-        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
-        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "second_name": "",
-        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amo.ext.6247798",
-        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
-        "user_ref": "",
-        "ref": ""
-      },
-      "reply_markup": null,
-      "group_id": null,
-      "metadata": "",
-      "external_id": "amo.ext.6247798-DEF12E57E0D301A6F786EB1E1984D8C8",
-      "id": "611895d2-fe20-4901-a8ef-3ccf4a2931d1",
-      "callback_data": "",
-      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "text": "\u0422\u044b \u043a\u0442\u043e",
-      "reactions": null,
-      "error": {
-        "code": 0,
-        "description": ""
-      },
-      "chat_type": 0,
-      "error_code": 0,
-      "created_at": 1709111200,
-      "msec_created_at": 1709111200000,
-      "silent": false,
-      "delivery_status": 0,
-      "has_rich_link": false,
-      "can_be_replied": true,
-      "can_be_forwarded": false,
-      "can_be_reacted": true,
-      "chat_enabled": true
-    },
-    {
-      "dialog": {
-        "id": 826,
-        "opened": true
-      },
-      "message_attributes": null,
-      "recipient": {
-        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
-        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "second_name": "",
-        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amo.ext.6247798",
-        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
-        "user_ref": "",
-        "ref": ""
-      },
-      "message": {
-        "type": "text",
-        "text": "\u0417\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439\u0442\u0435! \u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u0412\u0430\u043c \u043f\u043e\u043c\u043e\u0447\u044c \u0441\u0435\u0433\u043e\u0434\u043d\u044f?",
-        "media_file_name": "",
-        "media": "",
-        "media_200_200": "",
-        "media_320_200": "",
-        "media_duration": 0
-      },
-      "author": {
-        "id": "e730570c-2330-402a-be4a-1934efdb936f",
-        "name": "Alex",
-        "second_name": "",
-        "full_name": "Alex",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amocrm",
-        "origin_profile": "",
-        "user_ref": "",
-        "ref": ""
-      },
-      "reply_markup": null,
-      "group_id": null,
-      "metadata": "",
-      "external_id": "",
-      "id": "3eca17fb-d6b6-458e-96f2-1759a0101955",
-      "callback_data": "",
-      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "text": "\u0417\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439\u0442\u0435! \u041a\u0430\u043a \u044f \u043c\u043e\u0433\u0443 \u0412\u0430\u043c \u043f\u043e\u043c\u043e\u0447\u044c \u0441\u0435\u0433\u043e\u0434\u043d\u044f?",
-      "reactions": null,
-      "error": {
-        "code": 0,
-        "description": ""
-      },
-      "chat_type": 0,
-      "error_code": 0,
-      "created_at": 1709111193,
-      "msec_created_at": 1709111193571,
-      "silent": false,
-      "delivery_status": 2,
-      "has_rich_link": false,
-      "can_be_replied": true,
-      "can_be_forwarded": false,
-      "can_be_reacted": true,
-      "chat_enabled": true
-    },
-    {
-      "dialog": {
-        "id": 826,
-        "opened": true
-      },
-      "message_attributes": null,
-      "recipient": null,
-      "message": {
-        "type": "text",
-        "text": "\u0422\u0435\u0441\u0442",
-        "media_file_name": "",
-        "media": "",
-        "media_200_200": "",
-        "media_320_200": "",
-        "media_duration": 0
-      },
-      "author": {
-        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
-        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "second_name": "",
-        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amo.ext.6247798",
-        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
-        "user_ref": "",
-        "ref": ""
-      },
-      "reply_markup": null,
-      "group_id": null,
-      "metadata": "",
-      "external_id": "amo.ext.6247798-FECF9D0FF5CCF7D1A4DDD9CE2FD5CDFF",
-      "id": "16fe1feb-a248-43e2-abb7-89ad06d625cd",
-      "callback_data": "",
-      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "text": "\u0422\u0435\u0441\u0442",
-      "reactions": null,
-      "error": {
-        "code": 0,
-        "description": ""
-      },
-      "chat_type": 0,
-      "error_code": 0,
-      "created_at": 1709111056,
-      "msec_created_at": 1709111056000,
-      "silent": false,
-      "delivery_status": 0,
-      "has_rich_link": false,
-      "can_be_replied": true,
-      "can_be_forwarded": false,
-      "can_be_reacted": true,
-      "chat_enabled": true
-    },
-    {
-      "dialog": {
-        "id": 826,
-        "opened": true
-      },
-      "message_attributes": null,
-      "recipient": {
-        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
-        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "second_name": "",
-        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amo.ext.6247798",
-        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
-        "user_ref": "",
-        "ref": ""
-      },
-      "message": {
-        "type": "text",
-        "text": "hi",
-        "media_file_name": "",
-        "media": "",
-        "media_200_200": "",
-        "media_320_200": "",
-        "media_duration": 0
-      },
-      "author": {
-        "id": "e730570c-2330-402a-be4a-1934efdb936f",
-        "name": "Alex",
-        "second_name": "",
-        "full_name": "Alex",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amocrm",
-        "origin_profile": "",
-        "user_ref": "",
-        "ref": ""
-      },
-      "reply_markup": null,
-      "group_id": null,
-      "metadata": "",
-      "external_id": "",
-      "id": "a6abea11-1420-49fa-af06-2c49d4d840d0",
-      "callback_data": "",
-      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "text": "hi",
-      "reactions": null,
-      "error": {
-        "code": 0,
-        "description": ""
-      },
-      "chat_type": 0,
-      "error_code": 0,
-      "created_at": 1709110649,
-      "msec_created_at": 1709110649803,
-      "silent": false,
-      "delivery_status": 2,
-      "has_rich_link": false,
-      "can_be_replied": true,
-      "can_be_forwarded": false,
-      "can_be_reacted": true,
-      "chat_enabled": true
-    },
-    {
-      "dialog": {
-        "id": 826,
-        "opened": true
-      },
-      "message_attributes": null,
-      "recipient": null,
-      "message": {
-        "type": "text",
-        "text": "\u041f\u0440\u0438\u0432\u0435\u0442",
-        "media_file_name": "",
-        "media": "",
-        "media_200_200": "",
-        "media_320_200": "",
-        "media_duration": 0
-      },
-      "author": {
-        "id": "842e170b-7507-415d-bdd7-5ee52df52ff7",
-        "name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "second_name": "",
-        "full_name": "\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e",
-        "avatar": "",
-        "avatar_large": "",
-        "email": "",
-        "admin": false,
-        "is_online": false,
-        "bot": false,
-        "origin": "amo.ext.6247798",
-        "origin_profile": "{\"avatar\":\"\",\"id\":\"79870739395\",\"name\":\"\u041e\u043b\u0435\u0433 \u041f\u0430\u0449\u0435\u043d\u043a\u043e\",\"profile\":{\"phone\":\"+79870739395\"},\"profile_link\":\"\",\"ref_id\":\"842e170b-7507-415d-bdd7-5ee52df52ff7\"}",
-        "user_ref": "",
-        "ref": ""
-      },
-      "reply_markup": null,
-      "group_id": null,
-      "metadata": "",
-      "external_id": "amo.ext.6247798-683A3580FBE10A2B7948E91A69238A2A",
-      "id": "48d05ea4-1ed5-4498-8af4-68cc61854ac7",
-      "callback_data": "",
-      "chat_id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "text": "\u041f\u0440\u0438\u0432\u0435\u0442",
-      "reactions": null,
-      "error": {
-        "code": 0,
-        "description": ""
-      },
-      "chat_type": 0,
-      "error_code": 0,
-      "created_at": 1709110612,
-      "msec_created_at": 1709110612000,
-      "silent": false,
-      "delivery_status": 0,
-      "has_rich_link": false,
-      "can_be_replied": true,
-      "can_be_forwarded": false,
-      "can_be_reacted": true,
-      "chat_enabled": true
-    }
-  ],
-  "chat_attributes": [
-    {
-      "id": "60a3e16e-45d2-423d-a597-680961ec2e2b",
-      "disabled": false,
-      "time_window": {
-        "expires": 0,
-        "expires_at": 1709113036,
-        "server_time": 1709113069,
-        "tags": [],
-        "need_template": false
+      {
+        "id": 1266847,
+        "name": "Цена",
+        "type": "select",
+        "active_value": null,
+        "possible_values": [
+          {
+            "id": 914777,
+            "value": "1099",
+            "sort": 500
+          },
+          {
+            "id": 914779,
+            "value": "1519",
+            "sort": 1
+          },
+          {
+            "id": 914781,
+            "value": "1399",
+            "sort": 2
+          },
+          {
+            "id": 914783,
+            "value": "1719",
+            "sort": 3
+          }
+        ]
       }
-    }
-  ],
-  "origins": [
+    ]
+  },
+  [
     {
-      "code": "amo.ext.6247798",
-      "link_shortener": {
-        "available": true,
-        "enabled": false
-      },
-      "upload_limits": {
-        "picture": 0,
-        "video": 0,
-        "file": 0,
-        "voice": 0
-      },
-      "supports_voice": true,
-      "supported_reactions": {
-        "all": true
-      }
+      "amo_id": "1257668",
+      "enabled": false,
+      "message": "",
+      "field_name": "ANREDE",
+      "additional_messages": []
+    },
+    {
+      "amo_id": "1257668",
+      "enabled": false,
+      "message": "",
+      "field_name": "ANREDE",
+      "additional_messages": []
+    },
+    {
+      "amo_id": "1257670",
+      "enabled": false,
+      "message": "",
+      "field_name": "STRASSE",
+      "additional_messages": []
+    },
+    {
+      "amo_id": "1257670",
+      "enabled": false,
+      "message": "",
+      "field_name": "STRASSE",
+      "additional_messages": []
+    },
+    {
+      "amo_id": "1257672",
+      "enabled": false,
+      "message": "",
+      "field_name": "LAND",
+      "additional_messages": []
+    },
+    {
+      "amo_id": "1257672",
+      "enabled": false,
+      "message": "",
+      "field_name": "LAND",
+      "additional_messages": []
+    },
+    {
+      "amo_id": "1257674",
+      "enabled": false,
+      "message": "",
+      "field_name": "PLZ",
+      "additional_messages": []
+    },
+    {
+      "amo_id": "1257674",
+      "enabled": false,
+      "message": "",
+      "field_name": "PLZ",
+      "additional_messages": []
+    },
+    {
+      "amo_id": "1257676",
+      "enabled": false,
+      "message": "",
+      "field_name": "ORT",
+      "additional_messages": []
+    },
+    {
+      "amo_id": "1257676",
+      "enabled": false,
+      "message": "",
+      "field_name": "ORT",
+      "additional_messages": []
+    },
+    {
+      "amo_id": "1257680",
+      "enabled": false,
+      "message": "",
+      "field_name": "QUELLE",
+      "additional_messages": []
+    },
+    {
+      "amo_id": "1257680",
+      "enabled": false,
+      "message": "",
+      "field_name": "QUELLE",
+      "additional_messages": []
+    },
+    {
+      "amo_id": "1257682",
+      "enabled": false,
+      "message": "",
+      "field_name": "ZUSATZ",
+      "additional_messages": []
+    },
+    {
+      "amo_id": "1257682",
+      "enabled": false,
+      "message": "",
+      "field_name": "ZUSATZ",
+      "additional_messages": []
     }
   ]
-}
+]
