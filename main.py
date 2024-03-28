@@ -25,7 +25,6 @@ async def process_message(message, setting, session):
 
     last_q = api.get_last_question_id(message['lead_id'])
     fields = await amocrm_connector.get_fields(setting, session, message['lead_id'])
-    print(fields)
     need_qualification, is_first_qual = await qualification.need_qualification(setting, api.get_messages_history(
         message['lead_id']), message['answer'])
     if need_qualification:  # Если есть квалификация
@@ -42,13 +41,14 @@ async def process_message(message, setting, session):
                 await amocrm_connector.move_deal(setting, session, message['lead_id'])
 
                 setting_2 = get_setting_by_id(setting.amo_host, setting.qualification_finished_stage)
+                fields = await amocrm_connector.get_fields(setting, session, message['lead_id'])
                 if setting_2 and setting_2.mode_id == 4:
                     message_from_fields = ''
                     for qf in setting.qualification_fields:
                         print(qf)
                         if qf['enabled']:
                             print(qf)
-                            for af in fields['all_fields']:
+                            for af in fields['fields']:
                                 if int(af['id']) == int(qf['amo_id']):
                                     print(qf, af)
 
