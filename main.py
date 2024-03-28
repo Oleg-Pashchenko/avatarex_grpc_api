@@ -115,7 +115,6 @@ async def process_settings(setting: ApiSettings):
             return
         messages = await amocrm_connector.read_messages(setting, session)  # hard
         for message in messages:
-            print(setting.amo_host, message['answer'])
             try:
                 if api.message_exists(message['lead_id'], message['id']):
                     continue  # Duplicate check
@@ -128,29 +127,24 @@ async def process_settings(setting: ApiSettings):
                     continue
 
                 if ".m4a" in message['answer']:
-                    print('gc')
                     message['answer'] = await whisper.get_answer(message, setting)
-                    print('gc', message['answer'])
 
                 api.add_message(message['id'], message['lead_id'], message['answer'], False)
                 tasks.append(process_message(message, setting, session))  # very hard
 
             except Exception as e:
-                print('Ошибка', e)
+                pass
         await asyncio.gather(*tasks)
     except Exception as e:
-        print(setting.amo_host, e)
+        pass
 
 
 async def cycle():
-    print('Script started!')
     tick = 0
     while True:
         tick += 1
-        print(tick)
         # if tick % 30 == 0 or tick == 1:
         settings = get_enabled_api_settings()  # Получение настроек API
-        print(*settings, sep='\n')
         tasks = [process_settings(setting) for setting in settings]
 
         await asyncio.gather(*tasks)

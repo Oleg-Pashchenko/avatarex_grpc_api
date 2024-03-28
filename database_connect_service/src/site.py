@@ -237,70 +237,68 @@ def get_setting(obj):
                 and_(Pipeline.id == s.pipeline_id_id, Pipeline.user_id_id == s.user_id_id)
             )
         except Exception as e:
-            print(s.pipeline_id_id, s.user_id_id)
-            print(2, e)
+            pass
         try:
             q3 = session.query(Qualification).filter(
                 Qualification.id == s.qualification_id_id
             )
         except Exception as e:
-            print(3, e)
+            pass
         try:
             q4 = session.query(RequestSettings).filter(
                 RequestSettings.id == s.request_settings_id_id
             )
         except Exception as e:
-            print(4, e)
+            pass
         try:
             q5 = session.query(PromptSettings).filter(
                 PromptSettings.id == s.prompt_settings_id
             )
         except Exception as e:
-            print(5, e)
+            pass
         try:
             q6 = session.query(OpenAIModels).filter(OpenAIModels.id == s.model_id)
         except Exception as e:
-            print(6, e)
+            pass
         try:
             q7 = session.query(AmoCRM).filter(AmoCRM.user_id_id == s.user_id_id)
         except Exception as e:
-            print(7, e)
+            pass
         try:
             q8 = session.query(AuthUser).filter(AuthUser.id == s.user_id_id)
         except Exception as e:
-            print(8, e)
+            pass
 
         statuses = []
 
         try:
             p = Pipeline(**q2.first().as_dict())
         except:
-            print(s.pipeline_id_id, s.user_id_id)
-            print('pipeline error')
+            pass
         try:
             qual = Qualification(**q3.first().as_dict())
         except:
-            print('qual error')
+            pass
         try:
             rs = RequestSettings(**q4.first().as_dict())
         except:
-            print('rs error')
+            pass
         try:
             ps = PromptSettings(**q5.first().as_dict())
         except:
-            print('ps error')
+            pass
         try:
             model = OpenAIModels(**q6.first().as_dict())
         except:
-            print('model error')
+            pass
         try:
             amo = AmoCRM(**q7.first().as_dict())
         except:
-            print('amo error')
+            pass
         try:
             user = AuthUser(**q8.first().as_dict())
         except:
-            print('user error')
+            pass
         try:
             triggers = s.trigger_phrases.split(';')
         except:
@@ -372,7 +370,6 @@ def get_enabled_api_settings() -> list[ApiSettings]:
 
 def get_setting_by_id(amo_host, qualification_finished_stage):
     amo = session.query(AmoCRM).filter(AmoCRM.host == amo_host).first()
-    print(amo.user_id_id)
     settings = session.query(Settings).filter(Settings.user_id_id == amo.user_id_id).all()
     for setting in settings:
         if int(qualification_finished_stage) in setting.statuses:
@@ -380,4 +377,3 @@ def get_setting_by_id(amo_host, qualification_finished_stage):
     return None
 
 
-# print(get_setting_by_id('https://domofon990.kommo.com/', '63412155'))

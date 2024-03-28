@@ -4,7 +4,6 @@ from connectors import connector
 
 
 async def get_answer(message, setting):
-    print('Mode 2: Knowledge')
     if len(setting.knowledge_data) == 0:
         return 'Обратитесь к поддержке. База знаний не настроена!'
     else:

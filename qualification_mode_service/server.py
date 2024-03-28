@@ -30,7 +30,6 @@ async def handle(request):
 
         return web.json_response(answer)
     except Exception as e:
-        print(e)
         return web.Response(
             text='Ошибка настроек', content_type='application/json'
         )

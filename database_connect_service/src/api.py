@@ -142,10 +142,9 @@ def manager_intervened(lead_id, message_history):
                     if not (time_difference.total_seconds() < 60 * 60):
                         fl = False
             except Exception as e:
-                print(e, message)
+                pass
         return fl
     except Exception as e:
-        print(e)
         return False
 
 

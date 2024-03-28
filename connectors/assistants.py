@@ -4,7 +4,6 @@ from database_connect_service.src.site import ApiSettings
 
 
 async def get_answer(message, setting: ApiSettings):
-    print(message)
     return await connector.send_request(
         request={
             "assistant_id": setting.assistant_id,

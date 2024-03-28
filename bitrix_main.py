@@ -50,7 +50,6 @@ async def qualification_execute(message, setting):
 
 
 async def process_bitrix(message, setting):
-    print(message.bm.pipeline_id, message.bm.status_id)
     if not (message.bm.pipeline_id == setting.pipeline_id and message.bm.status_id in setting.statuses_ids):
         return
 

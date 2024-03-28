@@ -6,7 +6,6 @@ async def qualification_passed_triggers(context, question, field, message, opena
 
 
 def get_params(amo, param):
-    print(amo, param)
     return []
 
 
@@ -16,7 +15,6 @@ async def execute(context, user_message: str, token: str, fields_from_amo, field
     status = True
     fill_command = None
     filled_field = ''
-    print(fields_from_amo, fields_to_fill)
     for field_to_fill in fields_to_fill:
         if field_to_fill['enabled']:
             fl = any(
