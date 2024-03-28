@@ -67,6 +67,7 @@ class ApiSettings:
     fine_tuned_model: str
     use_fine_tuned: bool
     manager_intervented_active: bool
+    interventedtimeValue: int
 
     amo_email: str
     amo_password: str
@@ -85,7 +86,6 @@ class ApiSettings:
     is_date_work_active: bool
     datetimeValueStart: str
     datetimeValueFinish: str
-    interventedtimeValue: int
 
 
 @dataclasses.dataclass
@@ -344,6 +344,7 @@ def get_setting(obj):
             amo_host=amo.host,
             api_token=user.openai_api_key,
             knowledge_data=s.knowledge_data,
+            interventedtimeValue=s.interventedtimeValue,
             manager_intervented_active=s.is_manager_intervented_active,
             assistant_id=s.assistant_id,
             database_data=s.database_data,
@@ -357,7 +358,7 @@ def get_setting(obj):
             datetimeValueFinish=s.datetimeValueFinish
         )
 
-    except:
+    except Exception as e:
         pass
 
 
