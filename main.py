@@ -53,7 +53,7 @@ async def process_message(message, setting, session):
                                     break
                     print(message_from_fields)
                     message['answer'] = message_from_fields
-                    answer_to_sent = database_prompt_mode(message, setting, fields)
+                    answer_to_sent = await database_prompt_mode(message, setting, fields)
                     return await send_message_to_amocrm(setting, session, message, answer_to_sent, True, False, last_q)
                 else:
                     return await send_message_to_amocrm(setting, session, message,
